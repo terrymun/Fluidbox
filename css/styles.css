@@ -6,7 +6,6 @@ body {
 	color: #333;
 	height: 100%;
 	line-height: 1.5em;
-	margin-bottom: 1.5em;
 }
 header {
 	background-color: #333;
@@ -56,7 +55,8 @@ header {
 	}
 footer {
 	background-color: #333;
-	padding: .75rem 16.66667%;
+	color: #eee;
+	padding: .5rem 16.66667%;
 	width: 100%;
 }
 h3 {
