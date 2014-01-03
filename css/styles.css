@@ -1,0 +1,236 @@
+html {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 16px;
+}
+body {
+	color: #333;
+	height: 100%;
+	line-height: 1.5em;
+	margin-bottom: 1.5em;
+}
+header {
+	background-color: #333;
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.25) 100%);
+	box-sizing: border-box;
+	color: #eee;
+	margin-bottom: 1.5rem;
+	overflow: hidden;
+	padding: 3rem 16.66667%;
+	position: relative;
+	width: 100%;
+	transition: all .25s ease-in-out;
+}
+	header:before {
+		background-image:
+			linear-gradient(115deg, rgba(255,255,255,.025) 0%, rgba(255,255,255,.05) 50%, rgba(255,255,255,0) 50%),
+			linear-gradient(to left, #005952 0%, #005E20 100%);
+		content: "";
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		transition: all .25s ease-in-out;
+	}
+	header:hover:before {
+		opacity: 1;
+	}
+	header > * {
+		position: relative;
+	}
+	header h1 {
+		font-weight: bold;
+		font-size: 3em;
+		line-height: 1em;
+		margin: 0 0 .5rem 0;
+		text-align: center;		
+	}
+	header .byline {
+		color: rgba(255,255,255,.75);
+		display: block;
+		font-size: .8em;
+		letter-spacing: 1px;
+		text-align: center;
+		text-transform: uppercase; 
+	}
+h3 {
+	margin: 3rem 0 0 0;
+}
+	h3:first-of-type {
+		margin-top: 0;
+	}
+p {
+	margin-bottom: 1.5rem;
+}
+.message {
+	background-color: #FDC68A;
+	border-left: .75rem solid #F26C4F;
+	padding: .75rem 1.5rem;
+	font-size: .85rem;
+}
+	.message a:hover {
+		border-color: rgba(0,0,0,.5);
+		color: rgba(0,0,0,.5);
+	}
+	.message.note {
+		background-color: #7BCDC8;
+		border-color: #00A99D;
+	}
+hr {
+	border: none;
+	border-top: .125rem solid #ddd;
+	margin-bottom: 1.375rem;
+}
+a {
+	border-bottom: 2px solid #333;
+	color: #333;
+	text-decoration: none;
+	transition: all .125s ease-in-out;
+}
+	a:hover {
+		border-bottom-color: #4a7298;
+		color: #4a7298;
+	}
+ul {
+	margin-top: -.75rem;
+}
+pre {
+	display: block;
+	width: 100%;
+}
+code {
+	background-color: rgba(0,0,0,.125);
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: 4px;
+	display: inline-block;
+	margin: 0 .125rem;
+	padding: 0 .25rem;
+}
+	pre code{
+		display: block;
+		padding: .5rem 1rem;
+	}
+
+/* Main */
+main {
+	margin: 0 16.66667%;
+}
+main section {
+	border-bottom 1px solid #ccc;
+	margin-bottom: 1.5rem;
+	padding: 1.5rem 0;
+}
+
+/* Cards */
+.cards {
+	display: flex;
+	flex-flow: row nowrap;
+}
+.cards > a {
+	box-sizing: border-box;
+	border: none;
+	flex: 1 50%;
+	padding: 1.5rem;
+	text-align: center;
+}
+	.cards > a:first-child {
+		background-color: #000;
+		color: #eee;
+	}
+		.cards > a:first-child:hover {
+			color: rgba(87, 173, 104, 1);
+		}
+	.cards > a:last-child {
+		background-color: #eee;
+		color: #555;
+	}
+		.cards > a:last-child:hover {
+			background-color: #ccc;
+		}
+.cards img {
+	display: block;
+	margin: .5rem auto 1rem;
+	height: 4.5rem;
+	transition: all .125s ease-in-out;
+}
+	.cards > a:first-child img {
+		background-color: #eee;
+		height: 5.25rem;
+		margin: 0 auto .75rem;
+	}
+	.cards > a:first-child:hover img {
+		background-color: rgba(87, 173, 104, 1);
+	}
+
+/* Just positioning of images to introduce variety */
+.demo a {
+	background-color: #eee;
+	border: none;
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	margin-bottom: 1.5rem;
+ }
+	.demo a.fluidbox-opened {
+		cursor: -webkit-zoom-out;
+		cursor: -moz-zoom-out;
+	}
+	.demo a img {
+		display: block;
+		margin: 0 auto;
+		opacity: 0;
+		max-width: 100%;
+		transition: all .25s ease-in-out;
+	}
+.demo a[class^='float'] {
+	margin: 1rem;
+	margin-top: 0;
+	width: 33.33333%;
+}
+	.demo a.float-left {
+		float: left;
+		margin-left: 0;
+	}
+	.demo a.float-right {
+		float: right;
+		margin-right: 0;
+	}
+.demo .gallery {
+	display: flex;
+	-webkit-flex-flow: row wrap; /* Fix for iOS */
+	flex-flow: row wrap;
+	justify-content: space-between;
+ }
+	.demo .gallery a {
+		margin-bottom: 1rem;
+	}
+		.demo .gallery a.col-2 { width: 49%; }
+		.demo .gallery a.col-3 { width: 32%; }
+
+/* Media queries, unrelated to functionality of Fluidbox */
+@media only screen and (max-width: 768px) {
+  .demo a[class^='float'] {
+     width: 50%; 
+  }
+}
+@media only screen and (max-width: 600px) {
+  .demo .gallery a,
+  .demo .gallery a[class^='col'] {
+    margin-bottom: .5rem;
+    width: 100%;
+  }  
+}
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+  .message {
+    border: 0;
+    border-top: .75rem solid #F26C4F;
+  }
+  .demo a[class^='float'] {
+    float: none;
+    margin: 0 0 1rem 0;
+    width: 100%;
+  }
+}

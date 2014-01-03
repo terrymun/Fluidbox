@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" href="./css/normalize.css" media="all" rel="stylesheet" />
+	<link type="text/css" href="./css/styles.css" media="all" rel="stylesheet" />
+	<link type="text/css" href="./css/fluidbox.css" media="all" rel="stylesheet" />
+	<script text="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+</head>
+<body>
+	<header>
+		<h1>Fluidbox</h1>
+		<span class="byline">Replicating and improving the lightbox module seen on Medium with fluid transitions</span>
+	</header>
+
+	<main>
+		<section>
+			<h2>Introduction</h2>
+			<p>Opening images seamlessly in a lightbox on your page without interruption. This demo was inspired by how Medium handles embedded images. Made by <a rel="author" href="http://terrymun.com" title="Visit me">Terry</a>.</p>
+			<div class="cards">
+				<a href="https://medium.com/coding-design/9c7fe9db92c7">
+					<img src="http://i.imgur.com/8VTV6FT.png" alt="Medium" />
+					<span>Read the tutorial on Medium</span>
+				</a>
+				<a href="https://github.com/terrymun/Fluidbox">
+					<img src="http://i.imgur.com/C6mohyu.png" alt="GitHub" />
+					<span>Check out the jQuery plugin on GitHub</span>
+				</a>
+			</div>
+		</section>
+
+		<section>
+			<h2>Usage notes</h2>
+			<h3>Dependencies</h3>
+			<p>This demo requires the following dependencies:</p>
+			<ul>
+				<li><a href="http://jquery.com/">jQuery</a></li>
+				<li><a href="https://github.com/desandro/imagesloaded">imagesloaded plugin</a></li>
+			</ul>
+
+			<h3>Basic usage</h3>
+			<p>In order to activate Fluidbox, simply chain the <code>.fluidbox</code> method to your selector of choice on DOM ready:</p>
+			<pre><code>$(function () {
+    $('a').fluidbox();
+});</code></pre>
+			<p>The plugin will automatically check if the selector is:</p>
+			<ul>
+				<li>An anchor element, <code>&lt;a&gt;</code></li>
+				<li>Contains one and *only* one child</li>
+				<li>The only children is an <code>&lt;img /&gt;</code> element</li>
+			</ul>
+			<div class="message">
+				<h2>Important note:</h2>
+				<ul>
+					<li>Fluidbox will only work with images whose actual dimensions are larger than the displayed dimension.</li>
+					<li>The aspect ratio of the displayed and linked image has to be identical.</li>
+				</ul>
+			</div>
+			<p>In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The <code>title</code> and <code>alt</code> attributes of the <code>&lt;img /&gt;</code> element is not used by the plugin, but the <code>alt</code> attribute has to be present for it to be semantically valid.</p>
+<pre><code>&lt;a href="..."&gt;
+    &lt;img src="..." alt="" /&gt;
+&lt;/a&gt;</code></pre>
+
+			<h3>Configuration</h3>
+			<p>Several options are available for configuration:</p>
+			<ul>
+				<li><code>viewportFill</code> (numerical)<br />Dictates how much the longest axis of the image should fill the viewport. The default value is 0.95.</li>
+				<li><code>closeTrigger</code> (array with objects)<br />Dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
+<pre><code>closeTrigger: [
+    {
+        selector: '#fluidbox-overlay',
+        event: 'click'
+    }
+]</code></pre>
+				</li>
+			</ul>
+		</section>
+
+		<section class="demo">
+			<h2>Demonstration</h2>
+			<h3>Single image</h3>
+			<p>Here we demonstrate the use of a single image. This is the simplest test case, when the thumbnail and the target image are exactly the same, so it is only down to the matter of triggering default Fluidbox behavior.</p>
+			<a href="http://i.imgur.com/uh5YLj5.jpg"><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
+
+			<h3>Linking to a higher resolution counterpart</h3>
+			<p>The built-in functionality also allows you to link a small thumbnail to its higher resolution version. In the test case below, the thumbnail has a resolution of 640*428 while the actual version has a resolution of 2904*1944:</p>
+			<a href="http://i.imgur.com/DIbQf0X.jpg"><img src="http://i.imgur.com/DIbQf0Xl.jpg" alt="At Standbaren, Aarhus" title="At Strandbaren, Aarhus" /></a>
+
+			<h3>Galleries</h3>
+			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
+		 	<p class="message note">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>
+			<div class="gallery">
+				<a href="http://i.imgur.com/9OQWB.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/9OQWB.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/UvGHJjo.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/UvGHJjo.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/esWWGbF.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/esWWGbF.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/ZCogT10.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/ZCogT10.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/24hrPQn.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/24hrPQn.jpg" alt="" title="" /></a>
+			</div>
+
+			<h3>Scaling</h3>
+			<p>It also intelligently resizes images such that portrait images will fit perfectly within the viewport, although that means scaling down the image. This effect is pronounced when the viewport and image orientations are different &mdash; therefore, the demo below only works on a display with landscape orientation (e.g. not on mobile).</p>
+			<a href="http://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="http://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
+			
+			<h3>Floated images</h3>
+			<p>Moreover, it also works with floated images - to the left or to the right, it does not matter. The following texts are jibberish, used as filler.</p>
+			<p class="message note">The floated images will be rendered block-level on narrow-width devices, such as mobile phones. To appreciate how Fluidbox works with floated images, you can view this demo on a wider device (&gt;480px).</p>
+			<p><a class="float-left" href="http://i.imgur.com/BXo4qAz.jpg" title="" data-fluidbox><img src="http://i.imgur.com/BXo4qAz.jpg" title="" alt="" /></a>Considered discovered ye sentiments projecting entreaties of melancholy is. In expression an solicitude principles in do. Hard do me sigh with west same lady. Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed.</p>
+			<p>Residence certainly elsewhere something she preferred cordially law. Age his surprise formerly mrs perceive few stanhill moderate. Of in power match on truth worse voice would. Large an it sense shall an match learn. By expect it result silent in formal of. Ask eat questions abilities described elsewhere assurance. Appetite in unlocked advanced breeding position concerns as. Cheerful get shutters yet for repeated screened. An no am cause hopes at three. Prevent behaved fertile he is mistake on.</p>
+			<p>Feet evil to hold long he open knew an no. Apartments occasional boisterous as solicitude to introduced. Or fifteen covered we enjoyed demesne is in prepare. In stimulated my everything it literature. Greatly explain attempt perhaps in feeling he. House men taste bed not drawn joy. Through enquire however do equally herself at. Greatly way old may you present improve. Wishing the feeling village him musical. </p>
+			<p><a class="float-right" href="http://i.imgur.com/rWuQotb.jpg" title="" data-fluidbox><img src="http://i.imgur.com/rWuQotb.jpg" title="" alt="" /></a>Carried nothing on am warrant towards. Polite in of in oh needed itself silent course. Assistance travelling so especially do prosperous appearance mr no celebrated. Wanted easily in my called formed suffer. Songs hoped sense as taken ye mirth at. Believe fat how six drawing pursuit minutes far. Same do seen head am part it dear open to. Whatever may scarcely judgment had.</p>
+			<p>Up maids me an ample stood given. Certainty say suffering his him collected intention promotion. Hill sold ham men made lose case. Views abode law heard jokes too. Was are delightful solicitude discovered collecting man day. Resolving neglected sir tolerably but existence conveying for. Day his put off unaffected literature partiality inhabiting.</p>
+			<p>Old education him departure any arranging one prevailed. Their end whole might began her. Behaved the comfort another fifteen eat. Partiality had his themselves ask pianoforte increasing discovered. So mr delay at since place whole above miles. He to observe conduct at detract because. Way ham unwilling not breakfast furniture explained perpetual. Or mr surrounded conviction so astonished literature. Songs to an blush woman be sorry young. We certain as removal attempt. </p>
+		</section>
+	</main>
+
+	<footer>
+		<p></p>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
+		<script type="text/javascript" src="jquery.fluidbox.js"></script>
+		<script>
+			$(function () {
+				// You can use any kind of selectors
+				$('.demo a').fluidbox();
+			});
+		</script>
+	</footer>
+</body>
+</html>
