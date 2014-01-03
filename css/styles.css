@@ -55,6 +55,7 @@ header {
 	}
 footer {
 	background-color: #333;
+	box-sizing: border-box;
 	color: #eee;
 	padding: .5rem 16.66667%;
 	width: 100%;
