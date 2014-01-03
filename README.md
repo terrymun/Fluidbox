@@ -29,13 +29,7 @@ Fluidbox can be configured according to your needs. The following options are av
 
 - `viewportFill` (numerical) &mdash; dictates how much the longest axis of the image should fill the viewport. The default value is 0.95.
 - `closeTrigger` (array with objects) &mdash; dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
-  
-    closeTrigger: [
-        {
-            selector: '#fluidbox-overlay',
-            event: 'click'
-        }
-    ]
+  `closeTrigger: [{ selector: '#fluidbox-overlay', event: 'click' }]`
 
 This will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed. It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
 
