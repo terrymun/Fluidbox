@@ -124,44 +124,47 @@ main section {
 
 /* Cards */
 .cards {
+	border-radius: .25rem;
 	display: flex;
 	flex-flow: row nowrap;
+	margin-bottom: 1.5rem;
+	overflow: hidden;
 }
-.cards > a {
-	box-sizing: border-box;
-	border: none;
-	flex: 1 50%;
-	padding: 1.5rem;
-	text-align: center;
-}
-	.cards > a:first-child {
-		background-color: #000;
+	.cards > a {
+		box-sizing: border-box;
+		border: none;
+		flex: 1 100%;
+		padding: 1.5rem;
+		text-align: center;
+	}
+	.cards svg {
+		display: block;
+		margin: 0 auto .75rem;
+		width: 5.25rem;
+		height: 5.25rem;
+		transition: all .125s ease-in-out;
+	}
+      		.cards svg path { transition: fill .125s ease-in-out }
+      		
+	.cards a:first-child {
+		background-color: #333;
 		color: #eee;
 	}
-		.cards > a:first-child:hover {
-			color: rgba(87, 173, 104, 1);
-		}
-	.cards > a:last-child {
-		background-color: #eee;
-		color: #555;
+	.cards a:first-child svg		{ background-color: #eee; }
+	.cards a:first-child svg path		{ fill: #333 }
+	.cards a:first-child:hover {
+		background-color: #222;
+		color: rgba(87, 173, 104, 1);
 	}
-		.cards > a:last-child:hover {
-			background-color: #ccc;
-		}
-.cards img {
-	display: block;
-	margin: .5rem auto 1rem;
-	height: 4.5rem;
-	transition: all .125s ease-in-out;
-}
-	.cards > a:first-child img {
-		background-color: #eee;
-		height: 5.25rem;
-		margin: 0 auto .75rem;
-	}
-	.cards > a:first-child:hover img {
-		background-color: rgba(87, 173, 104, 1);
-	}
+	.cards a:first-child:hover sv		{ background-color: rgba(87, 173, 104, 1); }
+	.cards a:first-child:hover svg pat	{ fill: #222, }
+    
+    	.cards a:last-child {
+    		background-color: #eee;
+    		color: #555;
+    	}
+    	.cards a:last-child svg path 		{ fill: #333; }
+    	.cards a:last-child:hover 		{ background-color: #ccc; }
 
 /* Just positioning of images to introduce variety */
 .demo a {
