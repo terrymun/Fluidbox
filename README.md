@@ -49,4 +49,4 @@ As Fluidbox relies on CSS transforms, it only works with thumbnails that share t
 Fluidbox require the following dependencies in order to function properly:
 
 - **The latest release of jQuery 1.x**, available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
-- *imagesloaded* jQuery plugin, available from [GitHub](https://github.com/desandro/imagesloaded) at `https://github.com/desandro/imagesloaded`
+- **imagesloaded jQuery plugin**, available from [GitHub](https://github.com/desandro/imagesloaded) at `https://github.com/desandro/imagesloaded`
