@@ -163,7 +163,7 @@ main section {
 		color: rgba(87, 173, 104, 1);
 	}
 	.cards a:first-child:hover svg		{ background-color: rgba(87, 173, 104, 1); }
-	.cards a:first-child:hover svg pat	{ fill: #222, }
+	.cards a:first-child:hover svg path	{ fill: #222; }
     
     	.cards a:last-child {
     		background-color: #eee;
