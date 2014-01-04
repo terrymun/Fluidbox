@@ -187,7 +187,6 @@ main section {
 	.demo a img {
 		display: block;
 		margin: 0 auto;
-		opacity: 0;
 		max-width: 100%;
 		transition: all .25s ease-in-out;
 	}

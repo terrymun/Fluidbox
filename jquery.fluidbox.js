@@ -80,8 +80,10 @@
 					scale   = $img.data('imgScale');
 
 				// Apply CSS transforms to ghost element
+				// For offsetX and Y, we round to full integers (since .5px makes no sense)
+				// For scale, we round to two decimal places
 				$ghost.css({
-					'transform': 'translate('+offsetX+'px,'+offsetY+'px) scale('+scale+')'
+					'transform': 'translate('+parseInt(offsetX)+'px,'+parseInt(offsetY)+'px) scale('+parseInt(scale*100)/100+')'
 				});
 			},
 			funcCalc = function () {
