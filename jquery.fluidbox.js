@@ -83,7 +83,7 @@
 				// For offsetX and Y, we round to full integers (since .5px makes no sense)
 				// For scale, we round to two decimal places
 				$ghost.css({
-					'transform': 'translate('+parseInt(offsetX)+'px,'+parseInt(offsetY)+'px) scale('+parseInt(scale*100)/100+')'
+					'transform': 'translate('+parseInt(offsetX)+'px,'+parseInt(offsetY)+'px) scale('+parseInt(scale*1000)/1000+')'
 				});
 			},
 			funcCalc = function () {
