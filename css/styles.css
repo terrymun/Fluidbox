@@ -243,6 +243,9 @@ main section {
 
 /* Media queries, unrelated to functionality of Fluidbox */
 @media only screen and (max-width: 768px) {
+	header {
+		max-height: 500px;
+	}
 	.cards {
 		flex-flow: row wrap;
 		-webkit-flex-flow: row wrap;
