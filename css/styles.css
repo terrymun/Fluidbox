@@ -220,7 +220,7 @@ main section {
 @media only screen and (max-width: 768px) {
 	.cards {
 		flex-flow: row wrap;
-		-weblot-flex-flow: row wrap;
+		-webkit-flex-flow: row wrap;
 	}
 	.demo a[class^='float'] {
 		width: 50%; 
