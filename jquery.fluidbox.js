@@ -214,6 +214,8 @@
 					// Position Fluidbox
 					funcPositionFb($(this));
 
+					alert($img.data('imgScale'));
+
 				} else {
 					// State: Open
 					// Action: Close fluidbox
