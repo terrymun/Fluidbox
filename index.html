@@ -5,29 +5,45 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" href="./css/normalize.css" media="all" rel="stylesheet" />
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 	<link type="text/css" href="./css/styles.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="./css/fluidbox.css" media="all" rel="stylesheet" />
 	<link rel="author" href="https://plus.google.com/+TerryMun/"></link>
 	<script text="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-46830269-1', 'terrymun.github.io');
-		ga('send', 'pageview');
+		})(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+		ga("create", "UA-46830269-1", "terrymun.github.io");
+		ga("send", "pageview");
 	</script>
 </head>
 <body>
 	<header>
-		<h1>Fluidbox</h1>
-		<span class="byline">Replicating and improving the lightbox module seen on Medium with fluid transitions</span>
+		<div>
+			<h1>Fluidbox</h1>
+			<span class="byline">Replicating and improving the lightbox module seen on Medium with fluid transitions</span>
+		</div>
+		<a href="#content" id="skip" title="Skip to content">
+			<svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+				 x="0px" y="0px" viewBox="0 0 400 200" xml:space="preserve">
+				<g>
+					<path d="M106.308,29.384c6.332,0,11.664,2.444,15.984,7.344c9.214,11.232,18.286,22.174,27.216,32.832l43.2,51.84
+						c5.184-6.629,11.806-14.62,19.873-23.976c8.059-9.362,15.834-18.65,23.328-27.864c8.922-10.658,17.994-21.6,27.215-32.832
+						c4.32-4.9,9.646-7.344,15.984-7.344c4.895,0,9.355,1.58,13.393,4.752c4.32,3.74,6.764,8.424,7.344,14.04
+						c0.574,5.616-1.014,10.726-4.752,15.336l-86.4,103.68c-4.037,4.894-9.362,7.344-15.984,7.344c-6.628,0-11.954-2.45-15.984-7.344
+						l-86.4-103.68c-3.747-4.61-5.333-9.72-4.752-15.336c0.574-5.616,3.024-10.3,7.344-14.04
+						C96.945,30.964,101.407,29.384,106.308,29.384z"/>
+				</g>
+			</svg>
+		</a>
 	</header>
 
-	<main>
+	<main id="content">
 		<section>
 			<h2>Introduction</h2>
-			<p>Opening images seamlessly in a lightbox on your page without interruption. This demo was inspired by how Medium handles embedded images. Made by <a rel="author" href="http://terrymun.com" title="Visit me">Terry</a>. This project was originally initiated as a personal challenge to replicate Medum's lightbox module, but it soon developed into a full-fledged jQuery plugin. You can follow the links below to read how I've tackled the challenge, or view the jQuery plugin on GitHub:</p>
+			<p>Opening images seamlessly in a lightbox on your page without interruption. This demo was inspired by how Medium handles embedded images. Made by <a rel="author" href="http://terrymun.com" title="Visit me">Terry</a>. This project was originally initiated as a personal challenge to replicate Medium"s lightbox module, but it soon developed into a full-fledged jQuery plugin. You can follow the links below to read how I"ve tackled the challenge, or view the jQuery plugin on GitHub:</p>
 			<div class="cards">
 				<a href="https://medium.com/coding-design/9c7fe9db92c7">
 					<svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -87,7 +103,7 @@
 			<h3>Basic usage</h3>
 			<p>In order to activate Fluidbox, simply chain the <code>.fluidbox</code> method to your selector of choice on DOM ready:</p>
 			<pre><code>$(function () {
-    $('a').fluidbox();
+    $("a").fluidbox();
 });</code></pre>
 			<p>The plugin will automatically check if the selector is:</p>
 			<ul>
@@ -115,8 +131,8 @@
 				<li><code>closeTrigger</code> (array with objects)<br />Dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
 <pre><code>closeTrigger: [
     {
-        selector: '#fluidbox-overlay',
-        event: 'click'
+        selector: "#fluidbox-overlay",
+        event: "click"
     }
 ]</code></pre>
 				</li>
@@ -167,8 +183,23 @@
 		<script type="text/javascript" src="jquery.fluidbox.js"></script>
 		<script>
 			$(function () {
-				// You can use any kind of selectors
-				$('.demo a').fluidbox();
+				// You can use any kind of selectors for jQuery Fluidbox
+				$(".demo a").fluidbox();
+
+				// Smooth scrolling plugin by Chris Coiyer - not needed for Fluidbox functionality
+				// Source: http://css-tricks.com/snippets/jquery/smooth-scrolling/
+				$('a[href*=#]:not([href=#])').click(function() {
+					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+						if (target.length) {
+							$('html,body').animate({
+								scrollTop: target.offset().top
+							}, 1000);
+							return false;
+						}
+					}
+				});
 			});
 		</script>
 	</footer>

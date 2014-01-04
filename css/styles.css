@@ -12,11 +12,15 @@ header {
 	background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.25) 100%);
 	box-sizing: border-box;
 	color: #eee;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin-bottom: 1.5rem;
 	overflow: hidden;
 	padding: 3rem 16.66667%;
 	position: relative;
 	width: 100%;
+	height: 100vh;
 	transition: all .25s ease-in-out;
 }
 	header:before {
@@ -35,12 +39,12 @@ header {
 	header:hover:before {
 		opacity: 1;
 	}
-	header > * {
+	header > div {
 		position: relative;
 	}
 	header h1 {
 		font-weight: bold;
-		font-size: 3em;
+		font-size: 4em;
 		line-height: 1em;
 		margin: 0 0 .5rem 0;
 		text-align: center;		
@@ -48,17 +52,39 @@ header {
 	header .byline {
 		color: rgba(255,255,255,.75);
 		display: block;
-		font-size: .8em;
-		letter-spacing: 1px;
+		font-family: Palatino, Georgia, Cambria, "Times New Roman", Times, serif;
+		font-size: 1.2em;
+		font-style: italic;
 		text-align: center;
-		text-transform: uppercase; 
 	}
+	header #skip {
+		border: none;
+		display: block;
+		position: absolute;
+		bottom: 1.5rem;
+		left: 0;
+		right: 0;
+		height: 1.5rem;
+	}
+		header #skip svg {
+			display: block;
+			margin: 0 auto;
+			width: 3rem;
+			height: 1.5rem;
+		}
+		header #skip svg path {
+			fill: rgba(255,255,255,.75);
+		}
 footer {
 	background-color: #333;
 	box-sizing: border-box;
 	color: #eee;
 	padding: .5rem 16.66667%;
 	width: 100%;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 h3 {
 	margin: 3rem 0 0 0;

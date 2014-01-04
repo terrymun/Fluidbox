@@ -80,8 +80,8 @@
 					scale   = $img.data('imgScale');
 
 				// Apply CSS transforms to ghost element
-				// For offsetX and Y, we round to full integers (since .5px makes no sense)
-				// For scale, we round to two decimal places
+				// For offsetX and Y, we round to one decimal place
+				// For scale, we round to three decimal places
 				$ghost.css({
 					'transform': 'translate('+parseInt(offsetX*10)/10+'px,'+parseInt(offsetY*10)/10+'px) scale('+parseInt(scale*1000)/1000+')'
 				});
