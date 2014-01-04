@@ -29,7 +29,8 @@ In your JS file, you can simply chain the `.fluidbox()` method to your selector 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
 
-- `viewportFill` (numerical) &mdash; dictates how much the longest axis of the image should fill the viewport. The default value is 0.95.
+- `viewportFill` (numerical) &mdash; dictates how much the longest axis of the image should fill the viewport. The default value is `0.95`.
+- `debounceResize` (boolean) &mdash; dictates if the `$(window).resize()` event should be debounced for performance reason. The default value is `true` (debouncing turned on by default).
 - `closeTrigger` (array with objects) &mdash; dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
   `closeTrigger: [{ selector: '#fluidbox-overlay', event: 'click' }]`
 
@@ -48,7 +49,9 @@ This will have the effect of binding the click event to the overlay, so that whe
 As Fluidbox relies on CSS transforms, it only works with thumbnails that share the same aspect ratio with their higher resolution counterparts, otherwise the larger image will be cropped off, i.e. a square thumbnail linking to a landscape photo will cause the landscape photo to appear in a square frame. Fluidbox, serving as an alternative lightbox module, also assume that the image you have linked contains sufficient resolution to be displayed on the monitor &mdash; low resolution images will scale poorly on a large display.
 
 ## Dependencies
-Fluidbox require the following dependencies in order to function properly:
+Fluidbox require the following dependencies in order to function properly &mdash; you will have to include them in your page, if you want Fluidbox to work:
 
 - **The latest release of jQuery 1.x**, available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
 - **imagesloaded jQuery plugin**, available from [GitHub](https://github.com/desandro/imagesloaded) at `https://github.com/desandro/imagesloaded`
+
+Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.

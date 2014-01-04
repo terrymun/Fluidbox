@@ -150,7 +150,7 @@ main section {
 		height: 5.25rem;
 		transition: all .125s ease-in-out;
 	}
-      		.cards svg path { transition: fill .125s ease-in-out }
+      	.cards svg path { transition: fill .125s ease-in-out }
       		
 	.cards a:first-child {
 		background-color: #333;
@@ -218,9 +218,12 @@ main section {
 
 /* Media queries, unrelated to functionality of Fluidbox */
 @media only screen and (max-width: 768px) {
-  .demo a[class^='float'] {
-     width: 50%; 
-  }
+	.cards {
+		flex-flow: row wrap;
+	}
+	.demo a[class^='float'] {
+		width: 50%; 
+	}
 }
 @media only screen and (max-width: 600px) {
   .demo .gallery a,

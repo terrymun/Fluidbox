@@ -4,6 +4,40 @@
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
+// --------------------------------------------------------
+//  Dependency: Paul Irish's jQuery debounced resize event
+// --------------------------------------------------------
+(function($,sr){
+
+	// debouncing function from John Hann
+	// http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+	var debounce = function (func, threshold, execAsap) {
+		var timeout;
+
+		return function debounced () {
+			var obj = this, args = arguments;
+			function delayed () {
+				if (!execAsap)
+				func.apply(obj, args);
+				timeout = null;
+			};
+
+			if (timeout)
+				clearTimeout(timeout);
+			else if (execAsap)
+				func.apply(obj, args);
+
+			timeout = setTimeout(delayed, threshold || 100);
+		};
+	}
+	// smartresize 
+	jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+
+})(jQuery,'smartresize');
+
+// -----------------------------
+//  Fluidbox plugin starts here
+// -----------------------------
 (function ($) {
 	
 	$.fn.fluidbox = function (opts) {
@@ -11,6 +45,7 @@
 		// Default settings
 		var settings = $.extend(true, {
 			viewportFill: 0.95,
+			debounceResize: true,
 			closeTrigger: [
 				{
 					selector:	'#fluidbox-overlay',
@@ -30,6 +65,7 @@
 			// Function:
 			// 1. funcCloseFb()		- used to close any instance of opened Fluidbox
 			// 2. funcPositionFb()	- used for dynamic positioning of any instance of opened Fluidbox
+			// 3. funcCalc()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
 			},
@@ -46,6 +82,38 @@
 				// Apply CSS transforms to ghost element
 				$ghost.css({
 					'transform': 'translate('+offsetX+'px,'+offsetY+'px) scale('+scale+')'
+				});
+			},
+			funcCalc = function () {
+				// Get viewport ratio
+				vpRatio = $w.width() / $w.height();
+
+				// Get image dimensions and aspect ratio
+				$fb.each(function () {
+					var $img	= $(this).find('img'),
+						$ghost	= $(this).find('.fluidbox-ghost'),
+						$wrap	= $(this).find('.fluidbox-wrap'),
+						data	= $img.data();
+
+					// Store image dimensions in jQuery object
+					data.imgWidth	= $img.width();
+					data.imgHeight	= $img.height();
+					data.imgRatio	= $img.width()/$img.height();
+
+					// Resize and position ghost element
+					$ghost.css({
+						width: $img.width(),
+						height: $img.height(),
+						top: $img.offset().top - $wrap.offset().top,
+						left: $img.offset().left - $wrap.offset().left,
+					});
+
+					// Calculate scale based on orientation
+					if(vpRatio > data.imgRatio) {
+						data.imgScale = $w.height()*settings.viewportFill/$img.height();
+					} else {
+						data.imgScale = $w.width()*settings.viewportFill/$img.width();
+					}
 				});
 			};
 
@@ -86,45 +154,25 @@
 				}
 			});
 
+			// Initialize calculations
+			funcCalc();
+
 			// Listen to window resize event
-			$(window).resize(function () {
-
-				// Get viewport ratio
-				vpRatio = $w.width() / $w.height();
-
-				// Get image dimensions and aspect ratio
-				$fb.each(function () {
-					var $img	= $(this).find('img'),
-						$ghost	= $(this).find('.fluidbox-ghost'),
-						$wrap	= $(this).find('.fluidbox-wrap'),
-						data	= $img.data();
-
-					// Store image dimensions in jQuery object
-					data.imgWidth	= $img.width();
-					data.imgHeight	= $img.height();
-					data.imgRatio	= $img.width()/$img.height();
-
-					// Resize and position ghost element
-					$ghost.css({
-						width: $img.width(),
-						height: $img.height(),
-						top: $img.offset().top - $wrap.offset().top,
-						left: $img.offset().left - $wrap.offset().left,
-					});
-
-					// Calculate scale based on orientation
-					if(vpRatio > data.imgRatio) {
-						data.imgScale = $w.height()*settings.viewportFill/$img.height();
-					} else {
-						data.imgScale = $w.width()*settings.viewportFill/$img.width();
-					}
-				});
+			// Check if user wants to debounce the resize event (it is debounced by default)
+			var funcResize = function () {
+				// Recalculate dimensions
+				funcCalc();
 
 				// Reposition Fluidbox, but only if one is found to be open
 				var $activeFb = $('a[data-fluidbox].fluidbox-opened');
 				if($activeFb.length > 0) funcPositionFb($activeFb);
-	            
-			}).resize();
+			}
+
+			if(settings.debounceResize) {
+				$(window).smartresize(funcResize);
+			} else {
+				$(window).resize(funcResize);
+			}
 
 			// Bind click event
 			$fb.click(function (e) {
