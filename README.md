@@ -69,7 +69,7 @@ It is also possible to bind other events to trigger the same effect. For example
         })
     })
 
-This will have the effect of doing so (where `closeFb` is the function needed to close any opened Fluidbox):
+This will have the effect of doing so (where `closeFb` is the internal function in the plugin needed to close any opened Fluidbox):
 
     $(document).on('click', '#fluidbox-overlay', closeFb);
     $(window).on('resize', closeFb);
