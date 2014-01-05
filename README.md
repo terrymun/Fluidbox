@@ -45,10 +45,18 @@ Fluidbox can be configured according to your needs. The following options are av
 |------------------|-----------|---------------|---------------------------------------|
 | `viewportFill`   | Numerical | 0.95          | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
 | `debounceResize` | Boolean   | true          | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
-| `closeTrigger`   | Array     | `[{ selector: '#fluidbox-overlay', event: 'click' }]` | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
+| `closeTrigger`   | Array     | *see below*  | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
 
 #### Note on `closeTrigger` option
-The default setup will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed. It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
+The default setup will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed:
+
+    // Default option
+    closeTrigger: [{
+        selector: '#fluidbox-overlay',
+        event: 'click'
+    }]
+
+It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
 
     $(function () {
         $('a').fluidbox({
