@@ -240,6 +240,20 @@ main section {
 	}
 		.demo .gallery a.col-2 { width: 49%; }
 		.demo .gallery a.col-3 { width: 32%; }
+.demo .box {
+	background-color: #eee;
+	border: 1px solid rgba(0,0,0,.25);
+	box-sizing: border-box;
+	padding-bottom: 66.66667%;
+	position: relative;
+	width: 100%;
+}
+	.demo .box img {
+		position: absolute;
+		top: 2rem;
+		left: 2rem;
+		width: 50%;
+	}
 
 /* Media queries, unrelated to functionality of Fluidbox */
 @media only screen and (max-width: 768px) {

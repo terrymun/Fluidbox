@@ -141,6 +141,8 @@
 
 		<section class="demo">
 			<h2>Demonstration</h2>
+			<p>Fluidbox is designed to be versatile, flexible and easy to implement. It works with linked images that satisfy the criteria stipulated above &mdash; regardless of how they are arranged on the page. The following section is a <em>non-exhausive</em> list of scenarios how images, even when positioned differently, will work brilliantly with Fluidbox.</p>
+
 			<h3>Single image</h3>
 			<p>Here we demonstrate the use of a single image. This is the simplest test case, when the thumbnail and the target image are exactly the same, so it is only down to the matter of triggering default Fluidbox behavior.</p>
 			<a href="http://i.imgur.com/uh5YLj5.jpg"><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
@@ -163,6 +165,12 @@
 			<h3>Scaling</h3>
 			<p>It also intelligently resizes images such that portrait images will fit perfectly within the viewport, although that means scaling down the image. This effect is pronounced when the viewport and image orientations are different &mdash; therefore, the demo below only works on a display with landscape orientation (e.g. not on mobile).</p>
 			<a href="http://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="http://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
+
+			<h3>Absolutely positioned images</h3>
+			<p>Fluidbox handles absolutely positioned images without any problem. The image below is absolutely positioned within its parent, the grey container:</p>
+			<div class="box">
+				<a href="http://i.imgur.com/DIbQf0X.jpg"><img src="http://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
+			</div>
 			
 			<h3>Floated images</h3>
 			<p>Moreover, it also works with floated images - to the left or to the right, it does not matter. The following texts are jibberish, used as filler.</p>

@@ -8,6 +8,16 @@ You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c
 
 Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub.
 
+## Installation
+To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
+
+| Type | File Name            | Description                                                                                                            |
+|------|----------------------|------------------------------------------------------------------------------------------------------------------------|
+| JS   | [jQuery 1.x]((http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js)) | **External Dependency**: The jQuery 1.x library is needed for Fluidbox functionality.       |
+| JS   | [imagesLoaded plugin]((https://github.com/desandro/imagesloaded))           | **External Dependency**: imagesLoaded plugins is needed to check if images marked for Fluidbox display has been successfully loaded.                  |
+| JS   | `jquery.fluidbox.js` | Confers the main functionality of Fluidbox. Alternatively, you can load the minified version, `jquery.fluidbox.min.js` |
+| CSS  | `css/fluidbox.css`   | Offers styles that are crucial for the correct display of Fluidbox. The appearance will break if this is not included. |
+
 ## Usage
 ### Basic
 It is rather straightforward to use Fluidbox &mdash; simply chain the `.fluidbox()` method to a selector of your choice. The plugin will automatically check if the selector is:
