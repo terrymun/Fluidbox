@@ -4,7 +4,9 @@ Replicating and improving the lightbox module seen on Medium with fluid transiti
 ## Introduction
 Fluidbox was initially a simple personal challenge I set myself, with two simple aims &mdash; to replicate the distraction-free, fluid lightbox seen on [Medium](http://medium.com), and to improve on it such that it will allow linking to a larger-resolution image. The plugin deals with higher resolution, linked images elegantly, such that it only preloads them when users click on the thumbnails, therefore conserving bandwidth usage for your visitors and your server(s).
 
-You can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub.
+You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c7) about how I got inspiration for this little project of mine, and the basic mechanisms behind the plugin. Some serious math is involved (*nah, not really*).
+
+Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub.
 
 ## Usage
 ### Basic
