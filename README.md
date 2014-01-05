@@ -56,6 +56,8 @@ The default setup will have the effect of binding the click event to the overlay
         event: 'click'
     }]
 
+----
+
 It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
 
     $(function () {
@@ -67,17 +69,30 @@ It is also possible to bind other events to trigger the same effect. For example
         })
     })
 
-You can even bind event to multiple selectors, and vice versa:
+This will have the effect of doing so (where `closeFb` is the function needed to close any opened Fluidbox):
+
+    $(document).on('click', '#fluidbox-overlay', closeFb);
+    $(window).on('resize', closeFb);
+
+----
+
+You can even bind event to multiple selectors, and vice versa. The syntax of dictating so is similar to constructing event handler binding using the `.on()` method, so if you are [familiar with its use](http://api.jquery.com/on/), dictating your own closeTrigger should not be too difficult:
 
     $(function () {
         $('a').fluidbox({
             closeTrigger: [
                 {selector: '#fluidbox-overlay', event: 'click'},
                 {selector: 'window',            event: 'resize scroll'},
-                {selector: '#close-button',     event: 'hover'}
+                {selector: '#ele1, #ele2',     event: 'hover'}
             ]
         })
     })
+
+This will have the effect of doing so:
+
+    $(document).on('click', '#fluidbox-overlay', closeFb);
+    $(window).on('resize', closeFb);
+    $(document).on('hover', '#ele1, #ele2', closeFb)
 
 ### Notes
 As Fluidbox relies on CSS transforms, it only works with thumbnails that share the same aspect ratio with their higher resolution counterparts, otherwise the larger image will be cropped off, i.e. a square thumbnail linking to a landscape photo will cause the landscape photo to appear in a square frame. Fluidbox, serving as an alternative lightbox module, also assume that the image you have linked contains sufficient resolution to be displayed on the monitor &mdash; low resolution images will scale poorly on a large display.
