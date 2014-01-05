@@ -13,8 +13,8 @@ To install Fluidbox, you will have to include the following resources in your pa
 
 | Type | File Name            | Description                                                                                                            |
 |------|----------------------|------------------------------------------------------------------------------------------------------------------------|
-| JS   | [jQuery 1.x]((http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js)) | **External Dependency**: The jQuery 1.x library is needed for Fluidbox functionality.       |
-| JS   | [imagesLoaded plugin]((https://github.com/desandro/imagesloaded))           | **External Dependency**: imagesLoaded plugins is needed to check if images marked for Fluidbox display has been successfully loaded.                  |
+| JS   | [jQuery 1.x](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) | **External Dependency**: The jQuery 1.x library is needed for Fluidbox functionality.       |
+| JS   | [imagesLoaded plugin](https://github.com/desandro/imagesloaded)           | **External Dependency**: imagesLoaded plugins is needed to check if images marked for Fluidbox display has been successfully loaded.                  |
 | JS   | `jquery.fluidbox.js` | Confers the main functionality of Fluidbox. Alternatively, you can load the minified version, `jquery.fluidbox.min.js` |
 | CSS  | `css/fluidbox.css`   | Offers styles that are crucial for the correct display of Fluidbox. The appearance will break if this is not included. |
 
@@ -41,18 +41,32 @@ In your JS file, you can simply chain the `.fluidbox()` method to your selector 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
 
-- `viewportFill` (numerical) &mdash; dictates how much the longest axis of the image should fill the viewport. The default value is `0.95`.
-- `debounceResize` (boolean) &mdash; dictates if the `$(window).resize()` event should be debounced for performance reason. The default value is `true` (debouncing turned on by default).
-- `closeTrigger` (array with objects) &mdash; dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
-  `closeTrigger: [{ selector: '#fluidbox-overlay', event: 'click' }]`
+| Option           | Type      | Default value | Description                           |
+|------------------|-----------|---------------|---------------------------------------|
+| `viewportFill`   | Numerical | 0.95          | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
+| `debounceResize` | Boolean   | true          | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
+| `closeTrigger`   | Array     | `[{ selector: '#fluidbox-overlay', event: 'click' }]` | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
 
-This will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed. It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
+#### Note on `closeTrigger` option
+The default setup will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed. It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
 
     $(function () {
         $('a').fluidbox({
             closeTrigger: [
                 {selector: '#fluidbox-overlay', event: 'click'},
                 {selector: 'window', event: 'resize'}
+            ]
+        })
+    })
+
+You can even bind event to multiple selectors, and vice versa:
+
+    $(function () {
+        $('a').fluidbox({
+            closeTrigger: [
+                {selector: '#fluidbox-overlay', event: 'click'},
+                {selector: 'window',            event: 'resize scroll'},
+                {selector: '#close-button',     event: 'hover'}
             ]
         })
     })
@@ -66,4 +80,4 @@ Fluidbox require the following dependencies in order to function properly &mdash
 - **The latest release of jQuery 1.x**, available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
 - **imagesloaded jQuery plugin**, available from [GitHub](https://github.com/desandro/imagesloaded) at `https://github.com/desandro/imagesloaded`
 
-Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
+Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
