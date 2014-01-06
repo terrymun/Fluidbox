@@ -229,15 +229,14 @@
 					// Hide overlay
 					$('#fluidbox-overlay').fadeOut();
 
-					// Show original image
-					$img.css({ opacity: 1 });
-
 					// Reverse animation on wrapped elements
 					$ghost
 					.css({ 'transform': 'translate(0,0) scale(1)' })
 					.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (){
 						// Wait for transntion to complete before hiding the ghost element
 						$ghost.css({ opacity: 0 });
+						// Show original image
+						$img.css({ opacity: 1 });
 					});
 				}
 
