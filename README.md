@@ -104,3 +104,6 @@ Fluidbox require the following dependencies in order to function properly &mdash
 - **imagesloaded jQuery plugin**, available from [GitHub](https://github.com/desandro/imagesloaded) at `https://github.com/desandro/imagesloaded`
 
 Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
+
+## Licensing: GNU General Public License
+This plugin is licensed unter the GNU General Public License.
