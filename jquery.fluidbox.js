@@ -45,6 +45,7 @@
 		// Default settings
 		var settings = $.extend(true, {
 			viewportFill: 0.95,
+			overlayColor: 'rgba(255,255,255,.85)',
 			debounceResize: true,
 			closeTrigger: [
 				{
@@ -55,7 +56,12 @@
 		}, opts);
 
 		// Dynamically create overlay
-		$('body').append('<div id="fluidbox-overlay" />');
+		$('<div />', {
+			id: 'fluidbox-overlay',
+			css: {
+				'background-color': settings.overlayColor
+			}
+		}).appendTo('body');
 
 		// Declare variables
 		var $fb = this,

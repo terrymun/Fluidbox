@@ -48,6 +48,7 @@ Fluidbox can be configured according to your needs. The following options are av
 | Option           | Type      | Default value | Description                           |
 |------------------|-----------|---------------|---------------------------------------|
 | `viewportFill`   | Numerical | 0.95          | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
+| `overlayColor`   | String    | `rgba(255,255,255,.85)` | Sets the `background-color` property of Fluidbox overlay. Defaults to white with an opacity of 0.85. |
 | `debounceResize` | Boolean   | true          | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
 | `closeTrigger`   | Array     | *see below*  | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
 
