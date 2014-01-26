@@ -1,0 +1,16 @@
+{
+    "name": "fluidbox",
+    "version": "1.0.0",
+    "main": "jquery.fluidbox.js",
+    "keywords": [
+        "fluidbox"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}
