@@ -51,6 +51,11 @@
 				{
 					selector:	'#fluidbox-overlay',
 					event:	'click'
+				},
+				{
+					selector: 'document',
+					event: 'keyup',
+					keyCode: 27
 				}
 			]
 		}, opts);
@@ -129,8 +134,14 @@
 		if(settings.closeTrigger) {
 			// Go through array
 			$.each(settings.closeTrigger, function(i) {
-
-				if(settings.closeTrigger[i].selector != 'window') {
+				if (settings.closeTrigger[i].keyCode) {
+					// trigger funcCloseFb on keyup of esc key
+					$(document).on(settings.closeTrigger[i].event, function(e) {
+						if (e.keyCode === settings.closeTrigger[i].keyCode) {
+							funcCloseFb();
+						}
+					});
+				} else if(settings.closeTrigger[i].selector != 'window') {
 					// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
 					$(document).on(settings.closeTrigger[i].event, settings.closeTrigger[i].selector, funcCloseFb);
 				} else {
