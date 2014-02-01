@@ -1,3 +1,14 @@
+/* Component styles */
+@font-face {
+	font-family: 'Blokk';
+	src: url('../fonts/BLOKKRegular.eot');
+	src: url('../fonts/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/BLOKKRegular.woff') format('woff'),
+		 url('../fonts/BLOKKRegular.svg#BLOKKRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
 html {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 16px;
@@ -94,6 +105,10 @@ h3 {
 	}
 p {
 	margin-bottom: 1.5rem;
+}
+.filler {
+	color: #999;
+	font-family: "Blokk", Arial, sans-serif;
 }
 .message {
 	background-color: #FDC68A;
