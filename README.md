@@ -57,10 +57,17 @@ The default setup will have the effect of binding the click event to the overlay
 
 ```js
 // Default option
-closeTrigger: [{
-    selector: '#fluidbox-overlay',
-    event: 'click'
-}]
+closeTrigger: [
+    {
+        selector: '#fluidbox-overlay',
+        event: 'click'
+    },
+    {
+        selector: 'document',
+        event: 'keyup',
+        keyCode: 27
+    }
+]
 ```
 
 ----

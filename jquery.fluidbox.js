@@ -49,8 +49,13 @@
 			debounceResize: true,
 			closeTrigger: [
 				{
-					selector:	'#fluidbox-overlay',
-					event:	'click'
+					selector: '#fluidbox-overlay',
+					event: 'click'
+				},
+				{
+					selector: 'document',
+					event: 'keyup',
+					keyCode: 27
 				}
 			]
 		}, opts);
@@ -128,14 +133,27 @@
 		// When should we close Fluidbox?
 		if(settings.closeTrigger) {
 			// Go through array
-			$.each(settings.closeTrigger, function(i) {
+			$.each(settings.closeTrigger, function (i) {
+				var trigger = settings.closeTrigger[i];
 
-				if(settings.closeTrigger[i].selector != 'window') {
+				// Attach events
+				if(trigger.selector != 'window') {
 					// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
-					$(document).on(settings.closeTrigger[i].event, settings.closeTrigger[i].selector, funcCloseFb);
+					// However, if thes selector is 'document', we use a different .on() syntax
+					if(trigger.selector == 'document') {
+						if(trigger.keyCode) {
+							$(document).on(trigger.event, function (e) {
+								if(e.keyCode == trigger.keyCode) funcCloseFb();
+							});
+						} else {
+							$(document).on(trigger.event, funcCloseFb);
+						}
+					} else {
+						$(document).on(trigger.event, settings.closeTrigger[i].selector, funcCloseFb);
+					}
 				} else {
 					// If it is 'window', append click handler to $(window) object
-					$w.on(settings.closeTrigger[i].event, funcCloseFb);
+					$w.on(trigger.event, funcCloseFb);
 				}
 			});
 		}
@@ -144,7 +162,7 @@
 		$fb.imagesLoaded().done(function () {
 
 			// Go through each individual object
-			$fb.each(function () {
+			$fb.each(function (i) {
 
 				// Check if Fluidbox:
 				// 1. Is an anchor element ,<a>
