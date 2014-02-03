@@ -19,7 +19,7 @@
         "package.json"
     ],
     "dependencies": {
-        "git://github.com/terrymun/Fluidbox.git": "*",
+        "git://github.com/terrymun/Fluidbox#gh-pages": "*",
         "jquery": ">=1.9 <2.0",
         "imagesloaded": "latest"
     }
