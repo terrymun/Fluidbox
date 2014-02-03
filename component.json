@@ -1,0 +1,14 @@
+{
+	"name": "fluidbox",
+	"repo": "terrymun/fluidbox",
+	"description": "Replicating Medium's beautiful, minimalist lightbox module",
+	"version": "1.0.0",
+	"scripts": [
+		"fluidbox.js"
+	],
+	"main": "fluidbox.js",
+	"dependencies": {
+		"jquery": ">=1.9 <2.0"
+	},
+	"license": "MIT"
+}

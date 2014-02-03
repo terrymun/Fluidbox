@@ -1,6 +1,7 @@
 {
     "name": "fluidbox",
     "version": "1.0.0",
+    "description": "Replicating Medium's beautiful, minimalist lightbox module",
     "main": "jquery.fluidbox.js",
     "keywords": [
         "fluidbox"
@@ -11,6 +12,13 @@
         "node_modules",
         "bower_components",
         "test",
-        "tests"
-    ]
+        "fonts",
+        "css/normalize.css",
+        "css/styles.css",
+        "package.json"
+    ],
+    "dependencies": {
+        "jquery": ">=1.9 <2.0",
+        "imagesloaded": "latest"
+    }
 }
