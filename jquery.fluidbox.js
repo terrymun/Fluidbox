@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.2
+// Version: 1.2.1
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -103,29 +103,31 @@
 
 				// Get image dimensions and aspect ratio
 				$fb.each(function () {
-					var $img	= $(this).find('img'),
-						$ghost	= $(this).find('.fluidbox-ghost'),
-						$wrap	= $(this).find('.fluidbox-wrap'),
-						data	= $img.data();
+					if($(this).hasClass('fluidbox')) {
+						var $img	= $(this).find('img'),
+							$ghost	= $(this).find('.fluidbox-ghost'),
+							$wrap	= $(this).find('.fluidbox-wrap'),
+							data	= $img.data();
 
-					// Store image dimensions in jQuery object
-					data.imgWidth	= $img.width();
-					data.imgHeight	= $img.height();
-					data.imgRatio	= $img.width()/$img.height();
+						// Store image dimensions in jQuery object
+						data.imgWidth	= $img.width();
+						data.imgHeight	= $img.height();
+						data.imgRatio	= $img.width()/$img.height();
 
-					// Resize and position ghost element
-					$ghost.css({
-						width: $img.width(),
-						height: $img.height(),
-						top: $img.offset().top - $wrap.offset().top,
-						left: $img.offset().left - $wrap.offset().left,
-					});
+						// Resize and position ghost element
+						$ghost.css({
+							width: $img.width(),
+							height: $img.height(),
+							top: $img.offset().top - $wrap.offset().top,
+							left: $img.offset().left - $wrap.offset().left,
+						});
 
-					// Calculate scale based on orientation
-					if(vpRatio > data.imgRatio) {
-						data.imgScale = $w.height()*settings.viewportFill/$img.height();
-					} else {
-						data.imgScale = $w.width()*settings.viewportFill/$img.width();
+						// Calculate scale based on orientation
+						if(vpRatio > data.imgRatio) {
+							data.imgScale = $w.height()*settings.viewportFill/$img.height();
+						} else {
+							data.imgScale = $w.width()*settings.viewportFill/$img.width();
+						}
 					}
 				});
 			};
@@ -203,68 +205,71 @@
 			// Bind click event
 			$fb.click(function (e) {
 				
-				// Variables
-				var $activeFb	= $(this),
-					$img		= $(this).find('img'),
-					$ghost		= $(this).find('.fluidbox-ghost');
+				if($(this).hasClass('fluidbox')) {
 
-				if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
-					// State: Closed
-					// Action: Open fluidbox
+					// Variables
+					var $activeFb	= $(this),
+						$img		= $(this).find('img'),
+						$ghost		= $(this).find('.fluidbox-ghost');
 
-					// Switch state
-					$(this)
-					.data('fluidbox-state', 1)
-					.removeClass('fluidbox-closed')
-					.addClass('fluidbox-opened');
+					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
+						// State: Closed
+						// Action: Open fluidbox
 
-					// Show overlay
-					$('#fluidbox-overlay').fadeIn();
+						// Switch state
+						$(this)
+						.data('fluidbox-state', 1)
+						.removeClass('fluidbox-closed')
+						.addClass('fluidbox-opened');
 
-					// Set thumbnail image source as background image first, preload later
-					$ghost.css({
-						'background-image': 'url('+$img.attr('src')+')',
-						opacity: 1
-					});
+						// Show overlay
+						$('#fluidbox-overlay').fadeIn();
 
-					// Hide original image
-					$img.css({ opacity: 0 });
+						// Set thumbnail image source as background image first, preload later
+						$ghost.css({
+							'background-image': 'url('+$img.attr('src')+')',
+							opacity: 1
+						});
 
-					// Preload ghost image
-					var ghostImg = new Image();
-					ghostImg.onload = function (){
-						$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
-					};
-					ghostImg.src = $(this).attr('href');
+						// Hide original image
+						$img.css({ opacity: 0 });
 
-					// Position Fluidbox
-					funcPositionFb($(this));
+						// Preload ghost image
+						var ghostImg = new Image();
+						ghostImg.onload = function (){
+							$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+						};
+						ghostImg.src = $(this).attr('href');
 
-				} else {
-					// State: Open
-					// Action: Close fluidbox
+						// Position Fluidbox
+						funcPositionFb($(this));
 
-					// Switch state
-					$(this)
-					.data('fluidbox-state', 0)
-					.removeClass('fluidbox-opened')
-					.addClass('fluidbox-closed');
+					} else {
+						// State: Open
+						// Action: Close fluidbox
 
-					// Hide overlay
-					$('#fluidbox-overlay').fadeOut();
+						// Switch state
+						$(this)
+						.data('fluidbox-state', 0)
+						.removeClass('fluidbox-opened')
+						.addClass('fluidbox-closed');
 
-					// Reverse animation on wrapped elements
-					$ghost
-					.css({ 'transform': 'translate(0,0) scale(1)' })
-					.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (){
-						// Wait for transntion to complete before hiding the ghost element
-						$ghost.css({ opacity: 0 });
-						// Show original image
-						$img.css({ opacity: 1 });
-					});
+						// Hide overlay
+						$('#fluidbox-overlay').fadeOut();
+
+						// Reverse animation on wrapped elements
+						$ghost
+						.css({ 'transform': 'translate(0,0) scale(1)' })
+						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (){
+							// Wait for transntion to complete before hiding the ghost element
+							$ghost.css({ opacity: 0 });
+							// Show original image
+							$img.css({ opacity: 1 });
+						});
+					}
+
+					e.preventDefault();
 				}
-
-				e.preventDefault();
 			});
 		});
 
