@@ -164,7 +164,7 @@ main {
 	margin: 0 16.66667%;
 }
 main section {
-	border-bottom 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 	margin-bottom: 1.5rem;
 	padding: 1.5rem 0;
 }
