@@ -13,7 +13,7 @@ To install Fluidbox, you will have to include the following resources in your pa
 
 | Type | File Name            | Description                                                                                                            |
 |------|----------------------|------------------------------------------------------------------------------------------------------------------------|
-| JS   | [jQuery 1.x](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) | **External Dependency**: The jQuery 1.x library is needed for Fluidbox functionality.       |
+| JS   | [jQuery 1.x](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) | **External Dependency**: The *latest verson* of jQuery 1.x library is needed for Fluidbox functionality.       |
 | JS   | [imagesLoaded plugin](https://github.com/desandro/imagesloaded)           | **External Dependency**: imagesLoaded plugins is needed to check if images marked for Fluidbox display has been successfully loaded.                  |
 | JS   | `jquery.fluidbox.js` | Confers the main functionality of Fluidbox. Alternatively, you can load the minified version, `jquery.fluidbox.min.js` |
 | CSS  | `css/fluidbox.css`   | Offers styles that are crucial for the correct display of Fluidbox. The appearance will break if this is not included. |
@@ -122,10 +122,17 @@ As Fluidbox relies on CSS transforms, it only works with thumbnails that share t
 ## Dependencies
 Fluidbox require the following dependencies in order to function properly &mdash; you will have to include them in your page, if you want Fluidbox to work:
 
-- **The latest release of jQuery 1.x**, available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
+- **The latest release of jQuery 1.x** (minimum requirement: jQuery &gt;1.7), available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
 - **imagesloaded jQuery plugin**, available from [GitHub](https://github.com/desandro/imagesloaded) at `https://github.com/desandro/imagesloaded`
 
 Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
+
+## Frequently Asked Quesitons
+1.  **Fluidbox is not working in my installation. Where should I start?**  
+Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above)
+    
+2.  **Do you plan to implement [insert feature]?**  
+Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your perosnal liking.
 
 ## Licensing: GNU General Public License
 This plugin is licensed unter the GNU General Public License.
