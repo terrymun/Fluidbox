@@ -61,12 +61,12 @@
 		}, opts);
 
 		// Dynamically create overlay
-		$('<div />', {
+		$fbOverlay = $('<div />', {
 			id: 'fluidbox-overlay',
 			css: {
 				'background-color': settings.overlayColor
 			}
-		}).appendTo('body');
+		});
 
 		// Declare variables
 		var $fb = this,
@@ -216,8 +216,9 @@
 						// State: Closed
 						// Action: Open fluidbox
 
-						// Switch state
+						// Append overlay and switch state
 						$(this)
+						.append($fbOverlay)
 						.data('fluidbox-state', 1)
 						.removeClass('fluidbox-closed')
 						.addClass('fluidbox-opened');
@@ -255,7 +256,9 @@
 						.addClass('fluidbox-closed');
 
 						// Hide overlay
-						$('#fluidbox-overlay').fadeOut();
+						$('#fluidbox-overlay').fadeOut(function() {
+							$(this).remove();
+						});
 
 						// Reverse animation on wrapped elements
 						$ghost

@@ -8,6 +8,13 @@ You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c
 
 Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub.
 
+## Changelog
+| Version | Comments |
+|---------|----------|
+| 1.2.0   | Official release |
+| 1.2.1   | Minor bug fixes |
+| 1.2.2   | Changed positioning of overlay, to ensure that it works in pages with absolutely- or relatively-positioned parent/wrapper elements with z-indexs specified |
+
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
 
@@ -41,6 +48,9 @@ $(function () {
     $('.gallery a, a[rel="lightbox"]').fluidbox();
 })
 ```
+
+### Some precautions
+Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
