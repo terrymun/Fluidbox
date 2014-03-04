@@ -11,7 +11,14 @@
             "homagepage": "http://terrymun.com"
         }
     ],
-    "repository": {
+    "maintainers": [
+        {
+            "name": "Terry Mun",
+            "email": "hello@terrymun.com",
+            "homagepage": "http://terrymun.com"
+        }
+    ],
+    "repositories": {
         "type": "git",
         "url": "https://github.com/terrymun/Fluidbox/"
     },
@@ -30,6 +37,6 @@
     ],
     "dependencies": {
         "jquery": ">=1.9 <2.0",
-        "imagesloaded": "latest"
+        "jquery.imagesloaded": "latest"
     }
 }
