@@ -5,13 +5,14 @@
 	cursor: pointer;
 	cursor: -webkit-zoom-out;
 	cursor: -moz-zoom-out;
-	display: none;
+	opacity: 0;
 	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
 	z-index: 500;
+	transition: all .25s ease-in-out;
 }
 .fluidbox-wrap {
 	background-position: center center;

@@ -224,7 +224,7 @@
 						.addClass('fluidbox-opened');
 
 						// Show overlay
-						$('#fluidbox-overlay').fadeIn();
+						$('#fluidbox-overlay').css({ opacity: 1 });
 
 						// Set thumbnail image source as background image first, preload later
 						$ghost.css({
@@ -255,19 +255,32 @@
 						.removeClass('fluidbox-opened')
 						.addClass('fluidbox-closed');
 
-						// Hide overlay
-						$('#fluidbox-overlay').fadeOut(function() {
-							$(this).remove();
+						// Hide and remove overlay
+						$('#fluidbox-overlay')
+						.css({ opacity: 0})
+						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
+							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
+							if(e.originalEvent.propertyName == 'opacity') {
+								$(this).remove();
+							}
 						});
 
+						// Fade out ghost element only when image is done transitioning, hooked on to the $ghost.one() event	
+						$img.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
+							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
+							if(e.originalEvent.propertyName == 'opacity') {
+								$ghost.css({ opacity: 0 });
+							}
+						});
+						
 						// Reverse animation on wrapped elements
 						$ghost
 						.css({ 'transform': 'translate(0,0) scale(1)' })
-						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (){
-							// Wait for transntion to complete before hiding the ghost element
-							$ghost.css({ opacity: 0 });
-							// Show original image
-							$img.css({ opacity: 1 });
+						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
+							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
+							if(e.originalEvent.propertyName == 'opacity') {
+								$img.css({ opacity: 1 });
+							}
 						});
 					}
 
