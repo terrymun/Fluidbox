@@ -14,6 +14,7 @@ Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Flui
 | 1.2.0   | Official release |
 | 1.2.1   | Minor bug fixes |
 | 1.2.2   | Changed positioning of overlay, to ensure that it works in pages with absolutely- or relatively-positioned parent/wrapper elements with z-indexs specified |
+| 1.2.3   | Fixed the iamge switching issue when Fluidbox is closed, which causes two flashes of white. This is done by listening to the `transitionend` property, with a tiny hack. JS is minifised using [UglifyJS](http://marijnhaverbeke.nl/uglifyjs) instead of the [YUI compressor](http://refresh-sf.com/yui/), saving a wee bit more bandwidth for you. |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -51,6 +52,8 @@ $(function () {
 
 ### Some precautions
 Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
+
+The `transitionend` event is fired **per transitioned property**, therefore requiring a hack if we only want it to be fired once. Therefore, I have chosen to listen to the `opacity` property, since opacity change is the landmark feature of most modal box modules, with Fluidbox not being an exception itself, too. Therefore, in the event that you choose **not** to transition the `opacity` property, you will have to change which property name the `transitionend` event should listen to.
 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
