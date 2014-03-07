@@ -91,8 +91,8 @@ It is also possible to bind other events to trigger the same effect. For example
 $(function () {
     $('a').fluidbox({
         closeTrigger: [
-            {selector: '#fluidbox-overlay', event: 'click'},
-            {selector: 'window', event: 'resize'}
+            { selector: '#fluidbox-overlay', event: 'click'  },
+            { selector: 'window',            event: 'resize' }
         ]
     });
 });
@@ -113,9 +113,9 @@ You can even bind event to multiple selectors, and vice versa. The syntax of dic
 $(function () {
     $('a').fluidbox({
         closeTrigger: [
-            {selector: '#fluidbox-overlay', event: 'click'},
-            {selector: 'window',            event: 'resize scroll'},
-            {selector: '#ele1, #ele2',     event: 'hover'}
+            { selector: '#fluidbox-overlay', event: 'click'         },
+            { selector: 'window',            event: 'resize scroll' },
+            { selector: '#ele1, #ele2',      event: 'hover'         }
         ]
     });
 });
