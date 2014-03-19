@@ -1,5 +1,7 @@
 .fluidbox {
 	outline: none;
+	position: relative;
+	z-index: 999;
 }
 #fluidbox-overlay {
 	cursor: pointer;
@@ -11,7 +13,7 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
-	z-index: 500;
+	z-index: 1;
 	transition: all .25s ease-in-out;
 }
 .fluidbox-wrap {
@@ -19,15 +21,13 @@
 	background-size: cover;
 	margin: 0 auto;
 	position: relative;
-	z-index: 400;
+	z-index: 1000;
 	transition: all .25s ease-in-out;
 }
-	.fluidbox-opened .fluidbox-wrap {
-		z-index: 600;
-	}
 .fluidbox-ghost {
 	background-size: cover;
 	background-position: center center;
 	position: absolute;
+	z-index: 2;
 	transition: all .25s ease-in-out;
 }
