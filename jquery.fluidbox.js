@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.2.1
+// Version: 1.2.4
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -216,12 +216,21 @@
 						// State: Closed
 						// Action: Open fluidbox
 
-						// Append overlay and switch state
+						// What are we doing here:
+						// 1. Append overlay in the wrapper itself
+						// 2. Toggle fluidbox state with data attribute
+						// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
+						// 4. Class toggle
+						// 5. Change z-index to ensure correct stacking order
 						$(this)
-						.append($fbOverlay)
+						.find('.fluidbox-wrap')
+							.append($fbOverlay)
+							.end()
 						.data('fluidbox-state', 1)
+						.data('zindex', $(this).css('z-index'))
 						.removeClass('fluidbox-closed')
-						.addClass('fluidbox-opened');
+						.addClass('fluidbox-opened')
+						.css({ 'z-index': $(this).css('z-index')+1 });
 
 						// Show overlay
 						$('#fluidbox-overlay').css({ opacity: 1 });
@@ -261,15 +270,11 @@
 						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
 							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
 							if(e.originalEvent.propertyName == 'opacity') {
-								$(this).remove();
-							}
-						});
-
-						// Fade out ghost element only when image is done transitioning, hooked on to the $ghost.one() event	
-						$img.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
-							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
-							if(e.originalEvent.propertyName == 'opacity') {
-								$ghost.css({ opacity: 0 });
+								// Remove overlay and change stacking order back to original z-index, stored in data attribute
+								$(this)
+								.remove()
+								.parents('.fluidbox')
+									.css({ 'z-index': $activeFb.data('zindex') });
 							}
 						});
 						
@@ -280,6 +285,7 @@
 							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
 							if(e.originalEvent.propertyName == 'opacity') {
 								$img.css({ opacity: 1 });
+								$ghost.css({ opacity: 0 });
 							}
 						});
 					}
