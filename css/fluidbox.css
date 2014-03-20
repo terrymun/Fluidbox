@@ -21,7 +21,6 @@
 	background-size: cover;
 	margin: 0 auto;
 	position: relative;
-	z-index: 1000;
 	transition: all .25s ease-in-out;
 }
 .fluidbox-ghost {

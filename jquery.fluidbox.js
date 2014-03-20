@@ -227,10 +227,10 @@
 							.append($fbOverlay)
 							.end()
 						.data('fluidbox-state', 1)
-						.data('zindex', $(this).css('z-index'))
+						.data('zindex', parseInt($(this).css('z-index')))
 						.removeClass('fluidbox-closed')
 						.addClass('fluidbox-opened')
-						.css({ 'z-index': parseint($(this).css('z-index'))+1 });
+						.css({ 'z-index': parseInt($(this).css('z-index'))+1 });
 
 						// Show overlay
 						$('#fluidbox-overlay').css({ opacity: 1 });
@@ -271,10 +271,8 @@
 							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
 							if(e.originalEvent.propertyName == 'opacity') {
 								// Remove overlay and change stacking order back to original z-index, stored in data attribute
-								$(this)
-								.remove()
-								.parents('.fluidbox')
-									.css({ 'z-index': $activeFb.data('zindex') });
+								$(this).remove();
+								$activeFb.css({ 'z-index': parseInt($activeFb.data('zindex')) });
 							}
 						});
 						
