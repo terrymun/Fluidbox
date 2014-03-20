@@ -230,7 +230,7 @@
 						.data('zindex', $(this).css('z-index'))
 						.removeClass('fluidbox-closed')
 						.addClass('fluidbox-opened')
-						.css({ 'z-index': $(this).css('z-index')+1 });
+						.css({ 'z-index': parseint($(this).css('z-index'))+1 });
 
 						// Show overlay
 						$('#fluidbox-overlay').css({ opacity: 1 });
