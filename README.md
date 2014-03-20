@@ -15,7 +15,8 @@ Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Flui
 | 1.2.1   | Minor bug fixes |
 | 1.2.2   | <ul><li>**Bug fix:** Changed positioning of overlay, to ensure that it works in pages with absolutely- or relatively-positioned parent/wrapper elements with z-indexs specified</li><li>**Update:** Fluidbox is now available via [CDNJS](http://cdnjs.com/libraries/fluidbox/).</li></ul> |
 | 1.2.3   | <ul><li>**Bug fix:** Fixed the iamge switching issue when Fluidbox is closed, which causes two flashes of white. This is done by listening to the `transitionend` property, with a tiny hack.</li><li>**Update:** JS is minifised using [UglifyJS](http://marijnhaverbeke.nl/uglifyjs) instead of the [YUI compressor](http://refresh-sf.com/yui/), saving a wee bit more bandwidth for you.</li></ul> |
-| 1.2.4   | <ul><li>**Bug fix:** Removed the white flash issue by rearranging how overlay is appended to the DOM tree. Users can change the z-index in the CSS file freely (to suit their layout needs), as the script will store the original assigned z-index in a HTML5 `data-` attribute for manipulation, in order to restore the original z-index</li><li>**License notice:** Switched from GNU to MIT.</li></ul> |
+| 1.2.4&alpha; | **Warning: Buggy, alpha-build**<br /><ul><li>**Bug fix:** Removed the white flash issue by rearranging how overlay is appended to the DOM tree. Users can change the z-index in the CSS file freely (to suit their layout needs), as the script will store the original assigned z-index in a HTML5 `data-` attribute for manipulation, in order to restore the original z-index</li><li>**License notice:** Switched from GNU to MIT.</li></ul> |
+| 1.2.5   | <ul><li>**Bug fix:** Minimized white flash issue and fixed the stacking order bug introduced in v1.2.4&alpha;. A new option is now available, known as `stackingIndex`. It is set to `999` by default, but if you have other absolutely positioned elements on the page that you want to overlay, you can change this option (alternatively, modify/lower the `z-index` of offending elements).</li><li>**Update:** Included the updated licenses in `license.md` and `license.txt`.</li></ul> |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -61,10 +62,11 @@ Fluidbox can be configured according to your needs. The following options are av
 
 | Option           | Type      | Default value | Description                           |
 |------------------|-----------|---------------|---------------------------------------|
-| `viewportFill`   | Numerical | 0.95          | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
+| `viewportFill`   | Numerical | `0.95`        | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
 | `overlayColor`   | String    | `rgba(255,255,255,.85)` | Sets the `background-color` property of Fluidbox overlay. Defaults to white with an opacity of 0.85. |
-| `debounceResize` | Boolean   | true          | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
-| `closeTrigger`   | Array     | *see below*  | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
+| `debounceResize` | Boolean   | `true`        | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
+| `closeTrigger`   | Array     | *see below*   | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
+| `stackingIndex`  | Integer   | `999`         | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
 
 #### Note on `closeTrigger` option
 The default setup will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed:

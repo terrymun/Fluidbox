@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.2.4
+// Version: 1.2.5
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -47,6 +47,7 @@
 			viewportFill: 0.95,
 			overlayColor: 'rgba(255,255,255,.85)',
 			debounceResize: true,
+			stackIndex: 1000,
 			closeTrigger: [
 				{
 					selector: '#fluidbox-overlay',
@@ -64,7 +65,8 @@
 		$fbOverlay = $('<div />', {
 			id: 'fluidbox-overlay',
 			css: {
-				'background-color': settings.overlayColor
+				'background-color': settings.overlayColor,
+				'z-index': settings.stackIndex
 			}
 		});
 
@@ -172,12 +174,20 @@
 				// 3. The only child is an image element, <img>
 				if($(this).is('a') && $(this).children().length === 1 && $(this).children().is('img')) {
 
+					// Define wrap
+					var $fbInnerWrap = $('<div />', {
+						class: 'fluidbox-wrap',
+						css: {
+							'z-index': settings.stackIndex - 1
+						}
+					});
+
 					// Add class
 					$(this)
 					.addClass('fluidbox')
-					.wrapInner('<div class="fluidbox-wrap" />')
+					.wrapInner($fbInnerWrap)
 					.find('img')
-						.css({ opacity: 1})
+						.css({ opacity: 1 })
 						.after('<div class="fluidbox-ghost" />');
 				}
 			});
@@ -210,73 +220,77 @@
 					// Variables
 					var $activeFb	= $(this),
 						$img		= $(this).find('img'),
-						$ghost		= $(this).find('.fluidbox-ghost');
+						$ghost		= $(this).find('.fluidbox-ghost'),
+						$wrap       = $(this).find('.fluidbox-wrap');
 
 					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
 						// State: Closed
 						// Action: Open fluidbox
 
-						// What are we doing here:
-						// 1. Append overlay in the wrapper itself
-						// 2. Toggle fluidbox state with data attribute
-						// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
-						// 4. Class toggle
-						// 5. Change z-index to ensure correct stacking order
-						$(this)
-						.find('.fluidbox-wrap')
+						// Wait for ghost image to be loaded successfully first, then do the rest
+						$('<img />', {
+							src: $img.attr('src')
+						}).load(function () {
+							// What are we doing here:
+							// 1. Append overlay in fluidbox
+							// 2. Toggle fluidbox state with data attribute
+							// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
+							// 4. Class toggle
+							$activeFb
 							.append($fbOverlay)
-							.end()
-						.data('fluidbox-state', 1)
-						.data('zindex', parseInt($(this).css('z-index')))
-						.removeClass('fluidbox-closed')
-						.addClass('fluidbox-opened')
-						.css({ 'z-index': parseInt($(this).css('z-index'))+1 });
+							.data('fluidbox-state', 1)
+							.removeClass('fluidbox-closed')
+							.addClass('fluidbox-opened');
 
-						// Show overlay
-						$('#fluidbox-overlay').css({ opacity: 1 });
+							// Change wrapper z-index, so it is above everything else
+							$wrap.css({ 'z-index': settings.stackIndex + 2 });
 
-						// Set thumbnail image source as background image first, preload later
-						$ghost.css({
-							'background-image': 'url('+$img.attr('src')+')',
-							opacity: 1
+							// Show overlay
+							$('#fluidbox-overlay').css({ opacity: 1 });
+
+							// Set thumbnail image source as background image first, preload later
+							$ghost.css({
+								'background-image': 'url('+$img.attr('src')+')',
+								opacity: 1
+							});
+
+							// Hide original image
+							$img.css({ opacity: 0 });
+
+							// Preload ghost image
+							var ghostImg = new Image();
+							ghostImg.onload = function (){
+								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+							};
+							ghostImg.src = $activeFb.attr('href');
+
+							// Position Fluidbox
+							funcPositionFb($activeFb);
 						});
-
-						// Hide original image
-						$img.css({ opacity: 0 });
-
-						// Preload ghost image
-						var ghostImg = new Image();
-						ghostImg.onload = function (){
-							$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
-						};
-						ghostImg.src = $(this).attr('href');
-
-						// Position Fluidbox
-						funcPositionFb($(this));
 
 					} else {
 						// State: Open
 						// Action: Close fluidbox
 
 						// Switch state
-						$(this)
+						$activeFb
 						.data('fluidbox-state', 0)
 						.removeClass('fluidbox-opened')
 						.addClass('fluidbox-closed');
 
 						// Hide and remove overlay
 						$('#fluidbox-overlay')
-						.css({ opacity: 0})
+						.css({ opacity: 0 })
 						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
 							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
 							if(e.originalEvent.propertyName == 'opacity') {
 								// Remove overlay and change stacking order back to original z-index, stored in data attribute
 								$(this).remove();
-								$activeFb.css({ 'z-index': parseInt($activeFb.data('zindex')) });
+								$wrap.css({ 'z-index': settings.stackIndex - 1 });
 							}
 						});
 						
-						// Reverse animation on wrapped elements
+						// Reverse animation on wrapped elements, and restore stacking order
 						$ghost
 						.css({ 'transform': 'translate(0,0) scale(1)' })
 						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
