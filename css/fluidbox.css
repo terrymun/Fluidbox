@@ -1,7 +1,7 @@
 .fluidbox {
 	outline: none;
 }
-#fluidbox-overlay {
+.fluidbox-overlay {
 	cursor: pointer;
 	cursor: -webkit-zoom-out;
 	cursor: -moz-zoom-out;
