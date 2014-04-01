@@ -50,7 +50,7 @@
 			stackIndex: 1000,
 			closeTrigger: [
 				{
-					selector: '#fluidbox-overlay',
+					selector: '.fluidbox-overlay',
 					event: 'click'
 				},
 				{
@@ -63,7 +63,7 @@
 
 		// Dynamically create overlay
 		$fbOverlay = $('<div />', {
-			id: 'fluidbox-overlay',
+			class: 'fluidbox-overlay',
 			css: {
 				'background-color': settings.overlayColor,
 				'z-index': settings.stackIndex
@@ -221,7 +221,8 @@
 					var $activeFb	= $(this),
 						$img		= $(this).find('img'),
 						$ghost		= $(this).find('.fluidbox-ghost'),
-						$wrap       = $(this).find('.fluidbox-wrap');
+						$wrap       = $(this).find('.fluidbox-wrap'),
+						timer       = {};
 
 					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
 						// State: Closed
@@ -242,11 +243,15 @@
 							.removeClass('fluidbox-closed')
 							.addClass('fluidbox-opened');
 
+							// Set timer for opening
+							if(timer['close']) window.clearTimeout(timer['close']);
+							timer['open'] = window.setTimeout(function() {
+								// Show overlay
+								$('.fluidbox-overlay').css({ opacity: 1 });
+							}, 10);
+
 							// Change wrapper z-index, so it is above everything else
 							$wrap.css({ 'z-index': settings.stackIndex + 2 });
-
-							// Show overlay
-							$('#fluidbox-overlay').css({ opacity: 1 });
 
 							// Set thumbnail image source as background image first, preload later
 							$ghost.css({
@@ -278,28 +283,18 @@
 						.removeClass('fluidbox-opened')
 						.addClass('fluidbox-closed');
 
+						// Set timer for closing
+						if(timer['open']) window.clearTimeout(timer['open']);
+						timer['close'] = window.setTimeout(function() {
+							$('.fluidbox-overlay').remove();
+							$wrap.css({ 'z-index': settings.stackIndex - 1 });
+						}, 10);
+
 						// Hide and remove overlay
-						$('#fluidbox-overlay')
-						.css({ opacity: 0 })
-						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
-							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
-							if(e.originalEvent.propertyName == 'opacity') {
-								// Remove overlay and change stacking order back to original z-index, stored in data attribute
-								$(this).remove();
-								$wrap.css({ 'z-index': settings.stackIndex - 1 });
-							}
-						});
+						$('.fluidbox-overlay').css({ opacity: 0 });
 						
 						// Reverse animation on wrapped elements, and restore stacking order
-						$ghost
-						.css({ 'transform': 'translate(0,0) scale(1)' })
-						.one('webkitTransitionEnd MSTransitionEnd oTransitionEnd otransitionend transitionend', function (e){
-							// 'transitionend' fires for EACH property transitioned. In order to make sure that it is only triggered once, we sniff for opacity change
-							if(e.originalEvent.propertyName == 'opacity') {
-								$img.css({ opacity: 1 });
-								$ghost.css({ opacity: 0 });
-							}
-						});
+						$ghost.css({ 'transform': 'translate(0,0) scale(1)' });
 					}
 
 					e.preventDefault();
