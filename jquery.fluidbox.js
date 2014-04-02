@@ -290,7 +290,12 @@
 							$wrap.css({ 'z-index': settings.stackIndex - 1 });
 						}, 10);
 
-						// Hide and remove overlay
+						$img.css({ opacity: 1 }).one('webkitTransitionEnd transitionend oTransitionEnd MSTransitionEnd transitionEnd', function (){
+							// May not fire properly in Firefox, but that is okay
+							$ghost.css({ opacity: 0 });
+						});
+
+						// Hide overlay
 						$('.fluidbox-overlay').css({ opacity: 0 });
 						
 						// Reverse animation on wrapped elements, and restore stacking order
