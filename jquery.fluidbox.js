@@ -290,16 +290,14 @@
 							$wrap.css({ 'z-index': settings.stackIndex - 1 });
 						}, 10);
 
-						$img.css({ opacity: 1 }).one('webkitTransitionEnd transitionend oTransitionEnd MSTransitionEnd transitionEnd', function (){
-							// May not fire properly in Firefox, but that is okay
-							$ghost.css({ opacity: 0 });
-						});
-
 						// Hide overlay
 						$('.fluidbox-overlay').css({ opacity: 0 });
 						
 						// Reverse animation on wrapped elements, and restore stacking order
-						$ghost.css({ 'transform': 'translate(0,0) scale(1)' });
+						$ghost.css({ 'transform': 'translate(0,0) scale(1)' }).one('webkitTransitionEnd transitionend oTransitionEnd MSTransitionEnd transitionEnd', function (){
+							$ghost.css({ opacity: 0 });
+							$img.css({ opacity: 1 });
+						});
 					}
 
 					e.preventDefault();
