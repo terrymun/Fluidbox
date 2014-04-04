@@ -247,8 +247,11 @@
 							.removeClass('fluidbox-closed')
 							.addClass('fluidbox-opened');
 
-							// Set timer for opening
+							// Force timer to completion
 							if(timer['close']) window.clearTimeout(timer['close']);
+							if(timer['hideGhost']) window.clearTimeout(timer['hideGhost']);
+
+							// Set timer for opening
 							timer['open'] = window.setTimeout(function() {
 								// Show overlay
 								$('.fluidbox-overlay').css({ opacity: 1 });
@@ -302,9 +305,12 @@
 						$('.fluidbox-overlay').css({ opacity: 0 });
 						
 						// Reverse animation on wrapped elements, and restore stacking order
+						// You might want to change this value if your transition timing is longer
 						$ghost.css({ 'transform': 'translate(0,0) scale(1)' }).one('webkitTransitionEnd transitionend oTransitionEnd MSTransitionEnd transitionEnd', function (){
-							$ghost.css({ opacity: 0 });
 							$img.css({ opacity: 1 });
+							timer['hideGhost'] = window.setTimeout(function() {
+								$ghost.css({ opacity: 0 });
+							}, 250);
 						});
 					}
 
