@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.2.7
+// Version: 1.3.0
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
