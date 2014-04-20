@@ -84,6 +84,7 @@
 			// 2. funcPositionFb()	- used for dynamic positioning of any instance of opened Fluidbox
 			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
 			// 4. funcCalc()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
+			// 5. fbClickhandler()	- universal click handler for all Fluidbox items
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
 			},
