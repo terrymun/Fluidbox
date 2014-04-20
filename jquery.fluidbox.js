@@ -206,7 +206,7 @@
 				funcCalc();
 
 				// Reposition Fluidbox, but only if one is found to be open
-				var $activeFb = $('a[data-fluidbox].fluidbox-opened');
+				var $activeFb = $('a.fluidbox.fluidbox-opened');
 				if($activeFb.length > 0) funcPositionFb($activeFb);
 			}
 
