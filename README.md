@@ -19,6 +19,7 @@ Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Flui
 | 1.2.5   | <ul><li>**Bug fix:** Minimized white flash issue and fixed the stacking order bug introduced in v1.2.4&alpha;. A new option is now available, known as `stackIndex`. It is set to `999` by default, but if you have other absolutely positioned elements on the page that you want to overlay, you can change this option (alternatively, modify/lower the `z-index` of offending elements).</li><li>**Update:** Included the updated licenses in `license.md` and `license.txt`.</li></ul> |
 | 1.2.6   | <ul><li>**Bug fix:** Replaced the use of `transitionend` event detection for timing effects, due to the fact that the event lacks cross-browser support and standardization. This issue is particularly bad for Firefox, which showed that the `transitionend` is not triggered properly, causing parts of the plugin to break. I have chosen to fall back to the native JS' `setTimeout` and `clearTimeout` functions.</li></ul> |
 | 1.2.7   | <ul><li>**Bug fix:** Fixed issues when the `.one()` event is not propery unbound, especially after rapid, successive clicking.</li><li>**Update:** Added a new option called `stackIndexDelta`, where you can dictate how much the z-index should change when Fluidbox is toggled. The default is set to 10. If you have a lot of absolutely positioned elements on the page, you might want to increase this delta value.</li></ul> |
+| 1.2.8   |<ul><li>**Update:** Authored by [@hybernaut](https://github.com/hybernaut). Removes dependency on imagesLoaded for a speedier performance &mdash; instead, listens to `.load()` event on each individual Fluidbox thumbnail separately when triggering Fluidbox. Click handler has been migrated to a separate function to aid clarity.</li><li>**Bug fix:** The resize function used to check for the presence of `a[data-fluidbox]`, which might not be present if users choose other ways to identify Fluidbox thumbnails. Selector has been updated to the universal `a.fluidbox.fluidbox-opened`.</li></ul>
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -141,7 +142,7 @@ Fluidbox require the following dependencies in order to function properly &mdash
 
 - **The latest release of jQuery 1.x** (minimum requirement: jQuery &gt;1.7), available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
 
-Note that the **imagesloaded jQuery plugin** is no longer required.
+Note that the **imagesloaded jQuery plugin** is no longer required as of v1.2.8 and above.
 
 Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
 

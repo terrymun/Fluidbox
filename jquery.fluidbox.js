@@ -82,7 +82,8 @@
 			// Function:
 			// 1. funcCloseFb()		- used to close any instance of opened Fluidbox
 			// 2. funcPositionFb()	- used for dynamic positioning of any instance of opened Fluidbox
-			// 3. funcCalcAll()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
+			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
+			// 4. funcCalc()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
 			},
@@ -108,15 +109,15 @@
 					funcCalc($(this));
 				});
 			},
-			funcCalc = function ($fluide) {
+			funcCalc = function ($fbItem) {
 				// Get viewport ratio
 				vpRatio = $w.width() / $w.height();
 
 				// Get image dimensions and aspect ratio
-				if($fluide.hasClass('fluidbox')) {
-					var $img	= $fluide.find('img'),
-						$ghost	= $fluide.find('.fluidbox-ghost'),
-						$wrap	= $fluide.find('.fluidbox-wrap'),
+				if($fbItem.hasClass('fluidbox')) {
+					var $img	= $fbItem.find('img'),
+						$ghost	= $fbItem.find('.fluidbox-ghost'),
+						$wrap	= $fbItem.find('.fluidbox-wrap'),
 						data	= $img.data();
 
 					// Store image dimensions in jQuery object
@@ -140,16 +141,17 @@
 					}
 				}
 			},
-			clickHandler = function(e) {
+			fbClickHandler = function(e) {
 
+				// Check if the fluidbox element does have .fluidbox assigned to it
 				if($(this).hasClass('fluidbox')) {
 
 					// Variables
 					var $activeFb	= $(this),
 						$img		= $(this).find('img'),
-						$ghost	= $(this).find('.fluidbox-ghost'),
-						$wrap   = $(this).find('.fluidbox-wrap'),
-						timer   = {};
+						$ghost		= $(this).find('.fluidbox-ghost'),
+						$wrap   	= $(this).find('.fluidbox-wrap'),
+						timer   	= {};
 
 					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
 						// State: Closed
@@ -269,8 +271,6 @@
 			});
 		}
 
-		// previous location of $fb.imagesLoaded()
-
 		// Go through each individual object
 		$fb.each(function (i) {
 
@@ -289,8 +289,8 @@
 				});
 
 				// Add class
-				var $fluide = $(this);
-				$fluide
+				var $fbItem = $(this);
+				$fbItem
 				.addClass('fluidbox')
 				.wrapInner($fbInnerWrap)
 				.find('img')
@@ -298,15 +298,17 @@
 					.after('<div class="fluidbox-ghost" />')
 					.each(function(){
 						var $img = $(this);
-						// if image is already loaded (from cache)
-						if ($img.width() > 0 && $img.height() > 0){
-							funcCalc($fluide);
-							$fluide.click(clickHandler);
-						} else { // wait for image to load
+						
+						if ($img.width() > 0 && $img.height() > 0) {
+							// if image is already loaded (from cache)
+							funcCalc($fbItem);
+							$fbItem.click(fbClickHandler);
+						} else {
+							// wait for image to load
 							$img.load(function(){
-								funcCalc($fluide);
-								$fluide.click(clickHandler);
-							})
+								funcCalc($fbItem);
+								$fbItem.click(fbClickHandler);
+							});
 						}
 					});
 
