@@ -147,9 +147,9 @@
 					// Variables
 					var $activeFb	= $(this),
 						$img		= $(this).find('img'),
-						$ghost		= $(this).find('.fluidbox-ghost'),
-						$wrap       = $(this).find('.fluidbox-wrap'),
-						timer       = {};
+						$ghost	= $(this).find('.fluidbox-ghost'),
+						$wrap   = $(this).find('.fluidbox-wrap'),
+						timer   = {};
 
 					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
 						// State: Closed
@@ -312,9 +312,6 @@
 
 			}
 		});
-
-		// Initialize calculations
-		// funcCalcAll();
 
 		// Listen to window resize event
 		// Check if user wants to debounce the resize event (it is debounced by default)
