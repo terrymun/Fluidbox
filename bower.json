@@ -29,7 +29,6 @@
         "package.json"
     ],
     "dependencies": {
-        "jquery": ">=1.9 <2.0",
-        "imagesloaded": "latest"
+        "jquery": ">=1.9 <2.0"
     }
 }
