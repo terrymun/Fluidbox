@@ -159,4 +159,4 @@ Start by checking your browser's console log. What error messages do you see? Al
 Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your perosnal liking.
 
 ## Licensing: MIT License
-This plugin is licensed unter the MIT License.
+This plugin is licensed under the MIT License.
