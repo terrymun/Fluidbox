@@ -37,8 +37,7 @@
         "package.json"
     ],
     "dependencies": {
-        "jquery": ">=1.9 <2.0",
-        "jquery.imagesloaded": "latest"
+        "jquery": ">=1.9 <2.0"
     },
     "npmName": "fluidbox",
     "npmFileMap": [
