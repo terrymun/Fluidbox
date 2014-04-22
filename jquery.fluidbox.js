@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.3.0
+// Version: 1.3.1a
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -121,25 +121,32 @@
 						$wrap	= $fbItem.find('.fluidbox-wrap'),
 						data	= $img.data();
 
-					// Store image dimensions in jQuery object
-					data.imgWidth	= $img.width();
-					data.imgHeight	= $img.height();
-					data.imgRatio	= $img.width()/$img.height();
+					function imageProp() {
+						// Store image dimensions in jQuery object
+						data.imgWidth	= $img.width();
+						data.imgHeight	= $img.height();
+						data.imgRatio	= $img.width()/$img.height();
 
-					// Resize and position ghost element
-					$ghost.css({
-						width: $img.width(),
-						height: $img.height(),
-						top: $img.offset().top - $wrap.offset().top,
-						left: $img.offset().left - $wrap.offset().left,
-					});
+						// Resize and position ghost element
+						$ghost.css({
+							width: $img.width(),
+							height: $img.height(),
+							top: $img.offset().top - $wrap.offset().top,
+							left: $img.offset().left - $wrap.offset().left,
+						});
 
-					// Calculate scale based on orientation
-					if(vpRatio > data.imgRatio) {
-						data.imgScale = $w.height()*settings.viewportFill/$img.height();
-					} else {
-						data.imgScale = $w.width()*settings.viewportFill/$img.width();
+						// Calculate scale based on orientation
+						if(vpRatio > data.imgRatio) {
+							data.imgScale = $w.height()*settings.viewportFill/$img.height();
+						} else {
+							data.imgScale = $w.width()*settings.viewportFill/$img.width();
+						}						
 					}
+
+					imageProp();					
+
+					// Rerun everything on imageload, to overcome issue in Firefox
+					$img.load(imageProp);
 				}
 			},
 			fbClickHandler = function(e) {
