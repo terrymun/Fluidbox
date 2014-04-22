@@ -253,8 +253,9 @@ main section {
 	.demo .gallery a {
 		margin-bottom: 1rem;
 	}
-		.demo .gallery a.col-2 { width: 49%; }
-		.demo .gallery a.col-3 { width: 32%; }
+		.demo .gallery a.col-1 { width: 100%; }
+		.demo .gallery a.col-2 { width: 49%; width: calc(50% - .5rem); }
+		.demo .gallery a.col-3 { width: 32%; width: calc(33.33333% - .66667rem); }
 .demo .box {
 	background-color: #eee;
 	border: 1px solid rgba(0,0,0,.25);

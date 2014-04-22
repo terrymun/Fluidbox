@@ -207,11 +207,11 @@
 							$img.css({ opacity: 0 });
 
 							// Preload ghost image
-							var ghostImg = new Image();
-							ghostImg.onload = function (){
+							$('<img />', {
+								src: $activeFb.attr('href')
+							}).load(function() {
 								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
-							};
-							ghostImg.src = $activeFb.attr('href');
+							});
 
 							// Position Fluidbox
 							funcPositionFb($activeFb);
@@ -243,7 +243,7 @@
 							$img.css({ opacity: 1 });
 							timer['hideGhost'] = window.setTimeout(function() {
 								$ghost.css({ opacity: 0 });
-							}, 250);
+							}, 100);
 						});
 					}
 
