@@ -168,6 +168,11 @@
 			<p>It also intelligently resizes images such that portrait images will fit perfectly within the viewport, although that means scaling down the image. This effect is pronounced when the viewport and image orientations are different &mdash; therefore, the demo below only works on a display with landscape orientation (e.g. not on mobile).</p>
 			<a href="http://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="http://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
 
+			<h3>Implementing Fluidbox with dynamically-added content</h3>
+			<p>Fluidbox also works well with dynamically-added links, as long as you call the <code>.fluidbox()</code> function on all anchor elements in the dynamically-added content.</p>
+			<a href="#" data-func="loadImg">Load image in container below</a>
+			<article></article>
+
 			<h3>Absolutely positioned images</h3>
 			<p>Fluidbox handles absolutely positioned images without any problem. The image below is absolutely positioned within its parent, the grey container:</p>
 			<div class="box">
@@ -193,7 +198,28 @@
 		<script>
 			$(function () {
 				// You can use any kind of selectors for jQuery Fluidbox
-				$(".demo a").fluidbox();
+				$('.demo a').fluidbox();
+
+				// Load an image dynamically
+				$('a[data-func="loadImg"]').on('click', function(e) {
+					e.preventDefault();
+
+					// Construct new content
+					$newContent = $('<p>This paragraph and its accompanying image are dynamically-added.</p><a href="http://i.imgur.com/aNhtkPh.jpg" title="" data-fluidbox><img src="http://i.imgur.com/aNhtkPh.jpg" alt="" title="" /></a>');
+
+					// Append new content to immediate sibling, <article>
+					// Then search for the anchor we want fluidbox to work on, apply method .fluidobx()
+					$(this)
+						.next('article')
+						.append($newContent)
+						.find('a[data-fluidbox]')
+							.fluidbox();
+
+					// Prevent repeated appending of content, just because it's gonna be silly
+					$(this).off('click').on('click', function(e) {
+						e.preventDefault();
+					});
+				});
 
 				// Smooth scrolling plugin by Chris Coiyer - not needed for Fluidbox functionality
 				// Source: http://css-tricks.com/snippets/jquery/smooth-scrolling/

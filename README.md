@@ -59,10 +59,29 @@ $(function () {
 })
 ```
 
+### Dynamically-added elements
+In order to enable Fluidbox functionality to dynamically-added content, you will have to apply `.fluidbox()` to the element of interest after appending it to the DOM. For example, let's say clicking a `<button>` triggers the addition of a new image:
+
+```js
+$(function() {
+    $('button').click(function(e) {
+        e.preventDefault();
+        
+        // Construct new image
+        var $newContent = $('<div><p>This is a new image that is dynamically-added to the page.</p><a href="http://placehold.it/500x500" title="" data-fluidbox><img src="http://placehold.it/200x200" alt="Alternate Text" title="Image Title" /></a></div>');
+        
+        // Insert new content object into DOM, and then apply .fluidbox to it
+        $(this).after($newContent).next().find('a[data-fluidbox]').fluidbox();
+    });
+));
+```
+
+You are of course welcome to use other ways to manipulate and/or transverse the DOM, but you will have to adjust the search/filter function (using `.find()` or other similar jQuery methods) to retrieve the newly inserted content and search for the element of interest where you want Fluidbox to work with.
+
 ### Some precautions
 
 - **Overflowing content.** Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
-- **Interaction with other positioned elements on the same page.** When you want an absolutely/fixed-positioned element on the page to not be obscured by the dynamically-generated wrapping element, you should use a z-index of between 1000 to 1010. 1000 is set as the default `stackIndex` of Fluidbox, while 10 is set as the default `stackIndexDelta`, which is toggled on/off depending on the state of the Fluidbox.
+- **Interaction with other positioned elements on the same page.** When you want an absolutely/fixed-positioned element on the page to not be obscured by the dynamically-generated wrapping element, you should use a z-index of between 1000 to 1010. 1000 is set as the default `stackIndex` of Fluidbox, while 10 is set as the default `stackIndexDelta`, which is toggled on/off depending on the state of the Fluidbox. These settings can be individually tuned, see **Configuration** below.
 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:

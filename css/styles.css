@@ -214,7 +214,7 @@ main section {
     	.cards a:last-child:hover 		{ background-color: #ccc; }
 
 /* Just positioning of images to introduce variety */
-.demo a {
+.demo a[data-fluidbox] {
 	background-color: #eee;
 	border: none;
 	cursor: -webkit-zoom-in;
@@ -270,6 +270,32 @@ main section {
 		left: 2rem;
 		width: 50%;
 	}
+
+/* Dynamic image loading button */
+a[data-func='loadImg'] {
+	background-color: #7BCDC8;
+	border: none;
+	color: rgba(0,0,0,.5);
+	display: block;
+	font-size: 1.25rem;
+	letter-spacing: 2px;
+	margin: 0 auto 1rem auto;
+	padding: .5rem;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: all .125s ease-in-out;
+}
+	a[data-func='loadImg']:hover {
+		background-color: #00A99D;
+		color: rgba(238,238,238,.85);
+	}
+a[data-func='loadImg'] + article {
+	background-color: #eee;
+	border: 1px solid rgba(0,0,0,.25);
+	box-sizing: border-box;
+	padding: 1rem 2rem;
+}
 
 /* Media queries, unrelated to functionality of Fluidbox */
 @media only screen and (max-width: 768px) {
