@@ -16,7 +16,7 @@ Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Flui
 ## In the wild
 Fluidbox has been implemented on other sites in the wild, too &mdash; check it out:
 
-- [Gemma Busquets](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
+- [**Gemma Busquets**](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
 
 To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
 
