@@ -13,6 +13,13 @@ You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c
 
 Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub. The plugin version 1.22 and onwards (uncompressed, minified and its associated CSS file) is hosted with [CDNJS](http://cdnjs.com/libraries/fluidbox/).
 
+## In the wild
+Fluidbox has been implemented on other sites in the wild, too &mdash; check it out:
+
+- [Gemma Busquets](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
+
+To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
+
 ## Changelog
 | Version | Comments |
 |---------|----------|
