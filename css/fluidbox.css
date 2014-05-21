@@ -11,18 +11,25 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
-	transition: .25s ease-in-out;
+	transition: all .25s ease-in-out;
 }
 .fluidbox-wrap {
 	background-position: center center;
 	background-size: cover;
 	margin: 0 auto;
 	position: relative;
-	transition: .25s ease-in-out;
+	transition: all .25s ease-in-out;
 }
 .fluidbox-ghost {
 	background-size: cover;
 	background-position: center center;
 	position: absolute;
-	transition: .25s ease-in-out;
+	transition: all .25s ease-in-out;
 }
+	.fluidbox-closed .fluidbox-ghost {
+		-webkit-transition-property: opacity, -webkit-transform;
+		-moz-transition-property: opacity, -moz-transform;
+		-o-transition-propert: opacity, -o-transform;
+		transition-property: opacity, transform;
+		transition-delay: .25s, 0s;
+	}

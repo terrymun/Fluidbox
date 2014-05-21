@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.3.1a
+// Version: 1.3.1
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -194,11 +194,7 @@
 							$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
 
 							// Set thumbnail image source as background image first, preload later
-							// Sometimes the transitionend is not unbound properly, especially when very quick, successive clicking.
-							// We turn it off again, just in case.
-							$ghost
-							.off('webkitTransitionEnd transitionend oTransitionEnd MSTransitionEnd transitionEnd')
-							.css({
+							$ghost.css({
 								'background-image': 'url('+$img.attr('src')+')',
 								opacity: 1
 							});
@@ -239,12 +235,11 @@
 
 						// Reverse animation on wrapped elements, and restore stacking order
 						// You might want to change this value if your transition timing is longer
-						$ghost.css({ 'transform': 'translate(0,0) scale(1)' }).one('webkitTransitionEnd transitionend oTransitionEnd MSTransitionEnd transitionEnd', function (){
-							$img.css({ opacity: 1 });
-							timer['hideGhost'] = window.setTimeout(function() {
-								$ghost.css({ opacity: 0 });
-							}, 100);
+						$ghost.css({
+							'transform': 'translate(0,0) scale(1)',
+							opacity: 0
 						});
+						$img.css({ opacity: 1 });
 					}
 
 					e.preventDefault();
