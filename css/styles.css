@@ -63,7 +63,7 @@ header {
 	header .byline {
 		color: rgba(255,255,255,.75);
 		display: block;
-		font-family: Palatino, Georgia, Cambria, "Times New Roman", Times, serif;
+		font-family: 'PT Serif', Palatino, Georgia, Cambria, "Times New Roman", Times, serif;
 		font-size: 1.2em;
 		font-style: italic;
 		text-align: center;
@@ -90,7 +90,7 @@ footer {
 	background-color: #333;
 	box-sizing: border-box;
 	color: #eee;
-	padding: .5rem 16.66667%;
+	padding: 1.5rem 16.66667%;
 	width: 100%;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -104,6 +104,7 @@ h3 {
 		margin-top: 0;
 	}
 p {
+	margin: 0;
 	margin-bottom: 1.5rem;
 }
 .filler {
@@ -244,8 +245,10 @@ main section {
 		float: right;
 		margin-right: 0;
 	}
-.demo a.border-1.padding-1 img {
+.demo a.has-border img {
 	border: .25em solid #111;
+}
+.demo a.has-padding img {
 	padding: .25em;
 }
 .demo .gallery {
@@ -299,6 +302,27 @@ a[data-func='loadImg'] + article {
 	border: 1px solid rgba(0,0,0,.25);
 	box-sizing: border-box;
 	padding: 1rem 2rem;
+}
+
+/* Footer */
+footer p {
+	color: #999;
+	margin: 0;
+	text-align: center;
+}
+footer a {
+	color: #ccc;
+}
+	footer a:hover {
+		border-bottom-color: #eee;
+		color: #eee;
+	}
+footer svg {
+	display: block;
+	fill: #ccc;
+	width: 2rem;
+	height: 2rem;
+	margin: 0 auto 1rem;
 }
 
 /* Media queries, unrelated to functionality of Fluidbox */
