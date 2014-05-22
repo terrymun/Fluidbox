@@ -244,9 +244,13 @@ main section {
 		float: right;
 		margin-right: 0;
 	}
+.demo a.border-1.padding-1 img {
+	border: .25em solid #111;
+	padding: .25em;
+}
 .demo .gallery {
 	display: flex;
-	-webkit-flex-flow: row wrap; /* Fix for iOS */
+	-webkit-flex-flow: row wrap;
 	flex-flow: row wrap;
 	justify-content: space-between;
  }

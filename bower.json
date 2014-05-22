@@ -1,6 +1,6 @@
 {
     "name": "fluidbox",
-    "version": "1.3.0",
+    "version": "1.3.2",
     "description": "Replicating Medium's beautiful, minimalist lightbox module",
     "homepage": "https://github.com/terrymun/Fluidbox",
     "main": "jquery.fluidbox.js",
