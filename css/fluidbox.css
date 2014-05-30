@@ -33,3 +33,8 @@
 		transition-property: top, left, opacity, transform;
 		transition-delay: 0, 0, .25s, 0;
 	}
+	.fluidbox-closed .fluidbox-wrap img {
+		transition-property: opacity;
+		transition-delay: .25s;
+		transition-duration: 0s;
+	}
