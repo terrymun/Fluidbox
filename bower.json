@@ -3,7 +3,11 @@
     "version": "1.3.2",
     "description": "Replicating Medium's beautiful, minimalist lightbox module",
     "homepage": "https://github.com/terrymun/Fluidbox",
-    "main": "jquery.fluidbox.js",
+    "main": [
+        "./jquery.fluidbox.js",
+        "./jquery.fluidbox.min.js",
+        "./css/fluidbox.css"
+    ],
     "authors": [
         {
             "name": "Terry Mun",
