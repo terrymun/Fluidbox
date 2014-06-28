@@ -2,7 +2,7 @@
 	"name": "fluidbox",
 	"repo": "terrymun/fluidbox",
 	"description": "Replicating Medium's beautiful, minimalist lightbox module",
-	"version": "1.3.2",
+	"version": "1.3.3",
 	"scripts": [
 		"fluidbox.js"
 	],
