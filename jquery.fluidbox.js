@@ -199,7 +199,7 @@
 
 							// Set thumbnail image source as background image first, preload later
 							$ghost.css({
-								'background-image': 'url('+$img.attr('src')+')',
+								'background-image': 'url("'+$img.attr('src')+'")',
 								opacity: 1
 							});
 
@@ -210,7 +210,7 @@
 							$('<img />', {
 								src: $activeFb.attr('href')
 							}).load(function() {
-								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+								$ghost.css({ 'background-image': 'url("'+$activeFb.attr('href')+'")' });
 							});
 
 							// Position Fluidbox
