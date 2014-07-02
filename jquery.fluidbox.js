@@ -280,7 +280,6 @@
 						if(trigger.selector == 'document') {
 							if(trigger.keyCode) {
 								$(document).on(trigger.event, function (e) {
-									console.log(trigger.handler);
 									if(e.keyCode == trigger.keyCode) handler();
 								});
 							} else {
