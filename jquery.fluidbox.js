@@ -99,9 +99,9 @@
 			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
 			// 4. funcCalc()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
 			// 5. fbClickhandler()	- universal click handler for all Fluidbox items
-			// 6. funcAddTrigger	- add a trigger
-			// 7. funcNextFb		- close the current and open the the next Fluidbox item
-			// 8. funcPreviousFb	- close the current and open the the previous Fluidbox item
+			// 6. funcAddTrigger()	- add a trigger
+			// 7. funcNextFb()		- close the current and open the the next Fluidbox item
+			// 8. funcPreviousFb()	- close the current and open the the previous Fluidbox item
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
 			},
