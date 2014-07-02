@@ -59,6 +59,20 @@
 					event: 'keyup',
 					keyCode: 27
 				}
+			],
+			nextTrigger: [
+				{
+					selector: 'document',
+					event: 'keyup',
+					keyCode: 39
+				}
+			],
+			previousTrigger: [
+				{
+					selector: 'document',
+					event: 'keyup',
+					keyCode: 37
+				}
 			]
 		}, opts);
 
@@ -85,6 +99,9 @@
 			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
 			// 4. funcCalc()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
 			// 5. fbClickhandler()	- universal click handler for all Fluidbox items
+			// 6. funcAddTrigger()	- add a trigger
+			// 7. funcNextFb()		- close the current and open the the next Fluidbox item
+			// 8. funcPreviousFb()	- close the current and open the the previous Fluidbox item
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
 			},
@@ -199,7 +216,7 @@
 
 							// Set thumbnail image source as background image first, preload later
 							$ghost.css({
-								'background-image': 'url('+$img.attr('src')+')',
+								'background-image': 'url("'+$img.attr('src')+'")',
 								opacity: 1
 							});
 
@@ -210,7 +227,7 @@
 							$('<img />', {
 								src: $activeFb.attr('href')
 							}).load(function() {
-								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+								$ghost.css({ 'background-image': 'url("'+$activeFb.attr('href')+'")' });
 							});
 
 							// Position Fluidbox
@@ -250,34 +267,72 @@
 
 					e.preventDefault();
 				}
+			},
+			funcAddTrigger = function(triggers, handler) {
+				// Go through array
+				$.each(triggers, function (i) {
+					var trigger = triggers[i];
+
+					// Attach events
+					if(trigger.selector != 'window') {
+						// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
+						// However, if thes selector is 'document', we use a different .on() syntax
+						if(trigger.selector == 'document') {
+							if(trigger.keyCode) {
+								$(document).on(trigger.event, function (e) {
+									if(e.keyCode == trigger.keyCode) handler();
+								});
+							} else {
+								$(document).on(trigger.event, handler);
+							}
+						} else {
+							$(document).on(trigger.event, triggers[i].selector, handler);
+						}
+					} else {
+						// If it is 'window', append click handler to $(window) object
+						$w.on(trigger.event, handler);
+					}
+				});
+			},
+			funcNextFb = function() {
+				var openedIndex = $fb.index($('.fluidbox-opened'));
+
+				// check so that a Fluidbox is opened and that the current one isn't the last
+				if( openedIndex > -1 && openedIndex < $fb.length - 2 ) {
+					// close current
+					funcCloseFb();
+
+					// trigger click on next one, effectively opening it
+					$($fb[openedIndex+1]).trigger('click');
+				}
+			},
+			funcPreviousFb = function(e) {
+				var openedIndex = $fb.index($('.fluidbox-opened'));
+
+				// check so that a Fluidbox is opened and that the current one isn't the first
+				if( openedIndex > 0 ) {
+					// close current
+					funcCloseFb();
+
+					// trigger click on previous one, effectively opening it
+					$($fb[openedIndex-1]).trigger('click');
+				}
 			};
 
 		// When should we close Fluidbox?
 		if(settings.closeTrigger) {
-			// Go through array
-			$.each(settings.closeTrigger, function (i) {
-				var trigger = settings.closeTrigger[i];
+			// add trigger
+			funcAddTrigger(settings.closeTrigger, funcCloseFb);
+		}
 
-				// Attach events
-				if(trigger.selector != 'window') {
-					// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
-					// However, if thes selector is 'document', we use a different .on() syntax
-					if(trigger.selector == 'document') {
-						if(trigger.keyCode) {
-							$(document).on(trigger.event, function (e) {
-								if(e.keyCode == trigger.keyCode) funcCloseFb();
-							});
-						} else {
-							$(document).on(trigger.event, funcCloseFb);
-						}
-					} else {
-						$(document).on(trigger.event, settings.closeTrigger[i].selector, funcCloseFb);
-					}
-				} else {
-					// If it is 'window', append click handler to $(window) object
-					$w.on(trigger.event, funcCloseFb);
-				}
-			});
+		if(settings.nextTrigger) {
+			// add trigger
+			funcAddTrigger(settings.nextTrigger, funcNextFb);
+		}
+
+		if(settings.previousTrigger) {
+			// add trigger
+			funcAddTrigger(settings.previousTrigger, funcPreviousFb);
 		}
 
 		// Go through each individual object
