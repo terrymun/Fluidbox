@@ -186,7 +186,7 @@ Fluidbox allows you to throttle the `$(window).resize()` event, and this is only
 
 ## Frequently Asked Quesitons
 1.  **Fluidbox is not working in my installation. Where should I start?**  
-Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above) and that the dependencies have been loaded successfully.
+Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above) and that the dependencies have been loaded successfully. Also, did you remember reading the [precautions segment](#some-precautions)? You might have encountered a scenario where Fluidbox is not designed to handle.
 
 2.  **Do you plan to implement [insert feature]?**  
 Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your perosnal liking.
