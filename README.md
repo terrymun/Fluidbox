@@ -92,7 +92,7 @@ $(function () {
 ```
 
 
-### Previously-hidden elements
+### Previously hidden elements
 As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:
 
 ```js
@@ -148,16 +148,6 @@ $(function() {
 ```
 
 You are of course welcome to use other ways to manipulate and/or transverse the DOM, but you will have to adjust the search/filter function (using `.find()` or other similar jQuery methods) to retrieve the newly inserted content and search for the element of interest where you want Fluidbox to work with.
-
-### Some precautions
-#### Overflowing content
-Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
-
-#### Interaction with other positioned elements on the same page
-When you want an absolutely/fixed-positioned element on the page to not be obscured by the dynamically-generated wrapping element, you should use a z-index of between 1000 to 1010. 1000 is set as the default `stackIndex` of Fluidbox, while 10 is set as the default `stackIndexDelta`, which is toggled on/off depending on the state of the Fluidbox. These settings can be individually tuned, see **Configuration** below.
-
-#### Binding Fluidbox to previously hidden images
-As Fluidbox requires access to the final calculation dimensions of the image in question in order to (1) position the ghost element correctly and (2) calculate the correct scale factor and transform values, it will break if you try to bind it to hidden elements that are not visible. Instead, try to bind Fluidbox to visible elements only (or use the `:visible` pseudo-class`) and then rebind Fluidbox to freshly revealed elements. This also applies to dynamically-loaded content, see demo for a working example.
 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
@@ -234,9 +224,6 @@ $(window).on('resize', closeFb);
 $(document).on('hover', '#ele1, #ele2', closeFb)
 ```
 
-### Notes
-As Fluidbox relies on CSS transforms, it only works with thumbnails that share the same aspect ratio with their higher resolution counterparts, otherwise the larger image will be cropped off, i.e. a square thumbnail linking to a landscape photo will cause the landscape photo to appear in a square frame. Fluidbox, serving as an alternative lightbox module, also assume that the image you have linked contains sufficient resolution to be displayed on the monitor &mdash; low resolution images will scale poorly on a large display.
-
 ## Dependencies
 Fluidbox require the following dependencies in order to function properly &mdash; you will have to include them in your page, if you want Fluidbox to work:
 
@@ -245,6 +232,19 @@ Fluidbox require the following dependencies in order to function properly &mdash
 Note that the **imagesloaded jQuery plugin** is no longer required as of v1.2.8 and above.
 
 Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
+
+## Precautions
+### Overflowing content
+Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
+
+### Interaction with other positioned elements on the same page
+When you want an absolutely/fixed-positioned element on the page to not be obscured by the dynamically-generated wrapping element, you should use a z-index of between 1000 to 1010. 1000 is set as the default `stackIndex` of Fluidbox, while 10 is set as the default `stackIndexDelta`, which is toggled on/off depending on the state of the Fluidbox. These settings can be individually tuned, see **Configuration** below.
+
+### Binding Fluidbox to previously hidden images
+As Fluidbox requires access to the final calculation dimensions of the image in question in order to (1) position the ghost element correctly and (2) calculate the correct scale factor and transform values, it will break if you try to bind it to hidden elements that are not visible. Instead, try to bind Fluidbox to visible elements only (or use the `:visible` pseudo-class`) and then rebind Fluidbox to freshly revealed elements. This also applies to dynamically-loaded content, see demo for a working example.
+
+### Differential ratios of thumbnail-image pairs
+As Fluidbox relies on CSS transforms, it only works with thumbnails that share the same aspect ratio with their higher resolution counterparts, otherwise the larger image will be cropped off, i.e. a square thumbnail linking to a landscape photo will cause the landscape photo to appear in a square frame.
 
 ## Frequently Asked Quesitons
 1.  **Fluidbox is not working in my installation. Where should I start?**  
