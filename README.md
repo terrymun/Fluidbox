@@ -117,7 +117,7 @@ $('#show-gallery').click(function () {
 You will realize that, even after revealing the element, the Fluidbox method is not working for it. That is because non-visible elements, despite satisfying the selector, will not be bound. So, use the following code instead:
 
 ```js
-/ Apply Fluidbox to elements of interest
+// Apply Fluidbox to elements of interest
 $('.gallery a').fluidbox();
 
 // User-triggered event to display gallery
