@@ -1,6 +1,9 @@
 .fluidbox {
 	outline: none;
 }
+.hidden {
+	display: none;
+}
 .fluidbox-overlay {
 	cursor: pointer;
 	cursor: -webkit-zoom-out;

@@ -38,6 +38,7 @@ To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
 | 1.3.1   | <ul><li>**Update &amp; bug fix:** Removed timer in JS, and rely on CSS3's very own `transition-delay` instead. This fixes the issue of rapid clicking causing the enlarged image not showing up.</li></ul> |
 | 1.3.2   | <ul><li>**Update:** Added support for borders and paddings on Fluidbox images.</li></ul> |
 | 1.3.3   | <ul><li>**Bug fix:** Added transition delay to thumbnail.</li></ul> |
+| 1.3.4   | <ul><li>**Update:** Upon popular request, I have added a new feature such that Fluidbox does not enlarge excessively images that lack the necessary resolution to fill the viewport. Also updated readme to clarify basic usage details.</li><li>**Bug fix:** Fluidbox not working with elements that are hidden. Now Fluidbox *only binds to visible elements on the page*. If you are revealing images later (by user interaction, AJAX requests and the likes), please bind `.fluidbox()` to newly visible elements.</li></ul>
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -68,8 +69,65 @@ In your JS file, you can simply chain the `.fluidbox()` method to your selector 
 
 ```js
 $(function () {
-    $('.gallery a, a[rel="lightbox"]').fluidbox();
+    $('a').fluidbox();
 })
+```
+
+The selector can be anything of your choice. Let's say you want to target the `<a>` elements specifically in a certain section on your page:
+```html
+<section id="gallery">
+    <h1>Title</h1>
+    <p>Introductory text with an <a href="#">unrelated link</a></p>
+    <a href="..." rel="lightbox">
+        <img src="..." alt="" />
+    </a>
+</section>
+```
+
+Then, you can use:
+```js
+$(function () {
+    $('#gallery a[rel="lightbox"]').fluidbox();
+})
+```
+
+
+### Previously-hidden elements
+As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:
+
+```js
+// Apply Fluidbox to elements of interest
+$('.gallery a').fluidbox();
+
+// User-triggered event to display gallery
+$('#show-gallery').click(function () {
+    $(this).next().show();
+});
+```
+
+```html
+<button type="button" id="show-gallery">Show Gallery</button>
+<div class="gallery" style="display: none">
+    <a href="...">
+        <img src="..." alt="" />
+    </a>
+</div>
+```
+
+You will realize that, even after revealing the element, the Fluidbox method is not working for it. That is because non-visible elements, despite satisfying the selector, will not be bound. So, use the following code instead:
+
+```js
+/ Apply Fluidbox to elements of interest
+$('.gallery a').fluidbox();
+
+// User-triggered event to display gallery
+$('#show-gallery').click(function () {
+    $(this)
+        .next()
+        .show()             // Show gallery
+        .find('a')          // Fluidbox to all elements in gallery
+            .fluidbox();
+});
 ```
 
 ### Dynamically-added elements

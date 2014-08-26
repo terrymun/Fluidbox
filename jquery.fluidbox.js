@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.3.3
+// Version: 1.3.4
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -93,11 +93,31 @@
 				var $img    = $activeFb.find('img'),
 					$ghost  = $activeFb.find('.fluidbox-ghost'),
 					$wrap	= $activeFb.find('.fluidbox-wrap'),
+					$data	= $activeFb.data(),
+					fHeight = 0,
+					fWidth	= 0;
 
-					// Calculation goes here
-					offsetY = $w.scrollTop()-$img.offset().top+0.5*($img.data('imgHeight')*($img.data('imgScale')-1))+0.5*($w.height()-$img.data('imgHeight')*$img.data('imgScale')),
+				// Check natural dimensions
+				if(vpRatio > $img.data().imgRatio) {
+					if($data.natHeight < $w.height()*settings.viewportFill) {
+						fHeight = $data.natHeight;
+					} else {
+						fHeight = $w.height()*settings.viewportFill;
+					}
+					$data.imgScale = fHeight/$img.height();
+				} else {
+					if($data.natWidth < $w.width()*settings.viewportFill) {
+						fWidth = $data.natWidth;
+					} else {
+						fWidth = $w.width()*settings.viewportFill;
+					}
+					$data.imgScale = fWidth/$img.width();
+				}	
+
+				// Calculation goes here
+				var offsetY = $w.scrollTop()-$img.offset().top+0.5*($img.data('imgHeight')*($img.data('imgScale')-1))+0.5*($w.height()-$img.data('imgHeight')*$img.data('imgScale')),
 					offsetX = 0.5*($img.data('imgWidth')*($img.data('imgScale')-1))+0.5*($w.width()-$img.data('imgWidth')*$img.data('imgScale'))-$img.offset().left,
-					scale   = $img.data('imgScale');
+					scale   = $data.imgScale;
 
 				// Apply CSS transforms to ghost element
 				// For offsetX and Y, we round to one decimal place
@@ -172,49 +192,54 @@
 						$('<img />', {
 							src: $img.attr('src')
 						}).load(function () {
-							// What are we doing here:
-							// 1. Append overlay in fluidbox
-							// 2. Toggle fluidbox state with data attribute
-							// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
-							// 4. Class toggle
-							$activeFb
-							.append($fbOverlay)
-							.data('fluidbox-state', 1)
-							.removeClass('fluidbox-closed')
-							.addClass('fluidbox-opened');
-
-							// Force timer to completion
-							if(timer['close']) window.clearTimeout(timer['close']);
-
-							// Set timer for opening
-							timer['open'] = window.setTimeout(function() {
-								// Show overlay
-								$('.fluidbox-overlay').css({ opacity: 1 });
-							}, 10);
-
-							// Change wrapper z-index, so it is above everything else
-							// Decrease all siblings z-index by 1 just in case
-							$('.fluidbox-wrap').css({ zIndex: settings.stackIndex - settings.stackIndexDelta - 1 });
-							$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
-
-							// Set thumbnail image source as background image first, preload later
-							$ghost.css({
-								'background-image': 'url('+$img.attr('src')+')',
-								opacity: 1
-							});
-
-							// Hide original image
-							$img.css({ opacity: 0 });
-
 							// Preload ghost image
 							$('<img />', {
 								src: $activeFb.attr('href')
 							}).load(function() {
-								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
-							});
+								// Store natural width and heights
+								$activeFb
+								.data('natWidth', $(this)[0].naturalWidth)
+								.data('natHeight', $(this)[0].naturalHeight);
 
-							// Position Fluidbox
-							funcPositionFb($activeFb);
+								// What are we doing here:
+								// 1. Append overlay in fluidbox
+								// 2. Toggle fluidbox state with data attribute
+								// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
+								// 4. Class toggle
+								$activeFb
+								.append($fbOverlay)
+								.data('fluidbox-state', 1)
+								.removeClass('fluidbox-closed')
+								.addClass('fluidbox-opened');
+
+								// Force timer to completion
+								if(timer['close']) window.clearTimeout(timer['close']);
+
+								// Set timer for opening
+								timer['open'] = window.setTimeout(function() {
+									// Show overlay
+									$('.fluidbox-overlay').css({ opacity: 1 });
+								}, 10);
+
+								// Change wrapper z-index, so it is above everything else
+								// Decrease all siblings z-index by 1 just in case
+								$('.fluidbox-wrap').css({ zIndex: settings.stackIndex - settings.stackIndexDelta - 1 });
+								$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
+
+								// Set thumbnail image source as background image first, preload later
+								$ghost.css({
+									'background-image': 'url('+$img.attr('src')+')',
+									opacity: 1
+								});
+
+								// Hide original image
+								$img.css({ opacity: 0 });
+
+								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+
+								// Position Fluidbox
+								funcPositionFb($activeFb);
+							});
 						});
 
 					} else {
@@ -287,7 +312,8 @@
 			// 1. Is an anchor element ,<a>
 			// 2. Contains one and ONLY one child
 			// 3. The only child is an image element, <img>
-			if($(this).is('a') && $(this).children().length === 1 && $(this).children().is('img')) {
+			// 4. If the element is hidden
+			if($(this).is('a') && $(this).children().length === 1 && $(this).children().is('img') && $(this).css('display') !== 'none' && $(this).parents().css('display') !=='none') {
 
 				// Define wrap
 				var $fbInnerWrap = $('<div />', {
