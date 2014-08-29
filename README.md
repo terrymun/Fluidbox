@@ -56,6 +56,7 @@ It is rather straightforward to use Fluidbox &mdash; simply chain the `.fluidbox
 1. An anchor element
 2. Contains one and *only* one child
 3. The only children is an `<img>` element
+4. Is visible upon DOM ready (v1.3.4 onwards)
 
 In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The `title` and `alt` attributes of the `<img>` element is not used by the plugin, but the `alt` attribute has to be present for it to be semantically valid.
 
@@ -251,7 +252,7 @@ As Fluidbox relies on CSS transforms, it only works with thumbnails that share t
 Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above) and that the dependencies have been loaded successfully. Also, did you remember reading the [usage precautions](#precautions)? You might have encountered a scenario where Fluidbox is not designed to handle.
 
 2.  **Do you plan to implement [insert feature]?**  
-Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your perosnal liking.
+Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your personal liking.
 
 ## Licensing: MIT License
 This plugin is licensed under the MIT License.
