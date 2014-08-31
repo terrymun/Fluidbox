@@ -160,6 +160,52 @@
 			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
 			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
 
+			<h3>Customising overlays</h3>
+			<p>From <strong>v1.3.5</strong> onwards, the <code>overlayColor</code> configuration has been removed from the jQuery <code>.extend()</code> settings. Instead, users can now freely specify overlay colors (or even overlay images) by modifying the background-color property of <code>.fluidbox-overlay</code>. Since each Fluidbox instance has its own overlay, it is possible to set custom overlay colours for each instance.</p>
+			<p><strong>Note:</strong> The Fluidbox overlay have an opacity of 1. In order to change the transparency of the overlay, I strongly recommend using the alpha channel of the <code>rgba()</code> specification, as Fludibox will manually toggle the opacity between 0 and 1 (therefore overriding all opacity styles you have specified).</p>
+			<h4>Custom colours and gradients</h4>
+			<p>The following is an example of a Fluidbox instance with a custom overlay colour (CSS written in SASS flavour):</p>
+			<pre><code>.fluidbox-overlay {
+    .overlay-1 &amp; {
+        background-color: rgba(255,190,78,.85);
+    }
+    .overlay-2 &amp; {
+        background-color: transparent; /* To override default style */
+        background-image: linear-gradient(
+            to top left,
+            rgba(130,168,158,0.85),
+            rgba(134,150,173,.85)
+        );
+    }
+}</code></pre>
+			<div class="gallery">
+				<a href="http://i.imgur.com/5nDXHEZ.jpg" title="" data-fluidbox class="col-2 overlay-1"><img src="http://i.imgur.com/5nDXHEZ.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/keuMHNt.jpg" title="" data-fluidbox class="col-2 overlay-2"><img src="http://i.imgur.com/keuMHNt.jpg" alt="" title="" /></a>
+			</div>
+
+			<h4>Overlay images</h4>
+			<p>Oh wait &mdash; you can even use custom overlay images. However, since the opacity of the overlay is only toggled between 0 and 1, you will have to use a pseudo-element in order to atler the opacity of the overlay image (since it is not possible to dictate the transparency of a background image, unlike <code>rgba()</code> values):</p>
+			<pre><code>.fluidbox-overlay &amp; {			
+    .overlay-3 &amp; {
+        background-color: #000; /* To override default style */
+        &amp;::before {
+            background-image: url('http://i.imgur.com/3qj1wfN.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: .33333;
+            -webkit-filter: blur(4px);
+        }
+    }
+}</code></pre>
+			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
+
 			<h3>Galleries</h3>
 			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
 		 	<p class="message note">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>

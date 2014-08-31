@@ -39,7 +39,8 @@ To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
 | 1.3.1   | <ul><li>**Update &amp; bug fix:** Removed timer in JS, and rely on CSS3's very own `transition-delay` instead. This fixes the issue of rapid clicking causing the enlarged image not showing up.</li></ul> |
 | 1.3.2   | <ul><li>**Update:** Added support for borders and paddings on Fluidbox images.</li></ul> |
 | 1.3.3   | <ul><li>**Bug fix:** Added transition delay to thumbnail.</li></ul> |
-| 1.3.4   | <ul><li>**Update:** Upon popular request, I have added a new feature such that Fluidbox does not enlarge excessively images that lack the necessary resolution to fill the viewport. Also updated readme to clarify basic usage details.</li><li>**Bug fix:** Fluidbox not working with elements that are hidden. Now Fluidbox *only binds to visible elements on the page*. If you are revealing images later (by user interaction, AJAX requests and the likes), please bind `.fluidbox()` to newly visible elements.</li></ul>
+| 1.3.4   | <ul><li>**Update:** Upon popular request, I have added a new feature such that Fluidbox does not enlarge excessively images that lack the necessary resolution to fill the viewport. Also updated readme to clarify basic usage details.</li><li>**Bug fix:** Fluidbox not working with elements that are hidden. Now Fluidbox *only binds to visible elements on the page*. If you are revealing images later (by user interaction, AJAX requests and the likes), please bind `.fluidbox()` to newly visible elements.</li></ul> |
+| 1.3.5   | <ul><li>**Update:** Removed `overlayColor` settings for Fluidbox. The option is now delegated to the stylesheet, which allows for easy customization of overlays for different Fluidbox instances. It is therefore possible to specify custom overlay colours, background gradients and even images for Fluidbox.</li></ul> |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -154,13 +155,22 @@ You are of course welcome to use other ways to manipulate and/or transverse the 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
 
-| Option           | Type      | Default value | Description                           |
+| Variable/Option  | Type      | Default value | Description                           |
 |------------------|-----------|---------------|---------------------------------------|
 | `viewportFill`   | Numerical | `0.95`        | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
-| `overlayColor`   | String    | `rgba(255,255,255,.85)` | Sets the `background-color` property of Fluidbox overlay. Defaults to white with an opacity of 0.85. |
+| `overlayColor`   | String    | `rgba(255,255,255,.85)` | <p>**Warning: Deprecated from v1.3.5**. The overlay color is now dictated in the stylesheet, allowing custom overlays for each Fluidbox instance.</p><p>**Legacy description:** Sets the `background-color` property of Fluidbox overlay. Defaults to white with an opacity of 0.85.</p> |
 | `debounceResize` | Boolean   | `true`        | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
 | `closeTrigger`   | Array     | *see below*   | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
 | `stackIndex`  | Integer   | `999`         | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
+
+User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
+
+```js
+$('a').fluidbox({
+	viewportFill: 0.8,
+	debounceResize: false
+});
+```
 
 #### Note on `closeTrigger` option
 The default setup will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed:

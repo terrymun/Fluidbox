@@ -103,6 +103,11 @@ h3 {
 	h3:first-of-type {
 		margin-top: 0;
 	}
+h4 {
+	border-bottom: 1px solid rgba(0,0,0,.125);
+	color: #777;
+	margin: 2.25rem 0 .25rem 0;
+}
 p {
 	margin: 0;
 	margin-bottom: 1.5rem;
@@ -302,6 +307,32 @@ a[data-func='loadImg'] + article {
 	border: 1px solid rgba(0,0,0,.25);
 	box-sizing: border-box;
 	padding: 1rem 2rem;
+}
+
+/* Custom overlays */
+.overlay-1 .fluidbox-overlay {
+	background-color: rgba(153,145,139,.85);
+}
+.overlay-2 .fluidbox-overlay {
+	background-color: transparent;
+	background-image: linear-gradient(to top left, rgba(130,168,158,0.85), rgba(134,150,173,.85));
+}
+.overlay-3 .fluidbox-overlay {
+	background-color: #000;
+}
+.overlay-3 .fluidbox-overlay::before {
+	background-image: url('http://i.imgur.com/3qj1wfN.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	opacity: .33333;
+	-webkit-filter: blur(4px);
 }
 
 /* Footer */

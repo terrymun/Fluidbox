@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.3.4
+// Version: 1.3.5
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -45,7 +45,6 @@
 		// Default settings
 		var settings = $.extend(true, {
 			viewportFill: 0.95,
-			overlayColor: 'rgba(255,255,255,.85)',
 			debounceResize: true,
 			stackIndex: 1000,
 			stackIndexDelta: 10,
@@ -69,7 +68,6 @@
 		$fbOverlay = $('<div />', {
 			class: 'fluidbox-overlay',
 			css: {
-				'background-color': settings.overlayColor,
 				'z-index': settings.stackIndex
 			}
 		});
