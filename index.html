@@ -9,7 +9,7 @@
 	<link type="text/css" href="./css/styles.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="./css/fluidbox.css" media="all" rel="stylesheet" />
 	<link rel="author" href="https://plus.google.com/+TerryMun/"></link>
-	<script text="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 	<script>
 		(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -156,6 +156,10 @@
 			<p>Fluidbox is also built to handle linking to images that do not have the sufficient size to fill the page. The following thumbnail links to an image that is only 250&times;250px large &mdash; in most cases, insufficient to fill the viewport (unless you are using this site on a very small viewport).</p>
 			<a href="http://placehold.it/250x250" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
 
+                        <h3>Support for different aspect ratios of thumbnail and higher resolution version</h3>
+                        <p>Fluidbox supports different aspect ratios of the thumbnail and higher resolution version of the image</p>
+                        <a href="http://placehold.it/1280x720" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt /></a>
+                        
 			<h3>Support for image borders and paddings</h3>
 			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
 			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
@@ -254,7 +258,7 @@
 		</svg>
 		<p>Made by <a href="http://terrymun.com/" title="Terry Mun">Terry Mun</a> &middot; 2014.</p>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-		<script type="text/javascript" src="jquery.fluidbox.min.js"></script>
+		<script type="text/javascript" src="jquery.fluidbox.js"></script>
 		<script>
 			$(function () {
 
