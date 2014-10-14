@@ -94,8 +94,7 @@
 					$data	= $activeFb.data(),
 					fHeight = 0,
 					fWidth	= 0;
-                                
-                                $data.imgRatio = $data.natWidth / $data.natHeight;
+                                $img.data().imgRatio = $data.natWidth/ $data.natHeight;
                                 
                                 var newHeight, missingRatioNormal, missingRatio;
                                 
@@ -123,8 +122,8 @@
 					$data.imgScale = fWidth/$img.width();                                      
                                         $data.imgScaleX = $data.imgScale;
 
-                                        var newWidth = $img.width(). $data.imgScaleX;
-                                        var missingRatioNormal = newWidth / $data.natHeight;
+                                        var newWidth = $img.width() * $data.imgScaleX;
+                                        var missingRatioNormal = newWidth / $data.natWidth;
                                         var missingRatio = $data.natHeight * missingRatioNormal / $img.height();
 
                                         $data.imgScaleY = missingRatio;
