@@ -55,7 +55,7 @@ To install Fluidbox, you will have to include the following resources in your pa
 ### Basic
 It is rather straightforward to use Fluidbox &mdash; simply chain the `.fluidbox()` method to a selector of your choice. The plugin will automatically check if the selector is:
 
-1. An anchor element
+1. An anchor element with an href to the correct image url
 2. Contains one and *only* one child
 3. The only children is an `<img>` element
 4. Is visible upon DOM ready (v1.3.4 onwards)
@@ -63,8 +63,8 @@ It is rather straightforward to use Fluidbox &mdash; simply chain the `.fluidbox
 In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The `title` and `alt` attributes of the `<img>` element is not used by the plugin, but the `alt` attribute has to be present for it to be semantically valid.
 
 ```html
-<a href="...">
-    <img src="..." alt="" />
+<a href="path/to/image">
+    <img src="path/to/image" alt="" />
 </a>
 ```
 
@@ -261,6 +261,10 @@ Start by checking your browser's console log. What error messages do you see? Al
 
 2.  **Do you plan to implement [insert feature]?**  
 Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your personal liking.
+
+3. ** The image url isn't being interpretted correctly**
+Fluidbox uses the a tag's href url as the image url when the fluidbox is opened. Make sure the a tag wrapping your image includes the correct url to the image.
+
 
 ## Licensing: MIT License
 This plugin is licensed under the MIT License.
