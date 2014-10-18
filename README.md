@@ -255,9 +255,6 @@ When you want an absolutely/fixed-positioned element on the page to not be obscu
 ### Binding Fluidbox to previously hidden images
 As Fluidbox requires access to the final calculation dimensions of the image in question in order to (1) position the ghost element correctly and (2) calculate the correct scale factor and transform values, it will only bind to images that are visible upon DOM ready. If you are relying on dynamic events (e.g. [user-triggered](#previously-hidden-elements), [AJAX-loaded](#dynamically-added-elements) and etc.) to trigger a later appearance of an image, rebind Fluidbox to freshly revealed elements. This also applies to dynamically-loaded content, see demo for a working example.
 
-### Differential ratios of thumbnail-image pairs
-As Fluidbox relies on CSS transforms, it only works with thumbnails that share the same aspect ratio with their higher resolution counterparts, otherwise the larger image will be cropped off, i.e. a square thumbnail linking to a landscape photo will cause the landscape photo to appear in a square frame.
-
 ## Frequently Asked Quesitons
 1.  **Fluidbox is not working in my installation. Where should I start?**  
 Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above) and that the dependencies have been loaded successfully. Also, did you remember reading the [usage precautions](#precautions)? You might have encountered a scenario where Fluidbox is not designed to handle.

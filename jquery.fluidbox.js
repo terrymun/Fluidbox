@@ -66,7 +66,7 @@
 
 		// Dynamically create overlay
 		$fbOverlay = $('<div />', {
-			class: 'fluidbox-overlay',
+			'class': 'fluidbox-overlay',
 			css: {
 				'z-index': settings.stackIndex
 			}
@@ -94,7 +94,10 @@
 					$data	= $activeFb.data(),
 					fHeight = 0,
 					fWidth	= 0;
-
+                                $img.data().imgRatio = $data.natWidth/ $data.natHeight;
+                                
+                                var newHeight, missingRatioNormal, missingRatio;
+                                
 				// Check natural dimensions
 				if(vpRatio > $img.data().imgRatio) {
 					if($data.natHeight < $w.height()*settings.viewportFill) {
@@ -102,26 +105,40 @@
 					} else {
 						fHeight = $w.height()*settings.viewportFill;
 					}
-					$data.imgScale = fHeight/$img.height();
+					$data.imgScale = fHeight/$img.height();                                       
+                                        $data.imgScaleY = $data.imgScale;
+
+                                        newHeight = $img.height() * $data.imgScaleY;
+                                        missingRatioNormal = newHeight / $data.natHeight;
+                                        missingRatio = $data.natWidth * missingRatioNormal / $img.width();   
+
+                                        $data.imgScaleX = missingRatio;
 				} else {
 					if($data.natWidth < $w.width()*settings.viewportFill) {
 						fWidth = $data.natWidth;
 					} else {
 						fWidth = $w.width()*settings.viewportFill;
 					}
-					$data.imgScale = fWidth/$img.width();
+					$data.imgScale = fWidth/$img.width();                                      
+                                        $data.imgScaleX = $data.imgScale;
+
+                                        var newWidth = $img.width() * $data.imgScaleX;
+                                        var missingRatioNormal = newWidth / $data.natWidth;
+                                        var missingRatio = $data.natHeight * missingRatioNormal / $img.height();
+
+                                        $data.imgScaleY = missingRatio;
 				}	
 
 				// Calculation goes here
 				var offsetY = $w.scrollTop()-$img.offset().top+0.5*($img.data('imgHeight')*($img.data('imgScale')-1))+0.5*($w.height()-$img.data('imgHeight')*$img.data('imgScale')),
 					offsetX = 0.5*($img.data('imgWidth')*($img.data('imgScale')-1))+0.5*($w.width()-$img.data('imgWidth')*$img.data('imgScale'))-$img.offset().left,
-					scale   = $data.imgScale;
+                                        scale = parseInt($data.imgScaleX * 1000) / 1000 + ',' + parseInt($data.imgScaleY * 1000) / 1000;
 
 				// Apply CSS transforms to ghost element
 				// For offsetX and Y, we round to one decimal place
 				// For scale, we round to three decimal places
 				$ghost.css({
-					'transform': 'translate('+parseInt(offsetX*10)/10+'px,'+parseInt(offsetY*10)/10+'px) scale('+parseInt(scale*1000)/1000+')',
+					'transform': 'translate('+parseInt(offsetX*10)/10+'px,'+parseInt(offsetY*10)/10+'px) scale('+ scale +')',
 					top: $img.offset().top - $wrap.offset().top,
 					left: $img.offset().left - $wrap.offset().left
 				});
@@ -315,7 +332,7 @@
 
 				// Define wrap
 				var $fbInnerWrap = $('<div />', {
-					class: 'fluidbox-wrap',
+					'class': 'fluidbox-wrap',
 					css: {
 						'z-index': settings.stackIndex - settings.stackIndexDelta
 					}
