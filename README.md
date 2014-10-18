@@ -255,15 +255,15 @@ When you want an absolutely/fixed-positioned element on the page to not be obscu
 ### Binding Fluidbox to previously hidden images
 As Fluidbox requires access to the final calculation dimensions of the image in question in order to (1) position the ghost element correctly and (2) calculate the correct scale factor and transform values, it will only bind to images that are visible upon DOM ready. If you are relying on dynamic events (e.g. [user-triggered](#previously-hidden-elements), [AJAX-loaded](#dynamically-added-elements) and etc.) to trigger a later appearance of an image, rebind Fluidbox to freshly revealed elements. This also applies to dynamically-loaded content, see demo for a working example.
 
-## Frequently Asked Quesitons
+## Frequently Asked Questions
 1.  **Fluidbox is not working in my installation. Where should I start?**  
 Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above) and that the dependencies have been loaded successfully. Also, did you remember reading the [usage precautions](#precautions)? You might have encountered a scenario where Fluidbox is not designed to handle.
 
 2.  **Do you plan to implement [insert feature]?**  
 Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your personal liking.
 
-3. ** The image url isn't being interpretted correctly**
-Fluidbox uses the a tag's href url as the image url when the fluidbox is opened. Make sure the a tag wrapping your image includes the correct url to the image.
+3. **The image url isn't being interpretted correctly**
+Fluidbox fetches the larger image based on the URL specified in the `href` attribute if the wrapping anchor (`<a>`) tag.
 
 
 ## Licensing: MIT License
