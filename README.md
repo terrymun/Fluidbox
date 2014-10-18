@@ -5,7 +5,8 @@ Although not thoroughly tested, Fluidbox should be working in IE ≥10 and all v
 
 Special thanks to the following stellar folks who has helped majorly in making Fluidbox better
 
-- [@hybernaut](https://github.com/hybernaut)
+- [@hybernaut](https://github.com/hybernaut) for refactoring the code and reorganizing functions
+- [@maxee](https://github.com/maxee) for implementation of a new feature that enables differential image ratios between thumbnails and linked image
 
 ## Introduction
 Fluidbox was initially a simple personal challenge I set myself, with two simple aims &mdash; to replicate the distraction-free, fluid lightbox seen on [Medium](http://medium.com), and to improve on it such that it will allow linking to a larger-resolution image. The plugin deals with higher resolution, linked images elegantly, such that it only preloads them when users click on the thumbnails, therefore conserving bandwidth usage for your visitors and your server(s).
