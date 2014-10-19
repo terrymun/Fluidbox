@@ -18,6 +18,8 @@ You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c
 Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub. The plugin version 1.22 and onwards (uncompressed, minified and its associated CSS file) is hosted with [CDNJS](http://cdnjs.com/libraries/fluidbox/).
 
 ## In the wild
+Fluidbox is part of the vast collection of libraries proudly [hosted by CDNJS](http://cdnjs.com/libraries/fluidbox). You can reference all versions of Fluidbox published hitherto from there.
+
 Fluidbox has been implemented on other sites in the wild, too &mdash; check it out:
 
 - [**Gemma Busquets**](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
@@ -42,6 +44,7 @@ To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
 | 1.3.3   | <ul><li>**Bug fix:** Added transition delay to thumbnail.</li></ul> |
 | 1.3.4   | <ul><li>**Update:** Upon popular request, I have added a new feature such that Fluidbox does not enlarge excessively images that lack the necessary resolution to fill the viewport. Also updated readme to clarify basic usage details.</li><li>**Bug fix:** Fluidbox not working with elements that are hidden. Now Fluidbox *only binds to visible elements on the page*. If you are revealing images later (by user interaction, AJAX requests and the likes), please bind `.fluidbox()` to newly visible elements.</li></ul> |
 | 1.3.5   | <ul><li>**Update:** Removed `overlayColor` settings for Fluidbox. The option is now delegated to the stylesheet, which allows for easy customization of overlays for different Fluidbox instances. It is therefore possible to specify custom overlay colours, background gradients and even images for Fluidbox.</li></ul> |
+| 1.4.0   | <ul><li>**Update:** Authored by [@maxee](https://github.com/maxee). Now supports differential aspect ratios of thumbnails and linked images.</li><li>**Bug fix:** Fixed namespace clash issue that leads to crashing of IE8.</li></ul> |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
