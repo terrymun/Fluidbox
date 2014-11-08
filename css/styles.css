@@ -8,6 +8,16 @@
 	font-weight: normal;
 	font-style: normal;
 }
+@font-face {
+	font-family: 'fontello';
+	src: url('../fonts/fontello.eot');
+	src: url('../fonts/fontello.eot#iefix') format('embedded-opentype'),
+		 url('../fonts/fontello.woff') format('woff'),
+		 url('../fonts/fontello.ttf') format('truetype'),
+		 url('../fonts/fontello.svg#fontello') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 
 html {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -95,6 +105,7 @@ footer {
 }
 h1,h2,h3,h4,h5,h6 {
 	font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	position: relative;
 	text-transform: uppercase;
 }
 h3 {
@@ -107,6 +118,28 @@ h4 {
 	border-bottom: 1px solid rgba(0,0,0,.125);
 	color: #777;
 	margin: 2.25rem 0 .25rem 0;
+}
+a.anchor {
+	border: none;
+	opacity: 0;
+	position: absolute;
+	left: -1.5rem;
+	width: 1rem;
+	height: 1rem;
+	text-decoration: none;
+}
+	a.anchor::before {
+		font-family: "fontello";
+		font-style: normal;
+		font-weight: normal;
+		speak: none;
+		font-variant: normal;
+		text-transform: none;
+		content: '\e800';
+		line-height: 1em;
+	}
+h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor {
+	opacity: 1;
 }
 p {
 	margin: 0;

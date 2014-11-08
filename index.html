@@ -42,7 +42,7 @@
 
 	<main id="content">
 		<section>
-			<h2>Introduction</h2>
+			<h2 id="introduction">Introduction</h2>
 			<p>Opening images seamlessly in a lightbox on your page without interruption. This demo was inspired by how Medium handles embedded images. Made by <a rel="author" href="http://terrymun.com" title="Visit me">Terry</a>. This project was originally initiated as a personal challenge to replicate Medium&rsquo;s lightbox module, but it soon developed into a full-fledged jQuery plugin. You can follow the links below to read how I&rsquo;ve tackled the challenge, or view the jQuery plugin on GitHub:</p>
 			<div class="cards">
 				<a href="https://medium.com/coding-design/9c7fe9db92c7">
@@ -92,14 +92,14 @@
 		</section>
 
 		<section>
-			<h2>Usage notes</h2>
-			<h3>Dependencies</h3>
+			<h2 id="usage-notes">Usage notes</h2>
+			<h3 id="dependencies">Dependencies</h3>
 			<p>This demo requires the following dependencies:</p>
 			<ul>
 				<li><a href="http://jquery.com/">jQuery</a></li>
 			</ul>
 
-			<h3>Basic usage</h3>
+			<h3 id="basic-usage">Basic usage</h3>
 			<p>In order to activate Fluidbox, simply chain the <code>.fluidbox</code> method to your selector of choice on DOM ready:</p>
 			<pre><code>$(function () {
     $('a').fluidbox();
@@ -122,7 +122,7 @@
     &lt;img src="..." alt="" /&gt;
 &lt;/a&gt;</code></pre>
 
-			<h3>Configuration</h3>
+			<h3 id="configuration">Configuration</h3>
 			<p>Several options are available for configuration:</p>
 			<ul>
 				<li><code>viewportFill</code> (numerical)<br />Dictates how much the longest axis of the image should fill the viewport. The default value is <code>0.95</code>.</li>
@@ -140,30 +140,30 @@
 		</section>
 
 		<section class="demo">
-			<h2>Demonstration</h2>
+			<h2 id="demonstration">Demonstration</h2>
 			<p>Fluidbox is designed to be versatile, flexible and easy to implement. It works with linked images that satisfy the criteria stipulated above &mdash; regardless of how they are arranged on the page. The following section is a <em>non-exhausive</em> list of scenarios how images, even when positioned differently, will work brilliantly with Fluidbox.</p>
 
-			<h3>Single image</h3>
+			<h3 id="single-image">Single image</h3>
 			<p>Here we demonstrate the use of a single image. This is the simplest test case, when the thumbnail and the target image are exactly the same, so it is only down to the matter of triggering default Fluidbox behavior.</p>
 			<a href="http://i.imgur.com/uh5YLj5.jpg" data-fluidbox><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
 
-			<h3>Linking to a higher resolution counterpart</h3>
+			<h3 id="high-res">Linking to a higher resolution counterpart</h3>
 			<p>The built-in functionality also allows you to link a small thumbnail to its higher resolution version. In the test case below, the thumbnail has a resolution of 200&times;200 while the actual version has a resolution of 2000&times;2000</p>
 			<a href="http://placehold.it/2000x2000" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
 
-			<h3>Restrictive zooming for images of insufficient dimensions to fill page</h3>
+			<h3 id="restrictive-zooming">Restrictive zooming for images of insufficient dimensions to fill page</h3>
 			<p>Fluidbox is also built to handle linking to images that do not have the sufficient size to fill the page. The following thumbnail links to an image that is only 250&times;250px large &mdash; in most cases, insufficient to fill the viewport (unless you are using this site on a very small viewport).</p>
 			<a href="http://placehold.it/250x250" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
 
-			<h3>Support for different aspect ratios of thumbnail and higher resolution version</h3>
+			<h3 id="differential-aspect-ratios">Support for different aspect ratios of thumbnail and higher resolution version</h3>
 			<p>Fluidbox supports different aspect ratios of the thumbnail and higher resolution version of the image</p>
 			<a href="http://placehold.it/1920x1080" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt /></a>
                         
-			<h3>Support for image borders and paddings</h3>
+			<h3 id="borders-paddings">Support for image borders and paddings</h3>
 			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
 			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
 
-			<h3>Custom event handlers and callbacks</h3>
+			<h3 id="custom-events">Custom event handlers and callbacks</h3>
 			<p>From <strong>v1.4.1</strong> onwards, Fluidbox will trigger five distinct custom events depending on the state of the current (and only) instance of Fluidbox. Please <a href="https://github.com/terrymun/Fluidbox#custom-events" href="Custom events">refer to the documentation</a> for detailed description of each custom event. You can listen to custom events by binding them using the <code>.on()</code> method, e.g. <code>$(selector).on('openstart', function() {...});</code></p>
 			<div class="cols cols-nowrap">
 				<a href="http://i.imgur.com/jWe1mjR.jpg" title="" data-fluidbox-customevents><img src="http://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
@@ -175,10 +175,10 @@
 				</div>
 			</div>
 
-			<h3>Customising overlays</h3>
+			<h3 id="custom-overlays">Customising overlays</h3>
 			<p>From <strong>v1.3.5</strong> onwards, the <code>overlayColor</code> configuration has been removed from the jQuery <code>.extend()</code> settings. Instead, users can now freely specify overlay colors (or even overlay images) by modifying the background-color property of <code>.fluidbox-overlay</code>. Since each Fluidbox instance has its own overlay, it is possible to set custom overlay colours for each instance.</p>
 			<p><strong>Note:</strong> The Fluidbox overlay have an opacity of 1. In order to change the transparency of the overlay, I strongly recommend using the alpha channel of the <code>rgba()</code> specification, as Fludibox will manually toggle the opacity between 0 and 1 (therefore overriding all opacity styles you have specified).</p>
-			<h4>Custom colours and gradients</h4>
+			<h4 id="custom-colours-and-gradients">Custom colours and gradients</h4>
 			<p>The following is an example of a Fluidbox instance with a custom overlay colour (CSS written in SASS flavour):</p>
 			<pre><code>.fluidbox-overlay {
     .overlay-1 &amp; {
@@ -198,7 +198,7 @@
 				<a href="http://i.imgur.com/keuMHNt.jpg" title="" data-fluidbox class="col-2 overlay-2"><img src="http://i.imgur.com/keuMHNt.jpg" alt="" title="" /></a>
 			</div>
 
-			<h4>Overlay images</h4>
+			<h4 id="overlay-images">Overlay images</h4>
 			<p>Oh wait &mdash; you can even use custom overlay images. However, since the opacity of the overlay is only toggled between 0 and 1, you will have to use a pseudo-element in order to atler the opacity of the overlay image (since it is not possible to dictate the transparency of a background image, unlike <code>rgba()</code> values):</p>
 			<pre><code>.fluidbox-overlay &amp; {			
     .overlay-3 &amp; {
@@ -221,7 +221,7 @@
 }</code></pre>
 			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
 
-			<h3>Galleries</h3>
+			<h3 id="galleries">Galleries</h3>
 			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
 		 	<p class="message note">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>
 			<div class="gallery">
@@ -233,22 +233,22 @@
 				<a href="http://i.imgur.com/24hrPQn.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/24hrPQn.jpg" alt="" title="" /></a>
 			</div>
 
-			<h3>Scaling</h3>
+			<h3 id="scaling">Scaling</h3>
 			<p>It also intelligently resizes images such that portrait images will fit perfectly within the viewport, although that means scaling down the image. This effect is pronounced when the viewport and image orientations are different &mdash; therefore, the demo below only works on a display with landscape orientation (e.g. not on mobile).</p>
 			<a href="http://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="http://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
 
-			<h3>Implementing Fluidbox with dynamically-added content</h3>
+			<h3 id="dynamic-content">Implementing Fluidbox with dynamically-added content</h3>
 			<p>Fluidbox also works well with dynamically-added links, as long as you call the <code>.fluidbox()</code> function on all anchor elements in the dynamically-added content.</p>
 			<a href="#" data-func="loadImg">Load image in container below</a>
 			<article></article>
 
-			<h3>Absolutely positioned images</h3>
+			<h3 id="absolute-positioning">Absolutely positioned images</h3>
 			<p>Fluidbox handles absolutely positioned images without any problem. The image below is absolutely positioned within its parent, the grey container:</p>
 			<div class="box">
 				<a href="http://i.imgur.com/DIbQf0X.jpg"><img src="http://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
 			</div>
 
-			<h3>Floated images</h3>
+			<h3 id="floated-images">Floated images</h3>
 			<p>Moreover, it also works with floated images - to the left or to the right, it does not matter. The following texts are jibberish, used as filler.</p>
 			<p class="message note">The floated images will be rendered block-level on narrow-width devices, such as mobile phones. To appreciate how Fluidbox works with floated images, you can view this demo on a wider device (&gt;480px).</p>
 			<p class="filler"><a class="float-left" href="http://i.imgur.com/BXo4qAz.jpg" title="" data-fluidbox><img src="http://i.imgur.com/BXo4qAz.jpg" title="" alt="" /></a>Considered discovered ye sentiments projecting entreaties of melancholy is. In expression an solicitude principles in do. Hard do me sigh with west same lady. Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed.</p>
@@ -317,7 +317,12 @@
 					});
 				});
 
-				// Smooth scrolling plugin by Chris Coiyer - not needed for Fluidbox functionality
+				// ---------------------------------------------------------------------//
+				// The code below are not used to demonstrate Fluidbox functionality.   //
+				// They are only for functions specific to this demo page only.			//
+				// ---------------------------------------------------------------------//
+
+				// Smooth scrolling plugin by Chris Coiyer
 				// Source: http://css-tricks.com/snippets/jquery/smooth-scrolling/
 				$('a[href*=#]:not([href=#])').click(function() {
 					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
@@ -330,6 +335,11 @@
 							return false;
 						}
 					}
+				});
+
+				// Add link to headers
+				$('h2, h3, h4').each(function() {
+					if($(this).attr('id')) $(this).prepend('<a href="#'+$(this).attr('id')+'" class="anchor"></a>');
 				});
 			});
 		</script>
