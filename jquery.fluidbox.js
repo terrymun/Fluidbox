@@ -1,12 +1,12 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.4.0
+// Version: 1.4.1
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
-// --------------------------------------------------------
-//  Dependency: Paul Irish's jQuery debounced resize event
-// --------------------------------------------------------
+// -------------------------------------------------------- //
+//  Dependency: Paul Irish's jQuery debounced resize event  //
+// -------------------------------------------------------- //
 (function($,sr){
 
 	// debouncing function from John Hann
@@ -34,6 +34,31 @@
 	jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
+
+
+// ---------------------------------------------------------------------------------------------------------------------- //
+//  Dependency: David Walsh (http://davidwalsh.name/css-animation-callback)                                               //
+//              and                                                                                                       //
+//              Jonathan Suh (https://jonsuh.com/blog/detect-the-end-of-css-animations-and-transitions-with-javascript/)  //
+// ---------------------------------------------------------------------------------------------------------------------- //
+function whichTransitionEvent() {
+	var t,
+		el = document.createElement("fakeelement");
+
+	var transitions = {
+		"transition"      : "transitionend",
+		"OTransition"     : "oTransitionEnd",
+		"MozTransition"   : "transitionend",
+		"WebkitTransition": "webkitTransitionEnd"
+	}
+
+	for (t in transitions){
+		if (el.style[t] !== undefined){
+			return transitions[t];
+		}
+	}
+}
+var customTransitionEnd = whichTransitionEvent();
 
 // -----------------------------
 //  Fluidbox plugin starts here
@@ -86,7 +111,7 @@
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
 			},
-			funcPositionFb = function ($activeFb) {
+			funcPositionFb = function ($activeFb, customEvent) {
 				// Get shorthand for more objects
 				var $img    = $activeFb.find('img'),
 					$ghost  = $activeFb.find('.fluidbox-ghost'),
@@ -141,6 +166,8 @@
 					'transform': 'translate('+parseInt(offsetX*10)/10+'px,'+parseInt(offsetY*10)/10+'px) scale('+ scale +')',
 					top: $img.offset().top - $wrap.offset().top,
 					left: $img.offset().left - $wrap.offset().left
+				}).one(customTransitionEnd, function() {
+					$activeFb.trigger(customEvent);
 				});
 			},
 			funcCalcAll = function() {
@@ -203,6 +230,9 @@
 						// State: Closed
 						// Action: Open fluidbox
 
+						// Fire custom event: openstart
+						$(this).trigger('openstart');
+
 						// Wait for ghost image to be loaded successfully first, then do the rest
 						$('<img />', {
 							src: $img.attr('src')
@@ -253,13 +283,16 @@
 								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
 
 								// Position Fluidbox
-								funcPositionFb($activeFb);
+								funcPositionFb($activeFb, 'openend');
 							});
 						});
 
 					} else {
 						// State: Open
 						// Action: Close fluidbox
+
+						// Fire custom event: closestart
+						$activeFb.trigger('closestart');
 
 						// Switch state
 						$activeFb
@@ -284,6 +317,8 @@
 							opacity: 0,
 							top: $img.offset().top - $wrap.offset().top + parseInt($img.css('borderTopWidth')) + parseInt($img.css('paddingTop')),
 							left: $img.offset().left - $wrap.offset().left + parseInt($img.css('borderLeftWidth')) + parseInt($img.css('paddingLeft'))
+						}).one(customTransitionEnd, function() {
+							$activeFb.trigger('closeend');
 						});
 						$img.css({ opacity: 1 });
 					}
@@ -373,7 +408,7 @@
 
 			// Reposition Fluidbox, but only if one is found to be open
 			var $activeFb = $('a.fluidbox.fluidbox-opened');
-			if($activeFb.length > 0) funcPositionFb($activeFb);
+			if($activeFb.length > 0) funcPositionFb($activeFb, 'resizeend');
 		}
 
 		if(settings.debounceResize) {

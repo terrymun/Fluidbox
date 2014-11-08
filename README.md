@@ -45,6 +45,7 @@ To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
 | 1.3.4   | <ul><li>**Update:** Upon popular request, I have added a new feature such that Fluidbox does not enlarge excessively images that lack the necessary resolution to fill the viewport. Also updated readme to clarify basic usage details.</li><li>**Bug fix:** Fluidbox not working with elements that are hidden. Now Fluidbox *only binds to visible elements on the page*. If you are revealing images later (by user interaction, AJAX requests and the likes), please bind `.fluidbox()` to newly visible elements.</li></ul> |
 | 1.3.5   | <ul><li>**Update:** Removed `overlayColor` settings for Fluidbox. The option is now delegated to the stylesheet, which allows for easy customization of overlays for different Fluidbox instances. It is therefore possible to specify custom overlay colours, background gradients and even images for Fluidbox.</li></ul> |
 | 1.4.0   | <ul><li>**Update:** Authored by [@maxee](https://github.com/maxee). Now supports differential aspect ratios of thumbnails and linked images.</li><li>**Bug fix:** Fixed namespace clash issue that leads to crashing of IE8.</li></ul> |
+| 1.4.1   | <ul><li>**Update:** Added custom event handlers to allow for addition of application-specific callbacks. For more information, refer to the [custom events](#custom-events) section for usage instructions. </li></ul> |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -98,6 +99,25 @@ $(function () {
 })
 ```
 
+### Custom events
+As of **v1.4.1**, Fluidbox will trigger **five distinct events** depending on the state of the current (and only) instance of Fluidbox. You should use `.on()` to listen to the event being triggered, and can add your own custom callbacks if necessary, for example:
+
+```js
+$('a')
+.fluidbox()
+.on('openstart', doSomething)
+.on('closeend', doSomethingElse);
+```
+
+The list of custom events supported by Fluidbox is as follow:
+
+| Event        | Version | Description |
+|--------------|---------|-------------|
+| `openstart`  | v1.4.1  | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
+| `openend`    | v1.4.1  | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). |
+| `resizeend`  | v1.4.1  | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
+| `closestart` | v1.4.1  | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
+| `closeend`   | v1.4.1  | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. |
 
 ### Previously hidden elements
 As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:

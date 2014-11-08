@@ -283,6 +283,32 @@ main section {
 		width: 50%;
 	}
 
+/* Custom events */
+.cols {
+	display: flex;
+	flex-flow: row nowrap;
+	-webkit-flex-flow: row nowrap;
+}
+	.cols a[data-fluidbox-customevents] {
+		width: 33.33333%;
+	}
+	#log {
+		margin-left: 2rem;
+		position: relative;
+		width: 66.66667%;
+	}
+		#log div {
+			border: 1px solid rgba(0,0,0,.125);
+			background-color: #eee;
+			padding: 1rem;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			overflow-y: auto;
+		}
+
 /* Dynamic image loading button */
 a[data-func='loadImg'] {
 	background-color: #7BCDC8;

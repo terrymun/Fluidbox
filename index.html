@@ -145,8 +145,7 @@
 
 			<h3>Single image</h3>
 			<p>Here we demonstrate the use of a single image. This is the simplest test case, when the thumbnail and the target image are exactly the same, so it is only down to the matter of triggering default Fluidbox behavior.</p>
-
-			<a href="http://i.imgur.com/uh5YLj5.jpg"><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
+			<a href="http://i.imgur.com/uh5YLj5.jpg" data-fluidbox><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
 
 			<h3>Linking to a higher resolution counterpart</h3>
 			<p>The built-in functionality also allows you to link a small thumbnail to its higher resolution version. In the test case below, the thumbnail has a resolution of 200&times;200 while the actual version has a resolution of 2000&times;2000</p>
@@ -163,6 +162,18 @@
 			<h3>Support for image borders and paddings</h3>
 			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
 			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
+
+			<h3>Custom event handlers and callbacks</h3>
+			<p>From <strong>v1.4.1</strong> onwards, Fluidbox will trigger five distinct custom events depending on the state of the current (and only) instance of Fluidbox. Please <a href="https://github.com/terrymun/Fluidbox#custom-events" href="Custom events">refer to the documentation</a> for detailed description of each custom event. You can listen to custom events by binding them using the <code>.on()</code> method, e.g. <code>$(selector).on('openstart', function() {...});</code></p>
+			<div class="cols cols-nowrap">
+				<a href="http://i.imgur.com/jWe1mjR.jpg" title="" data-fluidbox-customevents><img src="http://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
+				<div id="log">
+					<div>
+						<p>Custom events that are fired will be logged here. You can also check your browser console.</p>
+						<ul></ul>
+					</div>
+				</div>
+			</div>
 
 			<h3>Customising overlays</h3>
 			<p>From <strong>v1.3.5</strong> onwards, the <code>overlayColor</code> configuration has been removed from the jQuery <code>.extend()</code> settings. Instead, users can now freely specify overlay colors (or even overlay images) by modifying the background-color property of <code>.fluidbox-overlay</code>. Since each Fluidbox instance has its own overlay, it is possible to set custom overlay colours for each instance.</p>
@@ -263,7 +274,27 @@
 			$(function () {
 
 				// You can use any kind of selectors for jQuery Fluidbox
-				$('.demo a').fluidbox();
+				$('.demo a[data-fluidbox]').fluidbox();
+
+				// Custom events
+				var writeLog = function(msg) {
+					var t = (new Date()).toLocaleTimeString();
+					$('#log div ul').append('<li>'+t+': '+msg+'</li>');
+					console.log(t+': '+msg);
+				}
+				$('.demo a[data-fluidbox-customevents]')
+				.fluidbox()
+				.on('openstart', function() {
+					writeLog('Initializing opening of Fluidbox instance.');
+				}).on('openend', function() {
+					writeLog('Transition to opened Fluidbox completed.');
+				}).on('resizeend', function() {
+					writeLog('Transition to new recalculation position and size completed.');
+				}).on('closestart', function() {
+					writeLog('Initializing closing of Fluidbox instance.');
+				}).on('closeend', function() {
+					writeLog('Transition to closed Fluidbox completed, reverted to ground state.');
+				});
 
 				// Load an image dynamically
 				$('a[data-func="loadImg"]').on('click', function(e) {
