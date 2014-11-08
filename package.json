@@ -48,7 +48,9 @@
         {
             "basePath": "/dist/",
             "files": [
-            "*"
+                "./jquery.fluidbox.js",
+                "./jquery.fluidbox.min.js",
+                "./css/fluidbox.css"
             ]
         }
     ]
