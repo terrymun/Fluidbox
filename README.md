@@ -3,10 +3,15 @@ Replicating and improving the lightbox module seen on Medium with fluid transiti
 
 Although not thoroughly tested, Fluidbox should be working in IE ≥10 and all versions of Chrome, Firefox, Safari, iOS Safari and Android Chrome, **with the exception of Opera Mini**. However, I suggest disabling Fluidbox on mobile devices or at small screen resolutions.
 
-Special thanks to the following stellar folks who has helped majorly in making Fluidbox better
+Special thanks to the following stellar folks who has helped majorly in making Fluidbox better:
 
 - [@hybernaut](https://github.com/hybernaut) for refactoring the code and reorganizing functions
 - [@maxee](https://github.com/maxee) for implementation of a new feature that enables differential image ratios between thumbnails and linked image
+
+In addition, a shoutout to:
+
+- [Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/) for graciously allowing me to include a simple debouncing script in the plugin to handle viewport resize events
+- [David Walsh](http://davidwalsh.name/css-animation-callback) and [Jonathan Suh](https://jonsuh.com/blog/detect-the-end-of-css-animations-and-transitions-with-javascript/) for their insight on listening to `transitionend` events
 
 ## Introduction
 Fluidbox was initially a simple personal challenge I set myself, with two simple aims &mdash; to replicate the distraction-free, fluid lightbox seen on [Medium](http://medium.com), and to improve on it such that it will allow linking to a larger-resolution image. The plugin deals with higher resolution, linked images elegantly, such that it only preloads them when users click on the thumbnails, therefore conserving bandwidth usage for your visitors and your server(s).
@@ -113,11 +118,11 @@ The list of custom events supported by Fluidbox is as follow:
 
 | Event        | Version | Description |
 |--------------|---------|-------------|
-| `openstart`  | v1.4.1  | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
-| `openend`    | v1.4.1  | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). |
-| `resizeend`  | v1.4.1  | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
-| `closestart` | v1.4.1  | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
-| `closeend`   | v1.4.1  | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. |
+| `openstart`  | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
+| `openend`    | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). |
+| `resizeend`  | 1.4.1   | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
+| `closestart` | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
+| `closeend`   | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. |
 
 ### Previously hidden elements
 As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:
