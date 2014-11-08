@@ -277,29 +277,29 @@
 				$('.demo a[data-fluidbox]').fluidbox();
 
 				// Custom events
-				var writeLog = function(msg) {
+				var writeLog = function(msg, color) {
 					var t = (new Date()).toLocaleTimeString();
-					$('#log div ul').append('<li>'+t+': '+msg+'</li>');
+					$('#log div ul').append('<li><span style="background-color: '+color+';">'+t+'</span> '+msg+'</li>');
 					console.log(t+': '+msg);
 				}
 				$('.demo a[data-fluidbox-customevents]')
 				.fluidbox()
 				.on('openstart', function() {
-					writeLog('Initializing opening of Fluidbox instance.');
+					writeLog('Initializing opening of Fluidbox instance.', '#3E606F');
 				}).on('openend', function() {
-					writeLog('Transition to opened Fluidbox completed.');
+					writeLog('Transition to opened Fluidbox completed.', '#193441');
 				}).on('resizeend', function() {
-					writeLog('Transition to new recalculation position and size completed.');
+					writeLog('Transition to new recalculation position and size completed.', '#468966');
 				}).on('closestart', function() {
-					writeLog('Initializing closing of Fluidbox instance.');
+					writeLog('Initializing closing of Fluidbox instance.', '#B64926');
 				}).on('closeend', function() {
-					writeLog('Transition to closed Fluidbox completed, reverted to ground state.');
+					writeLog('Transition to closed Fluidbox completed, reverted to ground state.', '#8E2800');
 				});
 
 				// Load an image dynamically
 				$('a[data-func="loadImg"]').on('click', function(e) {
 					e.preventDefault();
-
+				}).one('click.fb', function() {
 					// Construct new content
 					$newContent = $('<p>This paragraph and its accompanying image are dynamically-added.</p><a href="http://i.imgur.com/aNhtkPh.jpg" title="" data-fluidbox><img src="http://i.imgur.com/aNhtkPh.jpg" alt="" title="" /></a>');
 
@@ -310,11 +310,6 @@
 						.append($newContent)
 						.find('a[data-fluidbox]')
 							.fluidbox();
-
-					// Prevent repeated appending of content, just because it's gonna be silly
-					$(this).off('click').on('click', function(e) {
-						e.preventDefault();
-					});
 				});
 
 				// ---------------------------------------------------------------------//

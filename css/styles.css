@@ -341,6 +341,18 @@ main section {
 			right: 0;
 			overflow-y: auto;
 		}
+		#log ul {
+			list-style: none;
+			padding: 0;
+		}
+		#log ul li span {
+			background-color: #666;
+			border-radius: 4px;
+			color: #eee;
+			display: inline-block;
+			font-size: .75em;
+			padding: 0 .5rem;
+		}
 
 /* Dynamic image loading button */
 a[data-func='loadImg'] {
