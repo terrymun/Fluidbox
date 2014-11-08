@@ -252,8 +252,9 @@ main section {
     	.cards a:last-child svg path 		{ fill: #333; }
     	.cards a:last-child:hover 		{ background-color: #ccc; }
 
-/* Just positioning of images to introduce variety */
-.demo a[data-fluidbox] {
+/* Adjust positioning of images to introduce variety */
+.demo a[data-fluidbox],
+.demo a[data-fluidbox-customevents] {
 	background-color: #eee;
 	border: none;
 	cursor: -webkit-zoom-in;
