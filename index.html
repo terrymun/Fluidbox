@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css" media="all" rel="stylesheet" />
 	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700|PT+Serif:400italic" rel="stylesheet" type="text/css">
+	<link type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="./css/styles.css" media="all" rel="stylesheet" />
 	<link type="text/css" href="./css/fluidbox.css" media="all" rel="stylesheet" />
 	<link rel="author" href="https://plus.google.com/+TerryMun/"></link>
@@ -101,7 +102,7 @@
 
 			<h3 id="basic-usage">Basic usage</h3>
 			<p>In order to activate Fluidbox, simply chain the <code>.fluidbox</code> method to your selector of choice on DOM ready:</p>
-			<pre><code>$(function () {
+			<pre class="language-javascript"><code>$(function () {
     $('a').fluidbox();
 });</code></pre>
 			<p>The plugin will automatically check if the selector is:</p>
@@ -118,7 +119,7 @@
 				</ul>
 			</div>
 			<p>In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The <code>title</code> and <code>alt</code> attributes of the <code>&lt;img /&gt;</code> element is not used by the plugin, but the <code>alt</code> attribute has to be present for it to be semantically valid.</p>
-<pre><code>&lt;a href="..."&gt;
+<pre class="language-markup"><code>&lt;a href="..."&gt;
     &lt;img src="..." alt="" /&gt;
 &lt;/a&gt;</code></pre>
 
@@ -129,7 +130,7 @@
 				<li><code>overlayColor</code> (string)<br />Sets the <code>background-color</code> property of Fluidbox overlay. Defaults to white with an opacity of 0.85.</li>
 				<li><code>debounceResize</code> (boolean)<br />Dictates if the <code>$(window).resize()</code> event should be debounced for performance reason. The default value is <code>true</code> (debouncing turned on by default).</li>
 				<li><code>closeTrigger</code> (array with objects)<br />Dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
-<pre><code>closeTrigger: [
+<pre class="language-javascript"><code>closeTrigger: [
     {
         selector: "#fluidbox-overlay",
         event: "click"
@@ -166,7 +167,7 @@
 			<h3 id="custom-events">Custom event handlers and callbacks</h3>
 			<p>From <strong>v1.4.1</strong> onwards, Fluidbox will trigger five distinct custom events depending on the state of the current (and only) instance of Fluidbox. Please <a href="https://github.com/terrymun/Fluidbox#custom-events" href="Custom events">refer to the documentation</a> for detailed description of each custom event. You can listen to custom events by binding them using the <code>.on()</code> method, e.g. <code>$(selector).on('openstart', function() {...});</code></p>
 			<div class="cols cols-nowrap">
-				<a href="http://i.imgur.com/jWe1mjR.jpg" title="" data-fluidbox-customevents><img src="http://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
+				<a href="http://i.imgur.com/jWe1mjR.jpg" title="" class="custom-event" id="custom-event-1"><img src="http://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
 				<div id="log">
 					<div>
 						<p>Custom events that are fired will be logged here. You can also check your browser console.</p>
@@ -174,33 +175,73 @@
 					</div>
 				</div>
 			</div>
+			<p>Below is an example of using custom events to trigger appearance of image captions (currently unsupported by Fluidbox <em>officially</em>, but requested by many). I have chosen to listen to the <code>openend</code> event to show the caption, and the <em>closestart</em> event to hide the caption.</p>
+			<a href="http://i.imgur.com/chBtR9s.jpg" title="Sunny days" class="custom-event" id="custom-event-2"><img src="http://i.imgur.com/chBtR9s.jpg" title="Talia &amp; Dugald" alt="On the last weekend of summer-ish weather, we decided to have the final picnic before autumn begins." /></a>
+			<div class="code-block">
+				<a href="#" class="code-toggle" data-alt-text="Hide code">Show code</a>
+				<pre class="language-javascript"><code>var $caption = $('&lt;div /&gt;', { 'id': 'custom-event-2-social' });
+$caption
+.html('&lt;div class=&quot;img-caption&quot;&gt;&lt;/div&gt;&lt;p class=&quot;img-desc&quot;&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Share on:&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Pinterest&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;')
+.appendTo($('body'));
+$(document).on('click', '#custom-event-2-social', function(e) {
+    e.preventDefault();
+});
+$('#custom-event-2')
+.fluidbox({
+    closeTrigger: [{
+        selector: &quot;#fluidbox-overlay&quot;,
+        event: &quot;click&quot;
+    }, {
+        selector: &quot;window&quot;,
+        event: &quot;scroll&quot;
+    }]
+})
+.on('openend', function() {
+    var $img = $(this).find('img');
+    $('#custom-event-2-social')
+    .addClass('visible')
+    .find('.img-caption')
+        .text($img.attr('title'))
+        .next('.img-desc')
+            .text($img.attr('alt'));
+})
+.on('closestart', function() {
+    $('#custom-event-2-social').removeClass('visible');
+});</code></pre>
+			</div>
 
 			<h3 id="custom-overlays">Customising overlays</h3>
 			<p>From <strong>v1.3.5</strong> onwards, the <code>overlayColor</code> configuration has been removed from the jQuery <code>.extend()</code> settings. Instead, users can now freely specify overlay colors (or even overlay images) by modifying the background-color property of <code>.fluidbox-overlay</code>. Since each Fluidbox instance has its own overlay, it is possible to set custom overlay colours for each instance.</p>
 			<p><strong>Note:</strong> The Fluidbox overlay have an opacity of 1. In order to change the transparency of the overlay, I strongly recommend using the alpha channel of the <code>rgba()</code> specification, as Fludibox will manually toggle the opacity between 0 and 1 (therefore overriding all opacity styles you have specified).</p>
 			<h4 id="custom-colours-and-gradients">Custom colours and gradients</h4>
 			<p>The following is an example of a Fluidbox instance with a custom overlay colour (CSS written in SASS flavour):</p>
-			<pre><code>.fluidbox-overlay {
-    .overlay-1 &amp; {
-        background-color: rgba(255,190,78,.85);
-    }
-    .overlay-2 &amp; {
-        background-color: transparent; /* To override default style */
-        background-image: linear-gradient(
-            to top left,
-            rgba(130,168,158,0.85),
-            rgba(134,150,173,.85)
-        );
-    }
-}</code></pre>
 			<div class="gallery">
 				<a href="http://i.imgur.com/5nDXHEZ.jpg" title="" data-fluidbox class="col-2 overlay-1"><img src="http://i.imgur.com/5nDXHEZ.jpg" alt="" title="" /></a>
 				<a href="http://i.imgur.com/keuMHNt.jpg" title="" data-fluidbox class="col-2 overlay-2"><img src="http://i.imgur.com/keuMHNt.jpg" alt="" title="" /></a>
 			</div>
+			<div class="code-block">
+				<a href="#" class="code-toggle" data-alt-text="Hide code">Show code</a>
+				<pre class="language-css"><code>.fluidbox-overlay {
+	    .overlay-1 &amp; {
+	        background-color: rgba(255,190,78,.85);
+	    }
+	    .overlay-2 &amp; {
+	        background-color: transparent; /* To override default style */
+	        background-image: linear-gradient(
+	            to top left,
+	            rgba(130,168,158,0.85),
+	            rgba(134,150,173,.85)
+	        );
+	    }
+	}</code></pre>
+			</div>
 
 			<h4 id="overlay-images">Overlay images</h4>
 			<p>Oh wait &mdash; you can even use custom overlay images. However, since the opacity of the overlay is only toggled between 0 and 1, you will have to use a pseudo-element in order to atler the opacity of the overlay image (since it is not possible to dictate the transparency of a background image, unlike <code>rgba()</code> values):</p>
-			<pre><code>.fluidbox-overlay &amp; {			
+			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
+			<div class="code-block">
+				<a href="#" class="code-toggle" data-alt-text="Hide code">Show code</a>
+				<pre class="language-css"><code>.fluidbox-overlay &amp; {			
     .overlay-3 &amp; {
         background-color: #000; /* To override default style */
         &amp;::before {
@@ -219,7 +260,7 @@
         }
     }
 }</code></pre>
-			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
+			</div>
 
 			<h3 id="galleries">Galleries</h3>
 			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
@@ -270,6 +311,7 @@
 		<p>Made by <a href="http://terrymun.com/" title="Terry Mun">Terry Mun</a> &middot; 2014.</p>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 		<script type="text/javascript" src="jquery.fluidbox.min.js"></script>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
 		<script>
 			$(function () {
 
@@ -282,7 +324,7 @@
 					$('#log div ul').append('<li><span style="background-color: '+color+';">'+t+'</span> '+msg+'</li>');
 					console.log(t+': '+msg);
 				}
-				$('.demo a[data-fluidbox-customevents]')
+				$('#custom-event-1')
 				.fluidbox()
 				.on('openstart', function() {
 					writeLog('Initializing opening of Fluidbox instance.', '#3E606F');
@@ -294,6 +336,31 @@
 					writeLog('Initializing closing of Fluidbox instance.', '#B64926');
 				}).on('closeend', function() {
 					writeLog('Transition to closed Fluidbox completed, reverted to ground state.', '#8E2800');
+				});
+
+				var $caption = $('<div />', {
+					'id': 'custom-event-2-social'
+				});
+				$caption.html('<div class="img-caption"></div><p class="img-desc"></p><ul><li>Share on:</li><li><a href="#">Facebook</a></li><li><a href="#">Pinterest</a></li><li><a href="#">Twitter</a></li></ul>').appendTo($('body'));
+				$(document).on('click', '#custom-event-2-social', function(e) {
+					e.preventDefault();
+				});
+				$('#custom-event-2')
+				.fluidbox({
+					closeTrigger: [{
+				        selector: "#fluidbox-overlay",
+				        event: "click"
+				    }, {
+				    	selector: "window",
+				    	event: "scroll"
+				    }]
+				})
+				.on('openend', function() {
+					var $img = $(this).find('img');
+					$('#custom-event-2-social').addClass('visible').find('.img-caption').text($img.attr('title')).next('.img-desc').text($img.attr('alt'));
+				})
+				.on('closestart', function() {
+					$('#custom-event-2-social').removeClass('visible');
 				});
 
 				// Load an image dynamically
@@ -336,6 +403,25 @@
 				$('h2, h3, h4').each(function() {
 					if($(this).attr('id')) $(this).prepend('<a href="#'+$(this).attr('id')+'" class="anchor"></a>');
 				});
+
+				// <pre> block toggle
+				$('.code-toggle').click(function(e) {
+					e.preventDefault();
+					if(!$(this).data('toggled') || $(this).data('toggled') == 0) {
+						$(this).data('org-text', $(this).html());
+						$(this)
+						.data('toggled', 1)
+						.text($(this).attr('data-alt-text'))
+						.next('pre')
+							.slideDown();
+					} else {
+						$(this)
+						.data('toggled', 0)
+						.text($(this).data('org-text'))
+						.next('pre')
+							.slideUp();
+					}
+				}).next('pre').hide();
 			});
 		</script>
 	</footer>

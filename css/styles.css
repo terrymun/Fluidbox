@@ -18,6 +18,27 @@
 	font-weight: normal;
 	font-style: normal;
 }
+.code-toggle::before,
+.anchor::before {
+	font-family: "fontello";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: .2em;
+	text-align: center;
+	/* opacity: .8; */
+
+	/* For safety - reset parent styles, that can break glyph codes*/
+	font-variant: normal;
+	text-transform: none;
+	 
+	/* fix buttons height, for twitter bootstrap */
+	line-height: 1em;
+}
 
 html {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -129,14 +150,7 @@ a.anchor {
 	text-decoration: none;
 }
 	a.anchor::before {
-		font-family: "fontello";
-		font-style: normal;
-		font-weight: normal;
-		speak: none;
-		font-variant: normal;
-		text-transform: none;
 		content: '\e800';
-		line-height: 1em;
 	}
 h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor {
 	opacity: 1;
@@ -181,22 +195,56 @@ a {
 ul {
 	margin-top: -.75rem;
 }
-pre {
+a.code-toggle {
+	border: none;
+	background-color: #CFCFCF;
 	display: block;
+	font-weight: bold;
+	line-height: 1.5rem;
+	padding: .5rem 1rem;
+	text-align: center;
+}
+	a.code-toggle::before {
+		content: '\e801';
+		margin-right: .5rem;
+	}
+a.code-toggle + pre {
+	margin-top: 0;
+}
+pre,
+pre[class*=language-] {
+	background-color: #f5f2f0;
+	border: 1px solid #CFCFCF;
+	box-sizing: border-box;
+	display: block;
+	padding: 0;
+	font-size: .85rem;
 	width: 100%;
 }
 code {
-	background-color: rgba(0,0,0,.125);
-	border: 1px solid rgba(0,0,0,.125);
+	background-color: #f5f2f0;
+	border: 1px solid #CFCFCF;
 	border-radius: 4px;
 	display: inline-block;
+	font-size: .875rem;
 	margin: 0 .125rem;
 	padding: 0 .25rem;
 }
-	pre code{
+	pre code,
+	pre[class*=language-]>code[data-language] {
+		background-color: transparent;
+		border: none;
+		border-radius: 0;
 		display: block;
-		padding: .5rem 1rem;
+		overflow: visible;
+		padding: 1rem;
 	}
+	pre code a {
+		border: none;
+	}
+		pre code a:hover {
+			color: inherit;
+		}
 
 /* Main */
 main {
@@ -254,7 +302,7 @@ main section {
 
 /* Adjust positioning of images to introduce variety */
 .demo a[data-fluidbox],
-.demo a[data-fluidbox-customevents] {
+.demo a.custom-event {
 	background-color: #eee;
 	border: none;
 	cursor: -webkit-zoom-in;
@@ -322,8 +370,10 @@ main section {
 	display: flex;
 	flex-flow: row nowrap;
 	-webkit-flex-flow: row nowrap;
+	margin-bottom: 1.5rem;
 }
-	.cols a[data-fluidbox-customevents] {
+	.cols a.custom-event {
+		margin-bottom: 0;
 		width: 33.33333%;
 	}
 	#log {
@@ -353,6 +403,50 @@ main section {
 			display: inline-block;
 			font-size: .75em;
 			padding: 0 .5rem;
+		}
+#custom-event-2-social {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	padding: 1rem 0;
+	background-color: rgba(255,255,255,.75);
+	z-index: 1010;
+	text-align: center;
+	transition: all .25s ease-in-out;
+	transform: translateY(100%);
+	-webkit-transform: translateY(100%);
+}
+	#custom-event-2-social.visible {
+		opacity: 1;
+		transform: translateY(0);
+		-webkit-transform: translateY(0);
+	}
+	#custom-event-2-social .img-caption {
+		font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-size: 2em;
+		line-height: 1.2em;
+	}
+	#custom-event-2-social ul {
+		display: flex;
+		justify-content: center;
+		list-style: none;
+		padding: 0;
+	}
+		#custom-event-2-social ul li {
+			padding: 0 1rem;
+		}
+		#custom-event-2-social ul a {
+			background-color: rgba(0,0,0,.125);
+			border-radius: 4px;
+			border: none;
+			display: inline-block;
+			padding: 0 .5rem;
+		}
+		#custom-event-2-social ul a:hover {
+			background-color: rgba(74,114,152,.75);
+			color: #eee;
 		}
 
 /* Dynamic image loading button */

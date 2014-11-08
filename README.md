@@ -119,10 +119,10 @@ The list of custom events supported by Fluidbox is as follow:
 | Event        | Version | Description |
 |--------------|---------|-------------|
 | `openstart`  | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
-| `openend`    | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). |
+| `openend`    | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). The timing between `openstart` and `openend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
 | `resizeend`  | 1.4.1   | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
 | `closestart` | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
-| `closeend`   | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. |
+| `closeend`   | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. The timing between `closestart` and `closeend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
 
 ### Previously hidden elements
 As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:
