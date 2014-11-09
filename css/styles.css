@@ -258,19 +258,40 @@ main section {
 
 /* Cards */
 .cards {
-	border-radius: .25rem;
 	display: flex;
-	flex-flow: row nowrap;
-	margin-bottom: 1.5rem;
+	flex-flow: row wrap;
+	margin: -.25rem;
+	margin-bottom: 1.25rem;
 	overflow: hidden;
 }
 	.cards > a {
 		box-sizing: border-box;
 		border: none;
-		flex: 1 100%;
+		border-radius: 4px;
+		color: #eee;
+		flex: 1 auto;
+		margin: .25rem;
 		padding: 1.5rem;
 		text-align: center;
 	}
+		.cards > a.card-medium {
+			background-color: #57ad68;
+			flex-basis: 100%;
+		}
+			.cards > a.card-medium:hover { color: #57ad68; }
+		.cards > a.card-github {
+			background-color: #ff9933;
+			flex-basis: auto;
+		}
+			.cards > a.card-github:hover { color: #ff9933; }
+		.cards > a.card-cdnjs {
+			background-color: #bf3e11;
+			flex-basis: auto;
+		}
+			.cards > a.card-cdnjs:hover { color: #bf3e11; }
+		.cards > a:hover {
+			background-color: #eee;
+		}
 	.cards svg {
 		display: block;
 		margin: 0 auto .75rem;
@@ -278,27 +299,25 @@ main section {
 		height: 5.25rem;
 		transition: all .125s ease-in-out;
 	}
-      	.cards svg path { transition: fill .125s ease-in-out }
-      		
-	.cards a:first-child {
-		background-color: #333;
-		color: #eee;
-	}
-	.cards a:first-child svg		{ background-color: #eee; }
-	.cards a:first-child svg path		{ fill: #333 }
-	.cards a:first-child:hover {
-		background-color: #222;
-		color: rgba(87, 173, 104, 1);
-	}
-	.cards a:first-child:hover svg		{ background-color: rgba(87, 173, 104, 1); }
-	.cards a:first-child:hover svg path	{ fill: #222; }
-    
-    	.cards a:last-child {
-    		background-color: #eee;
-    		color: #555;
-    	}
-    	.cards a:last-child svg path 		{ fill: #333; }
-    	.cards a:last-child:hover 		{ background-color: #ccc; }
+      	.cards svg path {
+      		fill: #eee;
+      		transition: fill .125s ease-in-out;
+      	}
+      		.cards a.card-medium svg				{ background-color: #eee; }
+			.cards a.card-medium svg path			{ fill: #57ad68; }
+	      	.cards > a.card-medium:hover svg 		{ background-color: #57ad68; }
+	      	.cards > a.card-medium:hover svg path 	{ fill: #eee; }
+	      	.cards > a.card-github:hover svg path 	{ fill: #ff9933; }
+
+    .cards a.card-cdnjs span.branding {
+    	display: block;
+    	font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    	letter-spacing: 1px;
+    	line-height: 5rem;
+    	margin-bottom: .75rem;
+    	font-size: 3em;
+    }
+      	}
 
 /* Adjust positioning of images to introduce variety */
 .demo a[data-fluidbox],
