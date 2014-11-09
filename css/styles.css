@@ -142,10 +142,12 @@ h1,h2,h3,h4,h5,h6 {
 	position: relative;
 }
 h2 {
-	font-size: 2em;
+	font-size: 3em;
+	line-height: 1em;
 }
 h3 {
-	margin: 3rem 0 0 0;
+	font-size: 1.5em;
+	margin: 2.5rem 0 .5rem 0;
 }
 	h3:first-of-type {
 		margin-top: 0;
@@ -157,11 +159,12 @@ h4 {
 }
 a.anchor {
 	border: none;
+	font-size: 1.5rem;
 	opacity: 0;
 	position: absolute;
-	left: -1.5em;
-	width: 1em;
-	height: 1em;
+	left: -2rem;
+	width: 1.5rem;
+	height: 1.5rem;
 	text-decoration: none;
 }
 	a.anchor::before {

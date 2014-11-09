@@ -141,7 +141,7 @@
     }
 ]</code></pre>
 				</li>
-				<li><code>stackIndex</code> (numerical)<br />Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance.</li>
+				<li><code>stackIndex</code> (numerical)<br />Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. The default value is <code>1000</code>, with a delta of <code>10</code> &mdash; in other words, the effective range of z-indexes Fluidbox operates in will be between 990&ndash;1010. For elements that should go under the overlay, they should have a z-index of less than 1000.</li>
 			</ul>
 		</section>
 
