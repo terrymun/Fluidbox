@@ -166,6 +166,7 @@ p {
 .message {
 	background-color: #FDC68A;
 	border-left: .75rem solid #F26C4F;
+	margin-bottom: 1.5rem;
 	padding: .75rem 1.5rem;
 	font-size: .85rem;
 }
@@ -217,10 +218,15 @@ pre[class*=language-] {
 	border: 1px solid #CFCFCF;
 	box-sizing: border-box;
 	display: block;
+	margin-bottom: 1.5rem;
 	padding: 0;
 	font-size: .85rem;
 	width: 100%;
 }
+	p + pre,
+	p + pre[class*=language-] {
+		margin-top: -.75rem;
+	}
 code {
 	background-color: #f5f2f0;
 	border: 1px solid #CFCFCF;
@@ -320,8 +326,8 @@ main section {
       	}
 
 /* Adjust positioning of images to introduce variety */
-.demo a[data-fluidbox],
-.demo a.custom-event {
+a[data-fluidbox],
+a.custom-event {
 	background-color: #eee;
 	border: none;
 	cursor: -webkit-zoom-in;

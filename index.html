@@ -99,10 +99,9 @@
 		<section>
 			<h2 id="usage-notes">Usage notes</h2>
 			<h3 id="dependencies">Dependencies</h3>
-			<p>This demo requires the following dependencies:</p>
-			<ul>
-				<li><a href="http://jquery.com/">jQuery</a></li>
-			</ul>
+			<p>TThe latest version of Fluidbox require only one dependency: <a href="http://jquery.com/">jQuery v1.7 and above</a>. Yes, and that's all! I recommend using the latest stable build of 1.x, although I have not encountered any issues if 2.x is used. I usually use Google APIs, since many other sites are using it and the end-user probalby has a cache of it sitting somewhere on their machine already.</p>
+			<pre class="language-markup"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+			<p>Otherwise, you can always use the <a href="https://code.jquery.com/">latest stable releases</a> from the official jQuery site.</p>
 
 			<h3 id="basic-usage">Basic usage</h3>
 			<p>In order to activate Fluidbox, simply chain the <code>.fluidbox</code> method to your selector of choice on DOM ready:</p>
@@ -112,26 +111,17 @@
 			<p>The plugin will automatically check if the selector is:</p>
 			<ul>
 				<li>An anchor element, <code>&lt;a&gt;</code></li>
-				<li>Contains one and *only* one child</li>
-				<li>The only children is an <code>&lt;img /&gt;</code> element</li>
+				<li>Contains  an <code>&lt;img /&gt;</code> element</li>
 			</ul>
-			<div class="message">
-				<h2>Important note:</h2>
-				<ul>
-					<li>Fluidbox will only work with images whose actual dimensions are larger than the displayed dimension.</li>
-					<li>The aspect ratio of the displayed and linked image has to be identical.</li>
-				</ul>
-			</div>
 			<p>In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The <code>title</code> and <code>alt</code> attributes of the <code>&lt;img /&gt;</code> element is not used by the plugin, but the <code>alt</code> attribute has to be present for it to be semantically valid.</p>
 <pre class="language-markup"><code>&lt;a href="..."&gt;
     &lt;img src="..." alt="" /&gt;
 &lt;/a&gt;</code></pre>
 
 			<h3 id="configuration">Configuration</h3>
-			<p>Several options are available for configuration:</p>
+			<p>Several options are available for configuration. For a more detailed description, please <a href="https://github.com/terrymun/Fluidbox#configuration">refer to the readme</a>.</p>
 			<ul>
 				<li><code>viewportFill</code> (numerical)<br />Dictates how much the longest axis of the image should fill the viewport. The default value is <code>0.95</code>.</li>
-				<li><code>overlayColor</code> (string)<br />Sets the <code>background-color</code> property of Fluidbox overlay. Defaults to white with an opacity of 0.85.</li>
 				<li><code>debounceResize</code> (boolean)<br />Dictates if the <code>$(window).resize()</code> event should be debounced for performance reason. The default value is <code>true</code> (debouncing turned on by default).</li>
 				<li><code>closeTrigger</code> (array with objects)<br />Dictates what event triggers closing the single instance of an opened Fluidbox. The default setup is as follow:
 <pre class="language-javascript"><code>closeTrigger: [
@@ -141,6 +131,7 @@
     }
 ]</code></pre>
 				</li>
+				<li><code>stackIndex</code> (numerical)<br />Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance.</li>
 			</ul>
 		</section>
 
@@ -290,7 +281,7 @@ $('#custom-event-2')
 			<h3 id="absolute-positioning">Absolutely positioned images</h3>
 			<p>Fluidbox handles absolutely positioned images without any problem. The image below is absolutely positioned within its parent, the grey container:</p>
 			<div class="box">
-				<a href="http://i.imgur.com/DIbQf0X.jpg"><img src="http://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
+				<a href="http://i.imgur.com/DIbQf0X.jpg" data-fluidbox><img src="http://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
 			</div>
 
 			<h3 id="floated-images">Floated images</h3>
