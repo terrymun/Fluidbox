@@ -32,6 +32,11 @@ Fluidbox has been implemented on other sites in the wild, too &mdash; check it o
 
 To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
 
+Some external resources that might help you:
+
+- [WordPress plugin](https://wordpress.org/plugins/fluidbox/)
+- [Manual implementation in WordPress](http://sridharkatakam.com/medium-like-fluid-lightbox-wordpress-using-fluidbox/)
+
 ## Changelog
 | Version | Comments |
 |---------|----------|

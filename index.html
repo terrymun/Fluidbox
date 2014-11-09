@@ -97,6 +97,16 @@
 		</section>
 
 		<section>
+			<h2 id="in-the-wild">In the wild</h2>
+			<p>Fluidbox is implemented in:</p>
+			<ul class="task-list">
+				<li><a href="http://www.gemmabusquets.com/"><strong>Gemma Busquets</strong></a> by <a href="https://twitter.com/imgemmabusquets">@imgemmabusquets</a></li>
+				<li><a href="http://terrymun.com/"><strong>Terry Mun</strong></a> by <em>myself</em></li>
+			</ul>
+			<p>In addition, Fluidbox has been successfully ported over to a <a href="https://wordpress.org/plugins/fluidbox/">WordPress plugin</a>. You can also learn how to <a href="http://sridharkatakam.com/medium-like-fluid-lightbox-wordpress-using-fluidbox/">implement it manually in WordPress</a>, too.</p>
+		</section>
+
+		<section>
 			<h2 id="usage-notes">Usage notes</h2>
 			<h3 id="dependencies">Dependencies</h3>
 			<p>TThe latest version of Fluidbox require only one dependency: <a href="http://jquery.com/">jQuery v1.7 and above</a>. Yes, and that's all! I recommend using the latest stable build of 1.x, although I have not encountered any issues if 2.x is used. I usually use Google APIs, since many other sites are using it and the end-user probalby has a cache of it sitting somewhere on their machine already.</p>
@@ -381,7 +391,7 @@ $('#custom-event-2')
 
 				// Smooth scrolling plugin by Chris Coiyer
 				// Source: http://css-tricks.com/snippets/jquery/smooth-scrolling/
-				$('a[href*=#]:not([href=#])').click(function() {
+				$(document).on('click', 'a[href*=#]:not([href=#])', function() {
 					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
 						var target = $(this.hash);
 						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
