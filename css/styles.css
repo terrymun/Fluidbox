@@ -50,8 +50,10 @@ body {
 	line-height: 1.5em;
 }
 header {
-	background-color: #333;
-	background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.25) 100%);
+	background-image: url(http://i.imgur.com/RwVIbSX.jpg);
+	background-size: cover;
+	background-repeat: none;
+	background-position: center center;
 	box-sizing: border-box;
 	color: #eee;
 	display: flex;
@@ -65,10 +67,19 @@ header {
 	height: 100vh;
 	transition: all .25s ease-in-out;
 }
-	header:before {
+	header::before {
+		background-color: rgba(0,0,0,.25);
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	header::after {
 		background-image:
 			linear-gradient(115deg, rgba(255,255,255,.025) 0%, rgba(255,255,255,.05) 50%, rgba(255,255,255,0) 50%),
-			linear-gradient(to left, #005952 0%, #005E20 100%);
+			linear-gradient(to left, rgba(62,96,111,.75) 0%, rgba(25,52,65,.75) 100%);
 		content: "";
 		opacity: 0;
 		position: absolute;
@@ -78,15 +89,16 @@ header {
 		bottom: 0;
 		transition: all .25s ease-in-out;
 	}
-	header:hover:before {
+	header:hover::after {
 		opacity: 1;
 	}
-	header > div {
+	header > * {
 		position: relative;
+		z-index: 3;
 	}
 	header h1 {
-		font-weight: bold;
-		font-size: 4em;
+		font-weight: 300;
+		font-size: 6em;
 		line-height: 1em;
 		margin: 0 0 .5rem 0;
 		text-align: center;		
@@ -125,9 +137,12 @@ footer {
 	width: 100%;
 }
 h1,h2,h3,h4,h5,h6 {
-	font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 400;
 	position: relative;
-	text-transform: uppercase;
+}
+h2 {
+	font-size: 2em;
 }
 h3 {
 	margin: 3rem 0 0 0;
@@ -144,9 +159,9 @@ a.anchor {
 	border: none;
 	opacity: 0;
 	position: absolute;
-	left: -1.5rem;
-	width: 1rem;
-	height: 1rem;
+	left: -1.5em;
+	width: 1em;
+	height: 1em;
 	text-decoration: none;
 }
 	a.anchor::before {
@@ -227,6 +242,17 @@ pre[class*=language-] {
 	p + pre[class*=language-] {
 		margin-top: -.75rem;
 	}
+	pre[class*=language-] > code[data-language]::before {
+		font-family: 'Open Sans';
+		letter-spacing: 1px;
+		opacity: 0;
+		padding: 0 .5rem;
+		text-transform: uppercase;
+		transition: all .25s ease-in-out;
+	}
+		pre[class*=language-]:hover > code[data-language]::before {
+			opacity: 1;
+		}
 code {
 	background-color: #f5f2f0;
 	border: 1px solid #CFCFCF;
@@ -279,7 +305,11 @@ main section {
 		margin: .25rem;
 		padding: 1.5rem;
 		text-align: center;
+		transition: all .25s ease-in-out;
 	}
+		.cards > a .branding {
+			transition: all .25s ease-in-out;
+		}
 		.cards > a.card-medium {
 			background-color: #57ad68;
 			flex-basis: 100%;
@@ -294,10 +324,14 @@ main section {
 			background-color: #bf3e11;
 			flex-basis: auto;
 		}
-			.cards > a.card-cdnjs:hover { color: #bf3e11; }
+			.cards > a.card-cdnjs:hover { color: #e14d1a; }
 		.cards > a:hover {
-			background-color: #eee;
+			background-color: #333;
 		}
+			.cards > a:hover .branding {
+				transform: scale(1.25);
+				-webkit-transform: scale(1.25);
+			}
 	.cards svg {
 		display: block;
 		margin: 0 auto .75rem;
@@ -312,10 +346,10 @@ main section {
       		.cards a.card-medium svg				{ background-color: #eee; }
 			.cards a.card-medium svg path			{ fill: #57ad68; }
 	      	.cards > a.card-medium:hover svg 		{ background-color: #57ad68; }
-	      	.cards > a.card-medium:hover svg path 	{ fill: #eee; }
+	      	.cards > a.card-medium:hover svg path 	{ fill: #333; }
 	      	.cards > a.card-github:hover svg path 	{ fill: #ff9933; }
 
-    .cards a.card-cdnjs span.branding {
+    .cards a.card-cdnjs .branding {
     	display: block;
     	font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
     	letter-spacing: 1px;
@@ -449,7 +483,7 @@ a.custom-event {
 		-webkit-transform: translateY(0);
 	}
 	#custom-event-2-social .img-caption {
-		font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		font-size: 2em;
 		line-height: 1.2em;
 	}
