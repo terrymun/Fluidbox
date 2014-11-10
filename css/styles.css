@@ -360,11 +360,11 @@ main section {
     	margin-bottom: .75rem;
     	font-size: 3em;
     }
-      	}
 
 /* Adjust positioning of images to introduce variety */
-a[data-fluidbox],
-a.custom-event {
+.demo a[data-fluidbox],
+.demo a.fluidbox,
+.demo a.custom-event {
 	background-color: #eee;
 	border: none;
 	cursor: -webkit-zoom-in;
