@@ -268,7 +268,7 @@ This will have the effect of doing so:
 
 ```js
 $(document).on('click', '#fluidbox-overlay', closeFb);
-$(window).on('resize', closeFb);
+$(window).on('resize scroll', closeFb);
 $(document).on('hover', '#ele1, #ele2', closeFb)
 ```
 
