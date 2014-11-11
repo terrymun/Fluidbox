@@ -1,4 +1,5 @@
 # Fluidbox
+[![Build Status](https://travis-ci.org/terrymun/Fluidbox.svg?branch=master)](https://travis-ci.org/terrymun/Fluidbox) [!Latest Github release](https://img.shields.io/github/release/terrymun/fluidbox.svg)
 Replicating and improving the lightbox module seen on Medium with fluid transitions. [View demo here](http://terrymun.github.io/Fluidbox/). For users who are looking for a quick setup and/or troubleshooting process, refer to [basic usage](#basic), but do not forget to read the [usage precautions](#precautions) and [frequently asked questions](#frequently-asked-questions).
 
 Although not thoroughly tested, Fluidbox should be working in IE ≥10 and all versions of Chrome, Firefox, Safari, iOS Safari and Android Chrome, **with the exception of Opera Mini**. However, I suggest disabling Fluidbox on mobile devices or at small screen resolutions.
