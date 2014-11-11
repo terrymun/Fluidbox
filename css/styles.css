@@ -55,7 +55,7 @@ header {
 	background-repeat: none;
 	background-position: center center;
 	box-sizing: border-box;
-	color: #eee;
+	color: #fff;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -98,13 +98,12 @@ header {
 	}
 	header h1 {
 		font-weight: 300;
-		font-size: 6em;
+		font-size: 6rem;
 		line-height: 1em;
 		margin: 0 0 .5rem 0;
 		text-align: center;		
 	}
 	header .byline {
-		color: rgba(255,255,255,.75);
 		display: block;
 		font-family: 'PT Serif', Palatino, Georgia, Cambria, "Times New Roman", Times, serif;
 		font-size: 1.2em;
@@ -589,12 +588,18 @@ footer svg {
 	header {
 		max-height: 500px;
 	}
+		header h1 {
+			font-size: 5rem;
+		}
 	.cards {
 		flex-flow: row wrap;
 		-webkit-flex-flow: row wrap;
 	}
 	.demo a[class^='float'] {
 		width: 50%; 
+	}
+	.filler {
+		font-size: .75em;
 	}
 }
 @media only screen and (max-width: 600px) {
