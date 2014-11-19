@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.4.1
+// Version: 1.4.2
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -106,7 +106,6 @@ var customTransitionEnd = whichTransitionEvent();
 			// 1. funcCloseFb()		- used to close any instance of opened Fluidbox
 			// 2. funcPositionFb()	- used for dynamic positioning of any instance of opened Fluidbox
 			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
-			// 4. funcCalc()		- used to store dimensions of image, ghost element and wrapper element upon initialization or resize
 			// 5. fbClickhandler()	- universal click handler for all Fluidbox items
 			funcCloseFb = function () {
 				$('.fluidbox-opened').trigger('click');
@@ -168,11 +167,6 @@ var customTransitionEnd = whichTransitionEvent();
 					left: $img.offset().left - $wrap.offset().left
 				}).one(customTransitionEnd, function() {
 					$activeFb.trigger(customEvent);
-				});
-			},
-			funcCalcAll = function() {
-				$fb.each(function () {
-					funcCalc($(this));
 				});
 			},
 			funcCalc = function ($fbItem) {
@@ -326,6 +320,28 @@ var customTransitionEnd = whichTransitionEvent();
 					e.preventDefault();
 				}
 			};
+			var funcResize = function (selectorChoice) {
+				// Recalculate dimensions
+				if(!selectorChoice) {
+					// Recalcualte ALL Fluidbox instances (fired upon window resize)
+					$fb.each(function () {
+						funcCalc($(this));
+					});
+				} else {
+					// Recalcualte selected Fluidbox instances
+					funcCalc(selectorChoice);
+				}
+
+				// Reposition Fluidbox, but only if one is found to be open
+				var $activeFb = $('a.fluidbox.fluidbox-opened');
+				if($activeFb.length > 0) funcPositionFb($activeFb, 'resizeend');
+			};
+
+		if(settings.debounceResize) {
+			$(window).smartresize(function() { funcResize(); });
+		} else {
+			$(window).resize(function() { funcResize(); });
+		}
 
 		// When should we close Fluidbox?
 		if(settings.closeTrigger) {
@@ -397,25 +413,13 @@ var customTransitionEnd = whichTransitionEvent();
 						}
 				});
 
+				// Custom trigger
+				$(this).on('recompute', function() {
+					funcResize($(this));
+					$(this).trigger('recomputeend');
+				});
 			}
 		});
-
-		// Listen to window resize event
-		// Check if user wants to debounce the resize event (it is debounced by default)
-		var funcResize = function () {
-			// Recalculate dimensions
-			funcCalcAll();
-
-			// Reposition Fluidbox, but only if one is found to be open
-			var $activeFb = $('a.fluidbox.fluidbox-opened');
-			if($activeFb.length > 0) funcPositionFb($activeFb, 'resizeend');
-		}
-
-		if(settings.debounceResize) {
-			$(window).smartresize(funcResize);
-		} else {
-			$(window).resize(funcResize);
-		}
 
 		// Return to allow chaining
 		return $fb;

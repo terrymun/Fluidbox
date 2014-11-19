@@ -146,11 +146,8 @@ h2 {
 }
 h3 {
 	font-size: 1.5em;
-	margin: 2.5rem 0 .5rem 0;
+	margin: 4rem 0 .5rem 0;
 }
-	h3:first-of-type {
-		margin-top: 0;
-	}
 h4 {
 	border-bottom: 1px solid rgba(0,0,0,.125);
 	color: #777;
@@ -226,7 +223,7 @@ a.code-toggle {
 		content: '\e801';
 		margin-right: .5rem;
 	}
-a.code-toggle + pre {
+a.code-toggle ~ pre {
 	margin-top: 0;
 }
 pre,
@@ -279,6 +276,24 @@ code {
 		pre code a:hover {
 			color: inherit;
 		}
+button[type="button"] {
+	background-color: #4a7298;
+	border: 1px solid rgba(0,0,0,.25);
+	box-shadow: inset 0 0 1px 0 rgba(255,255,255,.5);
+	border-radius: 4px;
+	color: #eee;
+	cursor: pointer;
+	line-height: 1rem;
+	margin-bottom: 1.5rem;
+	padding: .75rem 2rem;
+}
+	button[type="button"][disabled] {
+		background-color: #999;
+		cursor: not-allowed;
+	}
+	button[type="button"]:hover {
+		background-image: linear-gradient(to bottom, rgba(0,0,0,.125) 0%, rgba(0,0,0,0) 50%);
+	}
 
 /* Main */
 main {
@@ -363,6 +378,7 @@ main section {
 /* Adjust positioning of images to introduce variety */
 .demo a[data-fluidbox],
 .demo a.fluidbox,
+.demo a.custom-trigger,
 .demo a.custom-event {
 	background-color: #eee;
 	border: none;
@@ -426,48 +442,75 @@ main section {
 		width: 50%;
 	}
 
-/* Custom events */
+/* Flexbox */
 .cols {
 	display: flex;
-	flex-flow: row nowrap;
-	-webkit-flex-flow: row nowrap;
+	flex-flow: row wrap;
+	-webkit-flex-flow: row wrap;
+	margin: 0 -1rem 1.5rem -1rem;
+}
+	.cols.cols-nowrap {
+		flex-wrap: nowrap;
+	}
+		.cols.cols-nowrap > * {
+			margin-bottom: 0 !important;
+		}
+	.cols > * {
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+
+/* Code blocks */
+.code-block {
 	margin-bottom: 1.5rem;
 }
-	.cols a.custom-event {
+	.code-block pre {
 		margin-bottom: 0;
-		width: 33.33333%;
 	}
-	#log {
-		margin-left: 2rem;
-		position: relative;
-		width: 66.66667%;
+.token.cr:before, .token.lf:before, .token.tab:not(:empty):before {
+	content: '';
+}
+
+/* Custom triggers */
+.cols a.custom-trigger {
+
+}
+
+/* Custom events */
+.cols a.custom-event {
+	margin-bottom: 0;
+	width: 33.33333%;
+}
+#log {
+	position: relative;
+	width: 66.66667%;
+}
+	#log div {
+		border: 1px solid rgba(0,0,0,.125);
+		background-color: #eee;
+		padding: 1rem;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow-y: auto;
 	}
-		#log div {
-			border: 1px solid rgba(0,0,0,.125);
-			background-color: #eee;
-			padding: 1rem;
-			position: absolute;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			overflow-y: auto;
-		}
-		#log ul {
-			list-style: none;
-			padding: 0;
-		}
-		#log ul li span {
-			background-color: #666;
-			border-radius: 4px;
-			color: #eee;
-			display: inline-block;
-			font-size: .75em;
-			padding: 0 .5rem;
-		}
+	#log ul {
+		list-style: none;
+		padding: 0;
+	}
+	#log ul li span {
+		background-color: #666;
+		border-radius: 4px;
+		color: #eee;
+		display: inline-block;
+		font-size: .75em;
+		padding: 0 .5rem;
+	}
 #custom-event-2-social {
 	position: fixed;
-	bottom: 0;
+	bottom: 2.5%;
 	left: 0;
 	right: 0;
 	opacity: 0;
@@ -484,15 +527,11 @@ main section {
 		transform: translateY(0);
 		-webkit-transform: translateY(0);
 	}
-	#custom-event-2-social .img-caption {
-		font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-		font-size: 2em;
-		line-height: 1.2em;
-	}
 	#custom-event-2-social ul {
 		display: flex;
 		justify-content: center;
 		list-style: none;
+		margin: 0;
 		padding: 0;
 	}
 		#custom-event-2-social ul li {
@@ -511,25 +550,7 @@ main section {
 		}
 
 /* Dynamic image loading button */
-a[data-func='loadImg'] {
-	background-color: #7BCDC8;
-	border: none;
-	color: rgba(0,0,0,.5);
-	display: block;
-	font-size: 1.25rem;
-	letter-spacing: 2px;
-	margin: 0 auto 1rem auto;
-	padding: .5rem;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-	transition: all .125s ease-in-out;
-}
-	a[data-func='loadImg']:hover {
-		background-color: #00A99D;
-		color: rgba(238,238,238,.85);
-	}
-a[data-func='loadImg'] + article {
+#loadImg + article {
 	background-color: #eee;
 	border: 1px solid rgba(0,0,0,.25);
 	box-sizing: border-box;

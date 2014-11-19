@@ -58,6 +58,7 @@ Some external resources that might help you:
 | 1.3.5   | <ul><li>**Update:** Removed `overlayColor` settings for Fluidbox. The option is now delegated to the stylesheet, which allows for easy customization of overlays for different Fluidbox instances. It is therefore possible to specify custom overlay colours, background gradients and even images for Fluidbox.</li></ul> |
 | 1.4.0   | <ul><li>**Update:** Authored by [@maxee](https://github.com/maxee). Now supports differential aspect ratios of thumbnails and linked images.</li><li>**Bug fix:** Fixed namespace clash issue that leads to crashing of IE8.</li></ul> |
 | 1.4.1   | <ul><li>**Update:** Added custom event handlers to allow for addition of application-specific callbacks. For more information, refer to the [custom events](#custom-events) section for usage instructions. </li></ul> |
+| 1.4.2   | <ul><li>**Update:** Added custom event triggers to allow for manual triggering of Fluidbox recomputation/recalculation upon layout changes that are independent of viewport resizes (therefore not triggering the `$(window).resize()` event. For more information, refer to the [custom triggers](#custom-trigers) section for usage instructions.</li></ul> |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -104,18 +105,31 @@ The selector can be anything of your choice. Let's say you want to target the `<
 </section>
 ```
 
-Then, you can use:
+Then, you can use, for example:
 ```js
 $(function () {
     $('#gallery a[rel="lightbox"]').fluidbox();
 })
 ```
 
-### Custom events
-As of **v1.4.1**, Fluidbox will trigger **five distinct events** depending on the state of the current (and only) instance of Fluidbox. You should use `.on()` to listen to the event being triggered, and can add your own custom callbacks if necessary, for example:
+### Custom triggers
+As of **v1.4.2**, Fluidbox allows users to trigger manual recomputing of the dimensions of the overlay and that of the active Fluidbox instance. This functionality is extremely useful when you make layout changes that repaints the canvas and alters the dimensions of linked Fluidbox images. In order to do so, you will have to trigger the event manually, **after the changes in the DOM, or element dimensions has been applied**.
+
+An example would be changing the size of the Fluidbox thumbnail:
 
 ```js
-$('a')
+$('button').click(function() {
+    $(selector)
+    .css('width', '200px')
+    .trigger('recompute'); 
+});
+```
+
+### Custom events
+As of **v1.4.1**, Fluidbox will trigger several distinct events depending on the state of the current (and only) instance of Fluidbox. You should use `.on()` to listen to the event being triggered, and can add your own custom callbacks if necessary, for example:
+
+```js
+$(selector)
 .fluidbox()
 .on('openstart', doSomething)
 .on('closeend', doSomethingElse);
@@ -123,13 +137,14 @@ $('a')
 
 The list of custom events supported by Fluidbox is as follow:
 
-| Event        | Version | Description |
-|--------------|---------|-------------|
-| `openstart`  | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
-| `openend`    | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). The timing between `openstart` and `openend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
-| `resizeend`  | 1.4.1   | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
-| `closestart` | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
-| `closeend`   | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. The timing between `closestart` and `closeend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
+| Event          | Version | Description |
+|----------------|---------|-------------|
+| `openstart`    | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
+| `openend`      | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). The timing between `openstart` and `openend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
+| `resizeend`    | 1.4.1   | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
+| `closestart`   | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
+| `closeend`     | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. The timing between `closestart` and `closeend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
+| `recomputeend` | 1.4.2   | Fired when the Fluidbox ghost element, or the active Fluidbox on display, is recomputed due to layout changes not dependent on the `$(window).resize()` event. This is triggered manually by the custom trigger `recompute` ([see usage instructions](#custom-triggers)). |
 
 ### Previously hidden elements
 As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:
