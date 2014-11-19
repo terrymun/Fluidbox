@@ -32,12 +32,12 @@ Fluidbox has been implemented on other sites in the wild, too &mdash; check it o
 - [**Gemma Busquets**](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
 - [**Terry Mun**](http://terrymun.com/) by *myself*
 
-To add your site, write to me at [@teddyrised](https://twitter.com/teddyrised).
-
 Some external resources that might help you:
 
 - [WordPress plugin](https://wordpress.org/plugins/fluidbox/)
 - [Manual implementation in WordPress](http://sridharkatakam.com/medium-like-fluid-lightbox-wordpress-using-fluidbox/)
+
+To add your site that has implemented Fluidbox, or an article/tutorial you have written on Fluidbox use and/or application, feel free to write to me at [@teddyrised](https://twitter.com/teddyrised).
 
 ## Changelog
 | Version | Comments |
