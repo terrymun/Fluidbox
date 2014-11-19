@@ -18,7 +18,7 @@ In addition, a shoutout to:
 ## Introduction
 Fluidbox was initially a simple personal challenge I set myself, with two simple aims &mdash; to replicate the distraction-free, fluid lightbox seen on [Medium](http://medium.com), and to improve on it such that it will allow linking to a larger-resolution image. The plugin deals with higher resolution, linked images elegantly, such that it only preloads them when users click on the thumbnails, therefore conserving bandwidth usage for your visitors and your server(s).
 
-The plugin is relatively lightweight: 4kb (**1.43kb** after gzipped) for the minified JS file, and 969b (**332b** after gzipped) for the minimal stylesheet.
+The plugin is relatively lightweight: 5.38kb (**1.81kb** after gzipped) for the minified JS file, and 1.02kb (**369b** after gzipped) for the minimal stylesheet.
 
 You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c7) about how I got inspiration for this little project of mine, and the basic mechanisms behind the plugin. Some serious math is involved (*nah, not really*).
 
