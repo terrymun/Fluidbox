@@ -481,6 +481,7 @@ $('#custom-trigger').click(function(e) {
 							$('html,body').animate({
 								scrollTop: target.offset().top
 							}, 1000);
+							window.location.hash = target.selector;
 							return false;
 						}
 					}
