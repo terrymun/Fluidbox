@@ -105,6 +105,7 @@ var customTransitionEnd = whichTransitionEvent();
 			vpRatio,
 
 			// Function:
+			// 1. funcCloseFb()		- used for closing instances of opened Fluidbox
 			// 2. funcPositionFb()	- used for dynamic positioning of any instance of opened Fluidbox
 			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
 			// 5. fbClickhandler()	- universal click handler for all Fluidbox items
