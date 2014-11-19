@@ -431,11 +431,15 @@ $('#custom-trigger').click(function(e) {
 				$('#custom-event-2')
 				.fluidbox({
 					closeTrigger: [{
-				        selector: "#fluidbox-overlay",
+				        selector: ".fluidbox-overlay",
 				        event: "click"
 				    }, {
 				    	selector: "window",
 				    	event: "scroll"
+				    }, {
+				    	selector: 'document',
+				    	event: 'keyup',
+				    	keyCode: 27
 				    }]
 				})
 				.on('openend', function() {

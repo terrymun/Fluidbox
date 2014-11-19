@@ -65,6 +65,8 @@ var customTransitionEnd = whichTransitionEvent();
 // -----------------------------
 (function ($) {
 
+	var fbCount = 0;
+
 	$.fn.fluidbox = function (opts) {
 
 		// Default settings
@@ -103,12 +105,11 @@ var customTransitionEnd = whichTransitionEvent();
 			vpRatio,
 
 			// Function:
-			// 1. funcCloseFb()		- used to close any instance of opened Fluidbox
 			// 2. funcPositionFb()	- used for dynamic positioning of any instance of opened Fluidbox
 			// 3. funcCalcAll()		- used to run funcCalc() for every instance of targered Fluidbox thumbnail
 			// 5. fbClickhandler()	- universal click handler for all Fluidbox items
-			funcCloseFb = function () {
-				$('.fluidbox-opened').trigger('click');
+			funcCloseFb = function (selector) {
+				$(selector + '.fluidbox-opened').trigger('click');
 			},
 			funcPositionFb = function ($activeFb, customEvent) {
 				// Get shorthand for more objects
@@ -343,37 +344,8 @@ var customTransitionEnd = whichTransitionEvent();
 			$(window).resize(function() { funcResize(); });
 		}
 
-		// When should we close Fluidbox?
-		if(settings.closeTrigger) {
-			// Go through array
-			$.each(settings.closeTrigger, function (i) {
-				var trigger = settings.closeTrigger[i];
-
-				// Attach events
-				if(trigger.selector != 'window') {
-					// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
-					// However, if thes selector is 'document', we use a different .on() syntax
-					if(trigger.selector == 'document') {
-						if(trigger.keyCode) {
-							$(document).on(trigger.event, function (e) {
-								if(e.keyCode == trigger.keyCode) funcCloseFb();
-							});
-						} else {
-							$(document).on(trigger.event, funcCloseFb);
-						}
-					} else {
-						$(document).on(trigger.event, settings.closeTrigger[i].selector, funcCloseFb);
-					}
-				} else {
-					// If it is 'window', append click handler to $(window) object
-					$w.on(trigger.event, funcCloseFb);
-				}
-			});
-		}
-
 		// Go through each individual object
 		$fb.each(function (i) {
-
 			// Check if Fluidbox:
 			// 1. Is an anchor element ,<a>
 			// 2. Contains one and ONLY one child
@@ -389,10 +361,14 @@ var customTransitionEnd = whichTransitionEvent();
 					}
 				});
 
+				// Update count for global Fluidbox instances
+				fbCount+=1;
+
 				// Add class
 				var $fbItem = $(this);
 				$fbItem
 				.addClass('fluidbox')
+				.attr('id', 'fluidbox-'+fbCount)
 				.wrapInner($fbInnerWrap)
 				.find('img')
 					.css({ opacity: 1 })
@@ -418,6 +394,37 @@ var customTransitionEnd = whichTransitionEvent();
 					funcResize($(this));
 					$(this).trigger('recomputeend');
 				});
+
+				// When should we close Fluidbox?
+				var selector = '#fluidbox-'+fbCount;
+				if(settings.closeTrigger) {
+					// Go through array
+					$.each(settings.closeTrigger, function (i) {
+						var trigger = settings.closeTrigger[i];
+
+						// Attach events
+						if(trigger.selector != 'window') {
+							// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
+							// However, if thes selector is 'document', we use a different .on() syntax
+							if(trigger.selector == 'document') {
+								if(trigger.keyCode) {
+									$(document).on(trigger.event, function (e) {
+										if(e.keyCode == trigger.keyCode) funcCloseFb(selector);
+									});
+								} else {
+									$(document).on(trigger.event, selector, function() {
+										funcCloseFb(selector);
+									});
+								}
+							}
+						} else {
+							// If it is 'window', append click handler to $(window) object
+							$w.on(trigger.event, function() {
+								funcCloseFb(selector);
+							});
+						}
+					});
+				}
 			}
 		});
 
