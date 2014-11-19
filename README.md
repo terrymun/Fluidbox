@@ -311,10 +311,16 @@ As Fluidbox requires access to the final calculation dimensions of the image in 
 Start by checking your browser's console log. What error messages do you see? Also, make sure that you are using the *latest* version of jQuery 1.x (minimum requirement: v1.8 or above) and that the dependencies have been loaded successfully. Also, did you remember reading the [usage precautions](#precautions)? You might have encountered a scenario where Fluidbox is not designed to handle.
 
 2.  **Do you plan to implement [insert feature]?**  
-Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your personal liking.
+Fluidbox is conceived as a means to simplify lightboxes. Therefore, I plan to keep Fluidbox as simple as it is, without additional features, such as captioning (there are other limitations to this, too) and gallery features. However, you can always fork and modify Fluidbox to your personal liking. Manual captioning is possible, refer to the [advanced demo].
 
 3. **The image url isn't being interpretted correctly**
 Fluidbox fetches the larger image based on the URL specified in the `href` attribute if the wrapping anchor (`<a>`) tag.
+
+4. **I have a application-specific problem that I need help troubleshooting. Can you help me?**
+*Of course!* I am more than happy to help, but it really depends if you have a clear problem statement and a demo that I can play around with &mdash; I strongly encourage you to host your reduced test case(s) with either [JSFiddle](http://jsfiddle.net/), [CodePen](http://codepen.io/) or the likes. Then, [create a new issue](https://github.com/terrymun/Fluidbox/issues). I promise I will get back to you when I have time.
+
+5. **Do you provide private support by email / phone call / Skype call / (insert any other forms of communication)?**
+Since Fluidbox is provided as-is and free-of-charge, I am sorry to inform you that it is so far not possible for me to dedicate so much effort. However, you can follow what is described in step #4.
 
 
 ## Licensing: MIT License
