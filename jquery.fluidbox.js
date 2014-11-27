@@ -88,6 +88,13 @@ var customTransitionEnd = whichTransitionEvent();
 			]
 		}, opts);
 
+		// Keyboard events
+		var keyboardEvents = [
+			'keyup',
+			'keydown',
+			'keypress'
+		];
+
 		// Ensure that the stackIndex does not become negative
 		if(settings.stackIndex < settings.stackIndexDelta) settings.stackIndexDelta = settings.stackIndex;
 
@@ -368,7 +375,7 @@ var customTransitionEnd = whichTransitionEvent();
 				// Add class
 				var $fbItem = $(this);
 				$fbItem
-				.addClass('fluidbox')
+				.addClass('fluidbox fluidbox-closed')
 				.attr('id', 'fluidbox-'+fbCount)
 				.wrapInner($fbInnerWrap)
 				.find('img')
@@ -408,7 +415,7 @@ var customTransitionEnd = whichTransitionEvent();
 							// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
 							// However, if thes selector is 'document', we use a different .on() syntax
 							if(trigger.selector == 'document') {
-								if(trigger.keyCode) {
+								if(trigger.keyCode && keyboardEvents.indexOf(trigger.event) > -1 ) {
 									$(document).on(trigger.event, function (e) {
 										if(e.keyCode == trigger.keyCode) funcCloseFb(selector);
 									});
