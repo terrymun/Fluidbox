@@ -71,6 +71,7 @@ var customTransitionEnd = whichTransitionEvent();
 
 		// Default settings
 		var settings = $.extend(true, {
+			immediate: false,
 			viewportFill: 0.95,
 			debounceResize: true,
 			stackIndex: 1000,
@@ -133,7 +134,7 @@ var customTransitionEnd = whichTransitionEvent();
                                 
 				// Check natural dimensions
 				if(vpRatio > $img.data().imgRatio) {
-					if($data.natHeight < $w.height()*settings.viewportFill) {
+					if(!settings.immediate && $data.natHeight < $w.height()*settings.viewportFill) {
 						fHeight = $data.natHeight;
 					} else {
 						fHeight = $w.height()*settings.viewportFill;
@@ -147,7 +148,7 @@ var customTransitionEnd = whichTransitionEvent();
 
                                         $data.imgScaleX = missingRatio;
 				} else {
-					if($data.natWidth < $w.width()*settings.viewportFill) {
+					if(!settings.immediate && $data.natWidth < $w.width()*settings.viewportFill) {
 						fWidth = $data.natWidth;
 					} else {
 						fWidth = $w.width()*settings.viewportFill;
@@ -217,6 +218,10 @@ var customTransitionEnd = whichTransitionEvent();
 					$img.load(imageProp);
 				}
 			},
+
+	
+			
+
 			fbClickHandler = function(e) {
 
 				// Check if the fluidbox element does have .fluidbox assigned to it
@@ -227,7 +232,59 @@ var customTransitionEnd = whichTransitionEvent();
 						$img		= $(this).find('img'),
 						$ghost		= $(this).find('.fluidbox-ghost'),
 						$wrap   	= $(this).find('.fluidbox-wrap'),
-						timer   	= {};
+						timer   	= {},
+						fbExpand    = function() {
+							// Store natural width and heights
+							$activeFb
+							.data('natWidth', $(this)[0].naturalWidth)
+							.data('natHeight', $(this)[0].naturalHeight);
+
+							// What are we doing here:
+							// 1. Append overlay in fluidbox
+							// 2. Toggle fluidbox state with data attribute
+							// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
+							// 4. Class toggle
+							$activeFb
+							.append($fbOverlay)
+							.data('fluidbox-state', 1)
+							.removeClass('fluidbox-closed')
+							.addClass('fluidbox-opened');
+
+							// Force timer to completion
+							if(timer['close']) window.clearTimeout(timer['close']);
+
+							// Set timer for opening
+							timer['open'] = window.setTimeout(function() {
+								// Show overlay
+								$('.fluidbox-overlay').css({ opacity: 1 });
+							}, 10);
+
+							// Change wrapper z-index, so it is above everything else
+							// Decrease all siblings z-index by 1 just in case
+							$('.fluidbox-wrap').css({ zIndex: settings.stackIndex - settings.stackIndexDelta - 1 });
+							$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
+
+							// Set thumbnail image source as background image first, preload later
+							$ghost.css({
+								'background-image': 'url('+$img.attr('src')+')',
+								opacity: 1
+							});
+
+							// Hide original image
+							$img.css({ opacity: 0 });
+
+							// need to wait for image load event in case called with immediate:true,
+							// otherwise the image will disappear as the high-res loads
+							$("<img />", {src: $activeFb.attr('href')}).load(function(){
+								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+								$activeFb.removeClass('fluidbox-loading');
+								$ghost.removeClass('fluidbox-loading');
+								$(this).remove(); // remove dummy image element
+							})
+
+							// Position Fluidbox
+							funcPositionFb($activeFb, 'openend');
+						};
 
 					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
 						// State: Closed
@@ -241,53 +298,15 @@ var customTransitionEnd = whichTransitionEvent();
 							src: $img.attr('src')
 						}).load(function () {
 							// Preload ghost image
-							$('<img />', {
-								src: $activeFb.attr('href')
-							}).load(function() {
-								// Store natural width and heights
-								$activeFb
-								.data('natWidth', $(this)[0].naturalWidth)
-								.data('natHeight', $(this)[0].naturalHeight);
+							
+							$activeFb.addClass('fluidbox-loading');
+							$ghost.addClass('fluidbox-loading');
 
-								// What are we doing here:
-								// 1. Append overlay in fluidbox
-								// 2. Toggle fluidbox state with data attribute
-								// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
-								// 4. Class toggle
-								$activeFb
-								.append($fbOverlay)
-								.data('fluidbox-state', 1)
-								.removeClass('fluidbox-closed')
-								.addClass('fluidbox-opened');
-
-								// Force timer to completion
-								if(timer['close']) window.clearTimeout(timer['close']);
-
-								// Set timer for opening
-								timer['open'] = window.setTimeout(function() {
-									// Show overlay
-									$('.fluidbox-overlay').css({ opacity: 1 });
-								}, 10);
-
-								// Change wrapper z-index, so it is above everything else
-								// Decrease all siblings z-index by 1 just in case
-								$('.fluidbox-wrap').css({ zIndex: settings.stackIndex - settings.stackIndexDelta - 1 });
-								$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
-
-								// Set thumbnail image source as background image first, preload later
-								$ghost.css({
-									'background-image': 'url('+$img.attr('src')+')',
-									opacity: 1
-								});
-
-								// Hide original image
-								$img.css({ opacity: 0 });
-
-								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
-
-								// Position Fluidbox
-								funcPositionFb($activeFb, 'openend');
-							});
+							if (settings.immediate) {
+								fbExpand.call(this);
+							} else {
+								$('<img />', {src: $activeFb.attr('href')}).load(fbExpand);
+							}
 						});
 
 					} else {
@@ -380,7 +399,7 @@ var customTransitionEnd = whichTransitionEvent();
 				.wrapInner($fbInnerWrap)
 				.find('img')
 					.css({ opacity: 1 })
-					.after('<div class="fluidbox-ghost" />')
+					.after('<div class="fluidbox-ghost"><div class="fluidbox-status"></div></div>')
 					.each(function(){
 						var $img = $(this);
 						
