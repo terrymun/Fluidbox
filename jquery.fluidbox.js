@@ -235,9 +235,12 @@ var customTransitionEnd = whichTransitionEvent();
 						timer   	= {},
 						fbExpand    = function() {
 							// Store natural width and heights
+
+							var natWidth = $activeFb.attr('data-fluidbox-width') || $(this)[0].naturalWidth;
+							var natHeight = $activeFb.attr('data-fluidbox-height') || $(this)[0].naturalHeight;
 							$activeFb
-							.data('natWidth', $(this)[0].naturalWidth)
-							.data('natHeight', $(this)[0].naturalHeight);
+							.data('natWidth', natWidth)
+							.data('natHeight', natHeight);
 
 							// What are we doing here:
 							// 1. Append overlay in fluidbox
