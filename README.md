@@ -61,7 +61,7 @@ To add your site that has implemented Fluidbox, or an article/tutorial you have 
 | 1.4.0   | <ul><li>**Update:** Authored by [@maxee](https://github.com/maxee). Now supports differential aspect ratios of thumbnails and linked images.</li><li>**Bug fix:** Fixed namespace clash issue that leads to crashing of IE8.</li></ul> |
 | 1.4.1   | <ul><li>**Update:** Added custom event handlers to allow for addition of application-specific callbacks. For more information, refer to the [custom events](#custom-events) section for usage instructions. </li></ul> |
 | 1.4.2   | <ul><li>**Update:** Added custom event triggers to allow for manual triggering of Fluidbox recomputation/recalculation upon layout changes that are independent of viewport resizes (therefore not triggering the `$(window).resize()` event. For more information, refer to the [custom triggers](#custom-trigers) section for usage instructions.</li><li>**Bug fix:** A hitherto undiscovered bug that causes the `closeTrigger ` settings to propagate to all instances of Fluidboxes on the same page, even though it was only specified for a subset of instances, has been fixed. This bug has been present since the first release&mdash;so if you are intending to use custom events to close Fluidbox instances, it is strongly recommended that you upgrade to v1.4.2 and later.</li></ul> |
-| 1.4.3   | *Drafting*<br /><ul><li>**Update:** Enabled the option to trigger immediate opening of Fluidbox. This has to be turned on manually, by setting `immediateOpen` to  `true` during initialization.</li><li>Added five new custom events that are triggered.</li><li>Rearranged some code with regards to opening and closing of Fluidbox instances for better readability, fixed indentation inconsistencies in original JS file.</li><li>Added an animated CSS loader to Fluidbox instances, exceptionally important for delayed opening setups (default setup) as users are often unaware if Fluidbox has failed, or simply waiting for target image to be preloaded. The appearance of the loader is purely controlled by a CSS pseudo-element, activated upon the addition of `.fluidbox-loading` class.</li><li>The stylesheet of Fluidbox has been ported over to LESS, in addition to SCSS.</li></ul> |
+| 1.4.3   | <ul><li>**Update:** Enabled the option to trigger immediate opening of Fluidbox. This has to be turned on manually, by setting `immediateOpen` to  `true` during initialization.</li><li>Added five new custom events that are triggered.</li><li>Rearranged some code with regards to opening and closing of Fluidbox instances for better readability, fixed indentation inconsistencies in original JS file.</li><li>Added an animated CSS loader to Fluidbox instances, exceptionally important for delayed opening setups (default setup) as users are often unaware if Fluidbox has failed, or simply waiting for target image to be preloaded. The appearance of the loader is purely controlled by a CSS pseudo-element, activated upon the addition of `.fluidbox-loading` class.</li><li>The stylesheet of Fluidbox has been ported over to LESS, in addition to SCSS.</li></ul> |
 
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
@@ -338,6 +338,26 @@ $('.flex').each(function() {
     });
 });
 ```
+
+### Accidental creation of new stacking contexts
+There are a few CSS properties, when applied to the wrapping parent of elements meant for the `.fluidbox()` method, causes a new stacking context to be created&mdash;this leads to an issue where an opened Fluidbox instance will fail to cover its neighbouring elements.
+
+They are, in alphabetical order but not exhaustively so:
+- CSS3 regions<sup>1</sup>
+- filter<sup>1, 2</sup>
+- flex<sup>3</sup>
+- isolation<sup>3</sup>
+- mix-blend-mode<sup>3</sup>
+- opacity<sup>1</sup>
+- position<sup>1, 3</sup>
+- paged media<sup>1</sup>
+- transform<sup>1</sup>
+- will-change<sup>3</sup>
+
+Sources:
+1. [*What No One Told You About Z-Index*](http://philipwalton.com/articles/what-no-one-told-you-about-z-index/) by Philip Walton
+2. [*Why does stacking order change on webkit filter hover?*](http://stackoverflow.com/a/25764603/395910) on StackOverflow
+3. [*The stacking context*](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context) on MDN
 
 ## Frequently Asked Questions
 1.  **Fluidbox is not working in my installation. Where should I start?**  
