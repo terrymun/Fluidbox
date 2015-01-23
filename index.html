@@ -169,8 +169,21 @@
 
 			<h3 id="differential-aspect-ratios">Support for different aspect ratios of thumbnail and higher resolution version</h3>
 			<p>Fluidbox supports different aspect ratios of the thumbnail and higher resolution version of the image</p>
-			<a href="http://placehold.it/1920x1080" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt /></a>
-                        
+			<a href="http://placehold.it/3840x2160" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt /></a>
+
+			<h3 id="immediate-loading">Support for immediate opening with background preloading of target image</h3>
+			<p>Fluidbox provides you the option that will launch an opened Fluidbox instance immediately upon click, even when the target image has not been loaded yet. The images below are relayed through a proxy server that will intentially delay delivery of images by 2 seconds.</p>
+			<div class="cols cols-nowrap">
+				<div>
+					<a href="http://deelay.me/2000/http://placehold.it/1600x800&amp;text=Delayed+opening" title="" data-fluidbox><img src="http://placehold.it/800x400&amp;text=Delayed+opening" title="" alt /></a>
+					Opens <em>after</em> target is loaded.
+				</div>
+				<div>
+					<a href="http://deelay.me/2000/http://placehold.it/1600x800&amp;text=Immediate+opening" title="" data-fluidbox-immediate-open><img src="http://placehold.it/800x400&amp;text=Immediate+opening" title="" alt /></a>
+					Opens immediately, doesn't wait for target to load.
+				</div>
+			</div>
+
 			<h3 id="borders-paddings">Support for image borders and paddings</h3>
 			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
 			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
@@ -377,6 +390,27 @@ $('#custom-trigger').click(function(e) {
 				// You can use any kind of selectors for jQuery Fluidbox
 				$('.demo a[data-fluidbox]').fluidbox();
 
+				// Immediate open
+				$('.demo a[data-fluidbox-immediate-open]').fluidbox({
+					immediateOpen: true
+				});
+
+				// Trigger recomputing on Flexbox items, sometimes buggy width calculations due to browser recomputation of flex items
+				$('.cols').each(function() {
+					var a = [],
+						$f = $(this).find('a.fluidbox');
+
+					$f.find('img').each(function() {
+						var i = $.Deferred();
+						$(this).load(i.resolve).error(i.resolve);
+						a.push(i);
+					});
+
+					$.when.apply(null, a).done(function() {
+						$f.trigger('recompute');
+					});
+				});
+
 				// Custom triggers
 				$('.custom-trigger').fluidbox();
 				$('#custom-trigger').click(function() {
@@ -403,25 +437,44 @@ $('#custom-trigger').click(function(e) {
 				});
 
 				// Custom events
-				var writeLog = function(msg, color) {
-					var t = (new Date()).toLocaleTimeString();
-					$('#log div ul').append('<li><span style="background-color: '+color+';">'+t+'</span> '+msg+'</li>');
+				var writeLog = function(evt, msg, color) {
+					var t = (new Date()).toLocaleTimeString(),
+						$log = $('#log div');
+
+					$log.find('ul').append('<li><span class="evt" style="background-color: '+color+';" title="'+t+'"></span><span class="dsc"><code>'+evt+'</code> '+msg+'</span></li>');
 					console.log(t+': '+msg);
+					$log.scrollTop($(this)[0].scrollHeight);
 				}
 				$('#custom-event-1')
-				.fluidbox()
-				.on('openstart', function() {
-					writeLog('Initializing opening of Fluidbox instance.', '#3E606F');
-				}).on('openend', function() {
-					writeLog('Transition to opened Fluidbox completed.', '#193441');
-				}).on('resizeend', function() {
-					writeLog('Transition to new recalculated position and size completed.', '#468966');
-				}).on('closestart', function() {
-					writeLog('Initializing closing of Fluidbox instance.', '#B64926');
-				}).on('closeend', function() {
-					writeLog('Transition to closed Fluidbox completed, reverted to ground state.', '#8E2800');
-				}).on('recomputeend', function() {
-					writeLog('Recomputing ghost element of Fluidbox completed.', '#7E8AA2');
+				.fluidbox({
+					immediateOpen: true
+				})
+				.on('thumbloaddone', function(e) {
+					writeLog(e.type, 'Thumbnail image successfully loaded.', '#046380');
+				})
+				.on('openstart', function(e) {
+					writeLog(e.type, 'Initializing opening of Fluidbox instance.', '#00A388');
+				})
+				.on('openend', function(e) {
+					writeLog(e.type,'Transition to opened Fluidbox completed.', '#CBFF7A');
+				})
+				.on('imageloaddone', function(e) {
+					writeLog(e.type, 'Enlarged thumbnail successfully loaded.', '#79BD8F');
+				})
+				.on('delayedloaddone', function(e) {
+					writeLog(e.type, 'Delayed loading of linked image is successful. This message will only appear if <code>immediateOpen</code> option is enabled.', '#BEEB9F');
+				})
+				.on('resizeend', function(e) {
+					writeLog(e.type, 'Transition to new recalculated position and size completed.', '#EFC793');
+				})
+				.on('closestart', function(e) {
+					writeLog(e.type, 'Initializing closing of Fluidbox instance.', '#FFD34E');
+				})
+				.on('closeend', function(e) {
+					writeLog(e.type, 'Transition to closed Fluidbox completed, reverted to ground state.', '#DB9E36');
+				})
+				.on('recomputeend', function(e) {
+					writeLog(e.type, 'Recomputing ghost element of Fluidbox completed.', '#7E8AA2');
 				});
 
 				var $caption = $('<div />', {

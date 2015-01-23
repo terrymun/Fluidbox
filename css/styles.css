@@ -448,11 +448,13 @@ main section {
 	flex-flow: row wrap;
 	-webkit-flex-flow: row wrap;
 	margin: 0 -1rem 1.5rem -1rem;
+	text-align: center;
 }
 	.cols.cols-nowrap {
 		flex-wrap: nowrap;
 	}
 		.cols.cols-nowrap > * {
+			flex-grow: 1;
 			margin-bottom: 0 !important;
 		}
 	.cols > * {
@@ -484,6 +486,7 @@ main section {
 #log {
 	position: relative;
 	width: 66.66667%;
+	text-align: left;
 }
 	#log div {
 		border: 1px solid rgba(0,0,0,.125);
@@ -500,14 +503,22 @@ main section {
 		list-style: none;
 		padding: 0;
 	}
-	#log ul li span {
-		background-color: #666;
-		border-radius: 4px;
-		color: #eee;
-		display: inline-block;
-		font-size: .75em;
-		padding: 0 .5rem;
+	#log ul li > span {
+		display: block;
 	}
+		#log ul li > .evt {
+			background-color: #999;
+			border-radius: .5em;
+			display: block;
+			float: left;
+			font-size: .75em;
+			margin: .5em .5em 0 0;
+			padding: 0 .5em 0;
+			height: 1em;
+		}
+		#log ul li > .dsc {
+			padding-left: 1.5em;
+		}
 #custom-event-2-social {
 	position: fixed;
 	bottom: 2.5%;

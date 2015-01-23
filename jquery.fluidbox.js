@@ -85,7 +85,8 @@ var customTransitionEnd = whichTransitionEvent();
 					event: 'keyup',
 					keyCode: 27
 				}
-			]
+			],
+			immediateOpen: false
 		}, opts);
 
 		// Keyboard events
@@ -119,7 +120,7 @@ var customTransitionEnd = whichTransitionEvent();
 			funcCloseFb = function (selector) {
 				$(selector + '.fluidbox-opened').trigger('click');
 			},
-			funcPositionFb = function ($activeFb, customEvent) {
+			funcPositionFb = function ($activeFb, customEvents) {
 				// Get shorthand for more objects
 				var $img    = $activeFb.find('img'),
 					$ghost  = $activeFb.find('.fluidbox-ghost'),
@@ -127,45 +128,56 @@ var customTransitionEnd = whichTransitionEvent();
 					$data	= $activeFb.data(),
 					fHeight = 0,
 					fWidth	= 0;
-                                $img.data().imgRatio = $data.natWidth/ $data.natHeight;
-                                
-                                var newHeight, missingRatioNormal, missingRatio;
+				
+				$img.data().imgRatio = $data.natWidth/$data.natHeight;
+
+				var newHeight, missingRatioNormal, missingRatio;
                                 
 				// Check natural dimensions
 				if(vpRatio > $img.data().imgRatio) {
+
+					// Check if linked image is smaller or larger than intended fill
 					if($data.natHeight < $w.height()*settings.viewportFill) {
+						// If shorter, preserve smaller height
 						fHeight = $data.natHeight;
 					} else {
 						fHeight = $w.height()*settings.viewportFill;
 					}
-					$data.imgScale = fHeight/$img.height();                                       
-                                        $data.imgScaleY = $data.imgScale;
 
-                                        newHeight = $img.height() * $data.imgScaleY;
-                                        missingRatioNormal = newHeight / $data.natHeight;
-                                        missingRatio = $data.natWidth * missingRatioNormal / $img.width();   
+					// Calculate how much to scale along the y-axis
+					$data.imgScale = fHeight/$img.height();
+					$data.imgScaleY = $data.imgScale;
 
-                                        $data.imgScaleX = missingRatio;
+					newHeight = $img.height()*$data.imgScaleY;
+					missingRatioNormal = newHeight/$data.natHeight;
+					missingRatio = $data.natWidth*missingRatioNormal/$img.width();
+					
+					$data.imgScaleX = missingRatio;
+
 				} else {
+					// Check if linked image is smaller or larger than intended fill
 					if($data.natWidth < $w.width()*settings.viewportFill) {
+						// If narrower, preserve smaller width
 						fWidth = $data.natWidth;
 					} else {
 						fWidth = $w.width()*settings.viewportFill;
 					}
+
+					// Calculate how much to scale along the x-axis
 					$data.imgScale = fWidth/$img.width();                                      
-                                        $data.imgScaleX = $data.imgScale;
+					$data.imgScaleX = $data.imgScale;
 
-                                        var newWidth = $img.width() * $data.imgScaleX;
-                                        var missingRatioNormal = newWidth / $data.natWidth;
-                                        var missingRatio = $data.natHeight * missingRatioNormal / $img.height();
+					newWidth = $img.width()*$data.imgScaleX;
+					missingRatioNormal = newWidth/$data.natWidth;
+					missingRatio = $data.natHeight*missingRatioNormal/$img.height();
 
-                                        $data.imgScaleY = missingRatio;
+					$data.imgScaleY = missingRatio;
 				}	
 
 				// Calculation goes here
 				var offsetY = $w.scrollTop()-$img.offset().top+0.5*($img.data('imgHeight')*($img.data('imgScale')-1))+0.5*($w.height()-$img.data('imgHeight')*$img.data('imgScale')),
 					offsetX = 0.5*($img.data('imgWidth')*($img.data('imgScale')-1))+0.5*($w.width()-$img.data('imgWidth')*$img.data('imgScale'))-$img.offset().left,
-                                        scale = parseInt($data.imgScaleX * 1000) / 1000 + ',' + parseInt($data.imgScaleY * 1000) / 1000;
+					scale = parseInt($data.imgScaleX * 1000) / 1000 + ',' + parseInt($data.imgScaleY * 1000) / 1000;
 
 				// Apply CSS transforms to ghost element
 				// For offsetX and Y, we round to one decimal place
@@ -175,7 +187,9 @@ var customTransitionEnd = whichTransitionEvent();
 					top: $img.offset().top - $wrap.offset().top,
 					left: $img.offset().left - $wrap.offset().left
 				}).one(customTransitionEnd, function() {
-					$activeFb.trigger(customEvent);
+					$.each(customEvents, function(i,customEvent) {
+						$activeFb.trigger(customEvent);
+					});
 				});
 			},
 			funcCalc = function ($fbItem) {
@@ -229,101 +243,168 @@ var customTransitionEnd = whichTransitionEvent();
 						$wrap   	= $(this).find('.fluidbox-wrap'),
 						timer   	= {};
 
+					// Functions
+					// 1. fbOpen(): called when Fluidbox receives a click event and is ready to open
+					// 2. fbClose(): called when Fluidbox receives a click event and is ready to close
+					var fbOpen = function() {
+							// Fire custom event: openstart
+							$activeFb.trigger('openstart');
+
+							// What are we doing here:
+							// 1. Append overlay in fluidbox
+							// 2. Toggle fluidbox state with data attribute
+							// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
+							// 4. Class toggle
+							$activeFb
+							.append($fbOverlay)
+							.data('fluidbox-state', 1)
+							.removeClass('fluidbox-closed')
+							.addClass('fluidbox-opened');
+
+							// Force timer to completion
+							if(timer['close']) window.clearTimeout(timer['close']);
+
+							// Set timer for opening
+							timer['open'] = window.setTimeout(function() {
+								// Show overlay
+								$('.fluidbox-overlay').css({ opacity: 1 });
+							}, 10);
+
+							// Change wrapper z-index, so it is above everything else
+							// Decrease all siblings z-index by 1 just in case
+							$('.fluidbox-wrap').css({ zIndex: settings.stackIndex - settings.stackIndexDelta - 1 });
+							$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
+						},
+						fbClose = function() {
+							// Fire custom event: closestart
+							$activeFb.trigger('closestart');
+
+							// Switch state
+							$activeFb
+							.data('fluidbox-state', 0)
+							.removeClass('fluidbox-opened fluidbox-loaded fluidbox-loading')
+							.addClass('fluidbox-closed');
+
+							// Set timer for closing
+							if(timer['open']) window.clearTimeout(timer['open']);
+							timer['close'] = window.setTimeout(function() {
+								$('.fluidbox-overlay').remove();
+								$wrap.css({ 'z-index': settings.stackIndex - settings.stackIndexDelta });
+							}, 10);
+
+							// Hide overlay
+							$('.fluidbox-overlay').css({ opacity: 0 });
+
+							// Reverse animation on wrapped elements, and restore stacking order
+							// You might want to change this value if your transition timing is longer
+							$ghost.css({
+								'transform': 'translate(0,0) scale(1)',
+								opacity: 0,
+								top: $img.offset().top - $wrap.offset().top + parseInt($img.css('borderTopWidth')) + parseInt($img.css('paddingTop')),
+								left: $img.offset().left - $wrap.offset().left + parseInt($img.css('borderLeftWidth')) + parseInt($img.css('paddingLeft'))
+							}).one(customTransitionEnd, function() {
+								$activeFb.trigger('closeend');
+							});
+							$img.css({ opacity: 1 });
+						};
+
 					if($(this).data('fluidbox-state') === 0 || !$(this).data('fluidbox-state')) {
 						// State: Closed
 						// Action: Open fluidbox
 
-						// Fire custom event: openstart
-						$(this).trigger('openstart');
+						// Add class to indicate larger image is being loaded
+						$activeFb.addClass('fluidbox-loading');
 
-						// Wait for ghost image to be loaded successfully first, then do the rest
-						$('<img />', {
-							src: $img.attr('src')
-						}).load(function () {
+						// Set thumbnail image source as background image first, preload later
+						$img.css({ opacity: 0 });
+						$ghost.css({
+							'background-image': 'url('+$img.attr('src')+')',
+							opacity: 1
+						});
+
+						// Check if item should be opened immediately
+						if(settings.immediateOpen) {
+							
+							// Store natural width and height of thumbnail
+							// We use this to scale preliminarily
+							$activeFb
+							.data('natWidth', $img[0].naturalWidth)
+							.data('natHeight', $img[0].naturalHeight);
+
+							// Open immediately
+							fbOpen();
+
+							// Preliminary positioning of Fluidbox based on available image ratio
+							funcPositionFb($activeFb, ['openend']);
+
+							// Preload target image
+							$('<img />', {
+								src: $activeFb.attr('href')
+							}).load(function() {
+								// When loading is successful
+								// 1. Trigger custom event: imageloaddone
+								// 2. Remove loading class
+								// 3. Add loaded class
+								// 4. Store natural width and height
+								$activeFb
+								.trigger('imageloaddone').trigger('delayedloaddone')
+								.removeClass('fluidbox-loading')
+								.addClass('fluidbox-loaded')
+								.data('natWidth', $(this)[0].naturalWidth)
+								.data('natHeight', $(this)[0].naturalHeight);
+
+								// Show linked image
+								$ghost.css({
+									'background-image': 'url('+$activeFb.attr('href')+')'});
+
+								// Reposition Fluidbox
+								funcPositionFb($activeFb, ['delayedreposdone']);
+
+							}).error(function() {
+								// If image fails to load, close Fluidbox
+								// Trigger custom event: imageloadfail
+								$activeFb.trigger('imageloadfail');
+								fbClose();
+							});
+						} else {
+							// If wait for ghost image to preload
 							// Preload ghost image
 							$('<img />', {
 								src: $activeFb.attr('href')
 							}).load(function() {
-								// Store natural width and heights
+								// When loading is successful
+								// 1. Trigger custom event: imageloaddone
+								// 2. Remove loading class
+								// 3. Add loaded class
+								// 4. Store natural width and height
 								$activeFb
+								.trigger('imageloaddone')
+								.removeClass('fluidbox-loading')
+								.addClass('fluidbox-loaded')
 								.data('natWidth', $(this)[0].naturalWidth)
 								.data('natHeight', $(this)[0].naturalHeight);
 
-								// What are we doing here:
-								// 1. Append overlay in fluidbox
-								// 2. Toggle fluidbox state with data attribute
-								// 3. Store original z-index with data attribute (so users can change z-index when they see fit in CSS file)
-								// 4. Class toggle
-								$activeFb
-								.append($fbOverlay)
-								.data('fluidbox-state', 1)
-								.removeClass('fluidbox-closed')
-								.addClass('fluidbox-opened');
-
-								// Force timer to completion
-								if(timer['close']) window.clearTimeout(timer['close']);
-
-								// Set timer for opening
-								timer['open'] = window.setTimeout(function() {
-									// Show overlay
-									$('.fluidbox-overlay').css({ opacity: 1 });
-								}, 10);
-
-								// Change wrapper z-index, so it is above everything else
-								// Decrease all siblings z-index by 1 just in case
-								$('.fluidbox-wrap').css({ zIndex: settings.stackIndex - settings.stackIndexDelta - 1 });
-								$wrap.css({ 'z-index': settings.stackIndex + settings.stackIndexDelta });
-
-								// Set thumbnail image source as background image first, preload later
-								$ghost.css({
-									'background-image': 'url('+$img.attr('src')+')',
-									opacity: 1
-								});
-
-								// Hide original image
-								$img.css({ opacity: 0 });
-
+								// Show linked image
 								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
 
+								// Open Fluidbox
+								fbOpen();
+
 								// Position Fluidbox
-								funcPositionFb($activeFb, 'openend');
+								funcPositionFb($activeFb, ['openend']);
+
+							}).error(function() {
+								// If image fails to load, close Fluidbox
+								// Trigger custom event: imageloadfail
+								$activeFb.trigger('imageloadfail');
+								fbClose();
 							});
-						});
+						}
 
 					} else {
 						// State: Open
 						// Action: Close fluidbox
-
-						// Fire custom event: closestart
-						$activeFb.trigger('closestart');
-
-						// Switch state
-						$activeFb
-						.data('fluidbox-state', 0)
-						.removeClass('fluidbox-opened')
-						.addClass('fluidbox-closed');
-
-						// Set timer for closing
-						if(timer['open']) window.clearTimeout(timer['open']);
-						timer['close'] = window.setTimeout(function() {
-							$('.fluidbox-overlay').remove();
-							$wrap.css({ 'z-index': settings.stackIndex - settings.stackIndexDelta });
-						}, 10);
-
-						// Hide overlay
-						$('.fluidbox-overlay').css({ opacity: 0 });
-
-						// Reverse animation on wrapped elements, and restore stacking order
-						// You might want to change this value if your transition timing is longer
-						$ghost.css({
-							'transform': 'translate(0,0) scale(1)',
-							opacity: 0,
-							top: $img.offset().top - $wrap.offset().top + parseInt($img.css('borderTopWidth')) + parseInt($img.css('paddingTop')),
-							left: $img.offset().left - $wrap.offset().left + parseInt($img.css('borderLeftWidth')) + parseInt($img.css('paddingLeft'))
-						}).one(customTransitionEnd, function() {
-							$activeFb.trigger('closeend');
-						});
-						$img.css({ opacity: 1 });
+						fbClose();
 					}
 
 					e.preventDefault();
@@ -343,7 +424,7 @@ var customTransitionEnd = whichTransitionEvent();
 
 				// Reposition Fluidbox, but only if one is found to be open
 				var $activeFb = $('a.fluidbox.fluidbox-opened');
-				if($activeFb.length > 0) funcPositionFb($activeFb, 'resizeend');
+				if($activeFb.length > 0) funcPositionFb($activeFb, ['resizeend']);
 			};
 
 		if(settings.debounceResize) {
@@ -385,14 +466,20 @@ var customTransitionEnd = whichTransitionEvent();
 						var $img = $(this);
 						
 						if ($img.width() > 0 && $img.height() > 0) {
-							// if image is already loaded (from cache)
+							// If image is already loaded (from cache)
 							funcCalc($fbItem);
 							$fbItem.click(fbClickHandler);
 						} else {
-							// wait for image to load
+							// Wait for image to load
 							$img.load(function(){
 								funcCalc($fbItem);
 								$fbItem.click(fbClickHandler);
+
+								// Trigger custom event: thumbloaddone
+								$fbItem.trigger('thumbloaddone');
+							}).error(function() {
+								// Trigger custom event: thumbloadfail
+								$fbItem.trigger('thumbloadfail');
 							});
 						}
 				});
