@@ -62,6 +62,8 @@
 		left: 50%;
 		width: 20%;
 		padding-bottom: 20%;
+		/* Delay disapparing of loader for graceful transition */
+		transition-delay: @transition-duration/2;
 	}
 
 	.fluidbox-loading &::before {

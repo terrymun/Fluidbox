@@ -174,14 +174,14 @@
 			<h3 id="immediate-loading">Support for immediate opening with background preloading of target image</h3>
 			<p>Fluidbox provides you the option that will launch an opened Fluidbox instance immediately upon click, even when the target image has not been loaded yet. The images below are relayed through a proxy server that will intentially delay delivery of images by 2 seconds.</p>
 			<div class="cols cols-nowrap">
-				<div>
-					<a href="http://deelay.me/2000/http://placehold.it/1600x800&amp;text=Delayed+opening" title="" data-fluidbox><img src="http://placehold.it/800x400&amp;text=Delayed+opening" title="" alt /></a>
-					Opens <em>after</em> target is loaded.
-				</div>
-				<div>
-					<a href="http://deelay.me/2000/http://placehold.it/1600x800&amp;text=Immediate+opening" title="" data-fluidbox-immediate-open><img src="http://placehold.it/800x400&amp;text=Immediate+opening" title="" alt /></a>
-					Opens immediately, doesn't wait for target to load.
-				</div>
+				<figure>
+					<a href="http://deelay.me/2000/http://placehold.it/1600x800/B64926/EEEEEE/&amp;text=Load+then+Open" title="" data-fluidbox><img src="http://placehold.it/800x400/8E2800/EEEEEE/&amp;text=Load+then+Open" title="" alt /></a>
+					<figcaption><strong>Default:</strong> <code>immediateOpen: false</code><br />Opens <em>after</em> target is loaded.</figcaption>
+				</figure>
+				<figure>
+					<a href="http://deelay.me/2000/http://placehold.it/1600x800/6FBA8D/EEEEEE/&amp;text=Open+then+Load" title="" data-fluidbox-immediate-open><img src="http://placehold.it/800x400/468966/EEEEEE/&amp;text=Open+then+Load" title="" alt /></a>
+					<figcaption><strong>Modified:</strong> <code>immediateOpen: true</code><br />Opens immediately, doesn't wait for target to load.</figcaption>
+				</figure>
 			</div>
 
 			<h3 id="borders-paddings">Support for image borders and paddings</h3>

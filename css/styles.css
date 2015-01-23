@@ -461,6 +461,9 @@ main section {
 		margin-left: 1rem;
 		margin-right: 1rem;
 	}
+.cols figcaption {
+	margin-top: .5rem;
+}
 
 /* Code blocks */
 .code-block {
