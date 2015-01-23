@@ -355,9 +355,10 @@ They are, in alphabetical order but not exhaustively so:
 - will-change<sup>3</sup>
 
 Sources:
-1. [*What No One Told You About Z-Index*](http://philipwalton.com/articles/what-no-one-told-you-about-z-index/) by Philip Walton
-2. [*Why does stacking order change on webkit filter hover?*](http://stackoverflow.com/a/25764603/395910) on StackOverflow
-3. [*The stacking context*](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context) on MDN
+
+  1. [*What No One Told You About Z-Index*](http://philipwalton.com/articles/what-no-one-told-you-about-z-index/) by Philip Walton
+  2. [*Why does stacking order change on webkit filter hover?*](http://stackoverflow.com/a/25764603/395910) on StackOverflow
+  3. [*The stacking context*](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context) on MDN
 
 ## Frequently Asked Questions
 1.  **Fluidbox is not working in my installation. Where should I start?**  
