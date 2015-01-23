@@ -443,7 +443,7 @@ $('#custom-trigger').click(function(e) {
 
 					$log.find('ul').append('<li><span class="evt" style="background-color: '+color+';" title="'+t+'"></span><span class="dsc"><code>'+evt+'</code> '+msg+'</span></li>');
 					console.log(t+': '+msg);
-					$log.scrollTop($(this)[0].scrollHeight);
+					$log.scrollTop($log[0].scrollHeight);
 				}
 				$('#custom-event-1')
 				.fluidbox({
