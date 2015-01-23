@@ -212,14 +212,16 @@ Fluidbox can be configured according to your needs. The following options are av
 | `overlayColor`   | String    | `rgba(255,255,255,.85)` | <p>**Warning: Deprecated from v1.3.5**. The overlay color is now dictated in the stylesheet, allowing custom overlays for each Fluidbox instance.</p><p>**Legacy description:** Sets the `background-color` property of Fluidbox overlay. Defaults to white with an opacity of 0.85.</p> |
 | `debounceResize` | Boolean   | `true`        | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
 | `closeTrigger`   | Array     | *see below*   | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
-| `stackIndex`  | Integer   | `999`         | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
+| `stackIndex`     | Integer   | `999`         | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
+| `immediate`      | Boolean   | `false`       | Do not wait for the large image to load before expanding. If set to `true`, it scales up the small, low-resolution image immediately. |
 
 User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
 
 ```js
 $('a').fluidbox({
 	viewportFill: 0.8,
-	debounceResize: false
+	debounceResize: false,
+	immediate: true
 });
 ```
 
