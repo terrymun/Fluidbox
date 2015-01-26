@@ -4,10 +4,15 @@ $overlay-bg-color: rgba(255,255,255,.85);
 $animation-bg-color: $overlay-bg-color;
 
 // Animation
+@-webkit-keyframes fluidboxLoading {
+	0%		{ -webkit-transform: translate(-50%, -50%) rotateX(0)		rotateY(0);			}
+	50%		{ -webkit-transform: translate(-50%, -50%) rotateX(-180deg)	rotateY(0);			}
+	100%	{ -webkit-transform: translate(-50%, -50%) rotateX(-180deg)	rotateY(-180deg);	}
+}
 @keyframes fluidboxLoading {
-	0%		{ transform: translate(-50%,-50%) rotateX(0)		rotateY(0);			}
-	50%		{ transform: translate(-50%,-50%) rotateX(-180deg)	rotateY(0);			}
-	100%	{ transform: translate(-50%,-50%) rotateX(-180deg)	rotateY(-180deg);	}
+	0%		{ transform: translate(-50%, -50%) rotateX(0)		rotateY(0);			}
+	50%		{ transform: translate(-50%, -50%) rotateX(-180deg)	rotateY(0);			}
+	100%	{ transform: translate(-50%, -50%) rotateX(-180deg)	rotateY(-180deg);	}
 }
 
 // Rules
@@ -52,6 +57,7 @@ $animation-bg-color: $overlay-bg-color;
 	transition-delay: $transition-duration, 0;
 
 	&::before {
+		-webkit-animation: fluidboxLoading 1s infinite;
 		animation: fluidboxLoading 1s infinite;
 		/* You can replace this with any color you want, or even a loading gif if desired */
 		background-color: $animation-bg-color;

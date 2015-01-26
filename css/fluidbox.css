@@ -1,3 +1,10 @@
+@-webkit-keyframes fluidboxLoading {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotateX(0) rotateY(0); }
+  50% {
+    -webkit-transform: translate(-50%, -50%) rotateX(-180deg) rotateY(0); }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotateX(-180deg) rotateY(-180deg); } }
 @keyframes fluidboxLoading {
   0% {
     transform: translate(-50%, -50%) rotateX(0) rotateY(0); }
@@ -45,6 +52,7 @@
   transition-duration: 0, 0.25s;
   transition-delay: 0.25s, 0; }
   .fluidbox-ghost::before {
+    -webkit-animation: fluidboxLoading 1s infinite;
     animation: fluidboxLoading 1s infinite;
     /* You can replace this with any color you want, or even a loading gif if desired */
     background-color: rgba(255, 255, 255, 0.85);
