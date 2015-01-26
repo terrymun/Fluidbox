@@ -122,16 +122,24 @@ var customTransitionEnd = whichTransitionEvent();
 			},
 			funcPositionFb = function ($activeFb, customEvents) {
 				// Get shorthand for more objects
-				var $img    = $activeFb.find('img'),
+				var $img    = $activeFb.find('img').first(),
 					$ghost  = $activeFb.find('.fluidbox-ghost'),
 					$wrap	= $activeFb.find('.fluidbox-wrap'),
 					$data	= $activeFb.data(),
 					fHeight = 0,
 					fWidth	= 0;
+
+				// Construct dimensions
+				var d = {
+					w: {
+						n: $data.natWidth
+					},
+					h: {
+						n: $data.natHeight
+					}
+				};
 				
 				$img.data().imgRatio = $data.natWidth/$data.natHeight;
-
-				var newHeight, missingRatioNormal, missingRatio;
                                 
 				// Check natural dimensions
 				if(vpRatio > $img.data().imgRatio) {
@@ -148,11 +156,8 @@ var customTransitionEnd = whichTransitionEvent();
 					$data.imgScale = fHeight/$img.height();
 					$data.imgScaleY = $data.imgScale;
 
-					newHeight = $img.height()*$data.imgScaleY;
-					missingRatioNormal = newHeight/$data.natHeight;
-					missingRatio = $data.natWidth*missingRatioNormal/$img.width();
-					
-					$data.imgScaleX = missingRatio;
+					// Calcualte how much to scale along the x-axis
+					$data.imgScaleX = $data.natWidth*(($img.height()*$data.imgScaleY))/$data.natHeight)/$img.width();
 
 				} else {
 					// Check if linked image is smaller or larger than intended fill
@@ -167,21 +172,18 @@ var customTransitionEnd = whichTransitionEvent();
 					$data.imgScale = fWidth/$img.width();                                      
 					$data.imgScaleX = $data.imgScale;
 
-					newWidth = $img.width()*$data.imgScaleX;
-					missingRatioNormal = newWidth/$data.natWidth;
-					missingRatio = $data.natHeight*missingRatioNormal/$img.height();
-
-					$data.imgScaleY = missingRatio;
+					// Calculate how much to scale along the y-axis
+					$data.imgScaleY = $data.natHeight*(($img.width()*$data.imgScaleX)/$data.natWidth)/$img.height();
 				}	
 
-				// Calculation goes here
+				// Magic happens right here... okay, not really. Just really fizzy calculations
 				var offsetY = $w.scrollTop()-$img.offset().top+0.5*($img.data('imgHeight')*($img.data('imgScale')-1))+0.5*($w.height()-$img.data('imgHeight')*$img.data('imgScale')),
 					offsetX = 0.5*($img.data('imgWidth')*($img.data('imgScale')-1))+0.5*($w.width()-$img.data('imgWidth')*$img.data('imgScale'))-$img.offset().left,
 					scale = parseInt($data.imgScaleX * 1000) / 1000 + ',' + parseInt($data.imgScaleY * 1000) / 1000;
 
 				// Apply CSS transforms to ghost element
-				// For offsetX and Y, we round to one decimal place
-				// For scale, we round to three decimal places
+				// For offsetX and Y:	round to one decimal place
+				// For scale: 			round to three decimal places
 				$ghost.css({
 					'transform': 'translate('+parseInt(offsetX*10)/10+'px,'+parseInt(offsetY*10)/10+'px) scale('+ scale +')',
 					top: $img.offset().top - $wrap.offset().top,
@@ -198,7 +200,7 @@ var customTransitionEnd = whichTransitionEvent();
 
 				// Get image dimensions and aspect ratio
 				if($fbItem.hasClass('fluidbox')) {
-					var $img	= $fbItem.find('img'),
+					var $img	= $fbItem.find('img').first(),
 						$ghost	= $fbItem.find('.fluidbox-ghost'),
 						$wrap	= $fbItem.find('.fluidbox-wrap'),
 						data	= $img.data();
@@ -238,9 +240,10 @@ var customTransitionEnd = whichTransitionEvent();
 
 					// Variables
 					var $activeFb	= $(this),
-						$img		= $(this).find('img'),
+						$img		= $(this).find('img').first(),
 						$ghost		= $(this).find('.fluidbox-ghost'),
 						$wrap   	= $(this).find('.fluidbox-wrap'),
+						linkedImg   = encodeURI($activeFb.attr('href')),
 						timer   	= {};
 
 					// Functions
@@ -339,7 +342,7 @@ var customTransitionEnd = whichTransitionEvent();
 
 							// Preload target image
 							$('<img />', {
-								src: $activeFb.attr('href')
+								src: linkedImg
 							}).load(function() {
 								// When loading is successful
 								// 1. Trigger custom event: imageloaddone
@@ -355,7 +358,7 @@ var customTransitionEnd = whichTransitionEvent();
 
 								// Show linked image
 								$ghost.css({
-									'background-image': 'url('+$activeFb.attr('href')+')'});
+									'background-image': 'url('+linkedImg+')'});
 
 								// Reposition Fluidbox
 								funcPositionFb($activeFb, ['delayedreposdone']);
@@ -370,7 +373,7 @@ var customTransitionEnd = whichTransitionEvent();
 							// If wait for ghost image to preload
 							// Preload ghost image
 							$('<img />', {
-								src: $activeFb.attr('href')
+								src: linkedImg
 							}).load(function() {
 								// When loading is successful
 								// 1. Trigger custom event: imageloaddone
@@ -385,7 +388,7 @@ var customTransitionEnd = whichTransitionEvent();
 								.data('natHeight', $(this)[0].naturalHeight);
 
 								// Show linked image
-								$ghost.css({ 'background-image': 'url('+$activeFb.attr('href')+')' });
+								$ghost.css({ 'background-image': 'url('+linkedImg+')' });
 
 								// Open Fluidbox
 								fbOpen();
@@ -440,7 +443,7 @@ var customTransitionEnd = whichTransitionEvent();
 			// 2. Contains one and ONLY one child
 			// 3. The only child is an image element, <img>
 			// 4. If the element is hidden
-			if($(this).is('a') && $(this).children().length === 1 && $(this).children().is('img') && $(this).css('display') !== 'none' && $(this).parents().css('display') !=='none') {
+			if($(this).is('a') && $(this).children().length === 1 && $(this).children().is('img') && $(this).css('display') !== 'none' && $(this).parents().css('display') !== 'none') {
 
 				// Define wrap
 				var $fbInnerWrap = $('<div />', {
@@ -460,6 +463,7 @@ var customTransitionEnd = whichTransitionEvent();
 				.attr('id', 'fluidbox-'+fbCount)
 				.wrapInner($fbInnerWrap)
 				.find('img')
+					.first()
 					.css({ opacity: 1 })
 					.after('<div class="fluidbox-ghost" />')
 					.each(function(){

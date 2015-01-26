@@ -72,6 +72,8 @@ To install Fluidbox, you will have to include the following resources in your pa
 | JS   | `jquery.fluidbox.js` | Confers the main functionality of Fluidbox. Alternatively, you can load the minified version, `jquery.fluidbox.min.js` |
 | CSS  | `css/fluidbox.css`   | Offers styles that are crucial for the correct display of Fluidbox. The appearance will break if this is not included. |
 
+In order to support CSS animation and transformation applied by `fluidbox.css` in browsers that require vendor prefixes, you should consider using [prefixfree.js](http://leaverou.github.com/prefixfree/) as a dependency.
+
 ## Usage
 ### Basic
 It is rather straightforward to use Fluidbox&mdash;simply chain the `.fluidbox()` method to a selector of your choice. The plugin will automatically check if the selector is:
