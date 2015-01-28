@@ -38,7 +38,7 @@
   transition: all 0.25s ease-in-out;
   /* To prevent flickering, we delay the showing of the image */ }
   .fluidbox-closed .fluidbox-wrap img {
-    transition: opacity 0 ease-in-out 0.25s; }
+    transition: opacity 0s ease-in-out 0.25s; }
 
 .fluidbox-ghost {
   background-size: 100% 100%;
@@ -49,8 +49,8 @@
   -moz-transition-property: opacity, -moz-transform;
   -o-transition-property: opacity, -o-transform;
   transition-property: opacity, transform;
-  transition-duration: 0, 0.25s;
-  transition-delay: 0.25s, 0; }
+  transition-duration: 0s, 0.25s;
+  transition-delay: 0.25s, 0s; }
   .fluidbox-ghost::before {
     -webkit-animation: fluidboxLoading 1s infinite;
     animation: fluidboxLoading 1s infinite;
@@ -69,8 +69,8 @@
     transition-delay: 0.125s; }
   .fluidbox-loading .fluidbox-ghost::before {
     opacity: 1;
-    transition-delay: 0; }
+    transition-delay: 0s; }
   .fluidbox-opened .fluidbox-ghost {
-    transition-delay: 0, 0; }
+    transition-delay: 0s, 0s; }
 
 /*# sourceMappingURL=fluidbox.css.map */

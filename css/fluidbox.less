@@ -42,7 +42,7 @@
 	transition: all @transition-duration ease-in-out;
 
 	/* To prevent flickering, we delay the showing of the image */
-	.fluidbox-closed & img { transition: opacity 0 ease-in-out @transition-duration; }
+	.fluidbox-closed & img { transition: opacity 0s ease-in-out @transition-duration; }
 }
 .fluidbox-ghost {
 	background-size: 100% 100%;
@@ -52,8 +52,8 @@
 	-moz-transition-property: opacity, -moz-transform;
 	-o-transition-property: opacity, -o-transform;
 	transition-property: opacity, transform;
-	transition-duration: 0, @transition-duration;
-	transition-delay: @transition-duration, 0;
+	transition-duration: 0s, @transition-duration;
+	transition-delay: @transition-duration, 0s;
 
 	&::before {
 		-webkit-animation: fluidboxLoading 1s infinite;
@@ -77,5 +77,5 @@
 		opacity: 1;
 	}
 
-	.fluidbox-opened & { transition-delay: 0, 0; }
+	.fluidbox-opened & { transition-delay: 0s, 0s; }
 }
