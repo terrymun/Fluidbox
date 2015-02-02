@@ -375,6 +375,67 @@ main section {
     	font-size: 3em;
     }
 
+/* Three dimensional visualization of Fluidbox */
+#fluidbox-3d {
+	margin: 0 0 1.5rem 0;
+	padding: 0;
+	perspective: 5000;	/* Keep things isometric */
+	width: 100%;
+	height: 400px;
+	position: relative;
+}
+#fluidbox-3d * {
+	transform-style: preserve-3d;
+}
+#fluidbox-3d figcaption {
+	font-size: .85rem;
+	position: absolute;
+	bottom: 0;
+	margin-top: .75rem;
+	text-align: center;
+	width: 100%;
+}
+#fluidbox-3d .canvas {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%) rotateX(45deg) rotateZ(45deg);
+}
+#fluidbox-3d .fluidbox-wrap {
+	background-image: url('http://placehold.it/300x300/b13131/ffffff/&text=Wrap');
+	border: none;
+}
+	#fluidbox-3d:hover .fluidbox-wrap {
+		transform: translate3d(-8rem, 8rem, 0);
+	}
+#fluidbox-3d img {
+	display: block;
+	opacity: .75 !important;	/* Override required for pre-existing inline-styles */
+	max-width: 100%;
+	transition: all .25s ease-in-out;
+	transform: translate3d(0, 0, 2rem);
+}
+	#fluidbox-3d:hover img {
+		opacity: .5 !important;	/* Override required for pre-existing inline-styles */
+		transform: translate3d(8rem, -8rem, 2rem);
+	}
+	#fluidbox-3d img:hover {
+		opacity: 1 !important;	/* Override required for pre-existing inline-styles */
+	}
+#fluidbox-3d .fluidbox-ghost {
+	background-image: url('http://placehold.it/300x300/&text=Ghost');
+	opacity: .75;
+	transform: translate3d(0, 0, 4rem);
+	transition-delay: 0;
+}
+	#fluidbox-3d:hover .fluidbox-ghost {
+		opacity: .5;
+		transform: translate3d(16rem, -16rem, 4rem);
+	}
+	#fluidbox-3d .fluidbox-ghost:hover {
+		opacity: 1;
+	}
+
 /* Adjust positioning of images to introduce variety */
 .demo a[data-fluidbox],
 .demo a.fluidbox,

@@ -109,6 +109,37 @@
 		</section>
 
 		<section>
+			<h2 id="how-does-it-work">How does it work?</h2>
+			<p>Fluidbox works by replacing your markup, which should be as follow:</p>
+			<pre class="language-markup"><code>&lt;a href=&quot;/path/to/image&quot; title=&quot;&quot;&gt;
+    &lt;img src=&quot;/path/to/image&quot; alt=&quot;&quot; title=&quot;&quot; /&gt;
+&lt;/a&gt;</code></pre>
+			<p>&hellip;into&hellip;</p>
+			<pre class="language-markup"><code>&lt;a href=&quot;/path/to/image&quot; data-fluidbox=&quot;&quot; class=&quot;fluidbox fluidbox-closed&quot; id=&quot;fluidbox-[n]&quot;&gt;
+    &lt;div class=&quot;fluidbox-wrap&quot; style=&quot;z-index: 990;&quot;&gt;
+        &lt;img src=&quot;/path/to/image&quot; alt=&quot;&quot; title=&quot;&quot; style=&quot;opacity: 1;&quot;&gt;
+        &lt;div class=&quot;fluidbox-ghost&quot; style=&quot;width: [w]; height: [h]; top: [t]; left: [l];&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/a&gt;</code></pre>
+			<p>&hellip;where:</p>
+			<ul>
+				<li><strong><code>[n]</code></strong> is an integer, unique to each Fluidbox instance on the page</li>
+				<li><strong><code>[w]</code></strong> is the computed width of the thumbnail, in pixels</li>
+				<li><strong><code>[h]</code></strong> is the computed height of the thumbnail, in pixels</li>
+				<li><strong><code>[t]</code></strong> is the computed offset, from the top and in pixels, of the thumbnail relative to its container</li>
+				<li><strong><code>[l]</code></strong> is the computed offset, from the left and in pixels, of the thumbnail relative to its container</li>
+			</ul>
+			<p>The replaced and rendered markup for each image targeted with Fluidbox can be presented in a three-dimensional way as follow:</p>
+			<figure id="fluidbox-3d">
+				<div class="canvas">
+					<a href="http://placehold.it/300x300/333333/ffffff/" data-fluidbox="" class="fluidbox fluidbox-closed" id="fluidbox-65536"><div class="fluidbox-wrap" style="z-index: 990;"><img src="http://placehold.it/300x300/333333/ffffff/&amp;text=Thumbnail" alt="" title="" style="opacity: 1;"><div class="fluidbox-ghost"></div></div></a>
+				</div>
+				<figcaption>Three-dimensional visualization of rendered Fluidbox markup.</figcaption>
+			</figure>
+			<p>Each initialized Fluidbox instance can therefore be styled independently from each other using CSS alone, requiring no further manipulation via JS (unless required on the user's behalf for specific implementations). Fluidbox listens to the click event triggered on the ghost element, <code>.fluidbox-ghost</code>, and toggles between two binary states, <em>open</em> or <em>closed</em>.</p>
+		</section>
+
+		<section>
 			<h2 id="usage-notes">Usage notes</h2>
 			<h3 id="dependencies">Dependencies</h3>
 			<p>TThe latest version of Fluidbox require only one dependency: <a href="http://jquery.com/">jQuery v1.7 and above</a>. Yes, and that's all! I recommend using the latest stable build of 1.x, although I have not encountered any issues if 2.x is used. I usually use Google APIs, since many other sites are using it and the end-user probalby has a cache of it sitting somewhere on their machine already.</p>
@@ -394,6 +425,25 @@ $('#custom-trigger').click(function(e) {
 				$('.demo a[data-fluidbox-immediate-open]').fluidbox({
 					immediateOpen: true
 				});
+
+				// Three-dimensional markup demo
+				$('#fluidbox-3d a').click(function(e) {
+					e.preventDefault();
+				});
+
+				// Update three-dimensional markup demo ghost element
+				var ghostresize = function() {
+					var $img = $('#fluidbox-3d img');
+					$('#fluidbox-3d .fluidbox-ghost').css({
+						width: $img.width(),
+						height: $img.height(),
+						top: 0,
+						left: 0
+					});
+				};
+				ghostresize();
+				$('#fluidbox-3d img').load(ghostresize);
+				$(window).resize(ghostresize);
 
 				// Trigger recomputing on Flexbox items, sometimes buggy width calculations due to browser recomputation of flex items
 				$('.cols').each(function() {

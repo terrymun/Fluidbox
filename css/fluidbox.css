@@ -43,7 +43,6 @@
 .fluidbox-ghost {
   background-size: 100% 100%;
   background-position: center center;
-  perspective: 200px;
   position: absolute;
   -webkit-transition-property: opacity, -webkit-transform;
   -moz-transition-property: opacity, -moz-transform;
@@ -51,7 +50,17 @@
   transition-property: opacity, transform;
   transition-duration: 0s, 0.25s;
   transition-delay: 0.25s, 0s; }
-  .fluidbox-ghost::before {
+  .fluidbox-opened .fluidbox-ghost {
+    transition-delay: 0s, 0s; }
+
+.fluidbox-loader {
+  perspective: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; }
+  .fluidbox-loader::before {
     -webkit-animation: fluidboxLoading 1s infinite;
     animation: fluidboxLoading 1s infinite;
     /* You can replace this with any color you want, or even a loading gif if desired */
@@ -67,10 +76,9 @@
     padding-bottom: 20%;
     /* Delay disapparing of loader for graceful transition */
     transition-delay: 0.125s; }
-  .fluidbox-loading .fluidbox-ghost::before {
-    opacity: 1;
-    transition-delay: 0s; }
-  .fluidbox-opened .fluidbox-ghost {
-    transition-delay: 0s, 0s; }
+
+.fluidbox-loading .fluidbox-loader::before {
+  opacity: 1;
+  transition-delay: 0s; }
 
 /*# sourceMappingURL=fluidbox.css.map */

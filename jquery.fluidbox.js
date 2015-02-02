@@ -86,7 +86,8 @@ var customTransitionEnd = whichTransitionEvent();
 					keyCode: 27
 				}
 			],
-			immediateOpen: false
+			immediateOpen: false,
+			loadingEle: true
 		}, opts);
 
 		// Keyboard events
@@ -124,6 +125,7 @@ var customTransitionEnd = whichTransitionEvent();
 				// Get shorthand for more objects
 				var $img    = $activeFb.find('img').first(),
 					$ghost  = $activeFb.find('.fluidbox-ghost'),
+					$loader = $activeFb.find('.fluidbox-loader'),
 					$wrap	= $activeFb.find('.fluidbox-wrap'),
 					$data	= $activeFb.data(),
 					fHeight = 0,
@@ -157,7 +159,7 @@ var customTransitionEnd = whichTransitionEvent();
 					$data.imgScaleY = $data.imgScale;
 
 					// Calcualte how much to scale along the x-axis
-					$data.imgScaleX = $data.natWidth*(($img.height()*$data.imgScaleY))/$data.natHeight)/$img.width();
+					$data.imgScaleX = $data.natWidth*(($img.height()*$data.imgScaleY)/$data.natHeight)/$img.width();
 
 				} else {
 					// Check if linked image is smaller or larger than intended fill
@@ -184,11 +186,14 @@ var customTransitionEnd = whichTransitionEvent();
 				// Apply CSS transforms to ghost element
 				// For offsetX and Y:	round to one decimal place
 				// For scale: 			round to three decimal places
-				$ghost.css({
+				$ghost
+				.add($loader)
+				.css({
 					'transform': 'translate('+parseInt(offsetX*10)/10+'px,'+parseInt(offsetY*10)/10+'px) scale('+ scale +')',
 					top: $img.offset().top - $wrap.offset().top,
 					left: $img.offset().left - $wrap.offset().left
-				}).one(customTransitionEnd, function() {
+				});
+				$ghost.one(customTransitionEnd, function() {
 					$.each(customEvents, function(i,customEvent) {
 						$activeFb.trigger(customEvent);
 					});
@@ -202,6 +207,7 @@ var customTransitionEnd = whichTransitionEvent();
 				if($fbItem.hasClass('fluidbox')) {
 					var $img	= $fbItem.find('img').first(),
 						$ghost	= $fbItem.find('.fluidbox-ghost'),
+						$loader = $fbItem.find('.fluidbox-loader'),
 						$wrap	= $fbItem.find('.fluidbox-wrap'),
 						data	= $img.data();
 
@@ -212,7 +218,9 @@ var customTransitionEnd = whichTransitionEvent();
 						data.imgRatio	= $img.width()/$img.height();
 
 						// Resize and position ghost element
-						$ghost.css({
+						$ghost
+						.add($loader)
+						.css({
 							width: $img.width(),
 							height: $img.height(),
 							top: $img.offset().top - $wrap.offset().top + parseInt($img.css('borderTopWidth')) + parseInt($img.css('paddingTop')),
@@ -242,6 +250,7 @@ var customTransitionEnd = whichTransitionEvent();
 					var $activeFb	= $(this),
 						$img		= $(this).find('img').first(),
 						$ghost		= $(this).find('.fluidbox-ghost'),
+						$loader		= $(this).find('.fluidbox-loader'),
 						$wrap   	= $(this).find('.fluidbox-wrap'),
 						linkedImg   = encodeURI($activeFb.attr('href')),
 						timer   	= {};
@@ -300,12 +309,15 @@ var customTransitionEnd = whichTransitionEvent();
 
 							// Reverse animation on wrapped elements, and restore stacking order
 							// You might want to change this value if your transition timing is longer
-							$ghost.css({
+							$ghost
+							.add($loader)
+							.css({
 								'transform': 'translate(0,0) scale(1)',
 								opacity: 0,
 								top: $img.offset().top - $wrap.offset().top + parseInt($img.css('borderTopWidth')) + parseInt($img.css('paddingTop')),
 								left: $img.offset().left - $wrap.offset().left + parseInt($img.css('borderLeftWidth')) + parseInt($img.css('paddingLeft'))
-							}).one(customTransitionEnd, function() {
+							});
+							$ghost.one(customTransitionEnd, function() {
 								$activeFb.trigger('closeend');
 							});
 							$img.css({ opacity: 1 });
@@ -453,6 +465,11 @@ var customTransitionEnd = whichTransitionEvent();
 					}
 				});
 
+				// Define loader
+				var $fbLoader = $('<div />', {
+					'class': 'fluidbox-loader'
+				});
+
 				// Update count for global Fluidbox instances
 				fbCount+=1;
 
@@ -487,6 +504,11 @@ var customTransitionEnd = whichTransitionEvent();
 							});
 						}
 				});
+
+				// Check of loader is enabled
+				if(settings.loadingEle) {
+					$fbItem.find('.fluidbox-ghost').after($fbLoader);
+				}
 
 				// Custom trigger
 				$(this).on('recompute', function() {
