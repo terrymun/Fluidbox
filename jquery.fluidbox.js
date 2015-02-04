@@ -131,18 +131,9 @@ var customTransitionEnd = whichTransitionEvent();
 					fHeight = 0,
 					fWidth	= 0;
 
-				// Construct dimensions
-				var d = {
-					w: {
-						n: $data.natWidth
-					},
-					h: {
-						n: $data.natHeight
-					}
-				};
-				
+				// Calculate aspect ratio				
 				$img.data().imgRatio = $data.natWidth/$data.natHeight;
-                                
+
 				// Check natural dimensions
 				if(vpRatio > $img.data().imgRatio) {
 
@@ -312,7 +303,7 @@ var customTransitionEnd = whichTransitionEvent();
 							$ghost
 							.add($loader)
 							.css({
-								'transform': 'translate(0,0) scale(1)',
+								'transform': 'translate(0,0) scale(1,1)',
 								opacity: 0,
 								top: $img.offset().top - $wrap.offset().top + parseInt($img.css('borderTopWidth')) + parseInt($img.css('paddingTop')),
 								left: $img.offset().left - $wrap.offset().left + parseInt($img.css('borderLeftWidth')) + parseInt($img.css('paddingLeft'))

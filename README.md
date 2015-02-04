@@ -308,6 +308,10 @@ Note that the **imagesloaded jQuery plugin** is no longer required as of v1.2.8 
 
 Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
 
+## Known Issues
+### Transition of CSS3 transform in Safari
+For inexplicable reason(s), Safari no longer transition CSS transformations (the `scale` component especially) after the first time the Fluidbox has been opened. A simple workaround would be enabling the `immediateOpen` option (i.e. `immediateOpen: true`) when initializing Fluidbox.
+
 ## Precautions
 ### Overflowing content
 Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
