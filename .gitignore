@@ -43,6 +43,10 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
+*.sln
+*.suo
+*.njsproj
+.ntvs_analysis.dat
 
 # Build results
 
@@ -195,7 +199,6 @@ $RECYCLE.BIN/
 # Packages
 *.egg
 *.egg-info
-dist/
 build/
 eggs/
 parts/
