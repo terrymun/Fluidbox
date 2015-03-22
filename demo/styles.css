@@ -1,20 +1,20 @@
 /* Component styles */
 @font-face {
 	font-family: 'Blokk';
-	src: url('../fonts/BLOKKRegular.eot');
-	src: url('../fonts/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
-		 url('../fonts/BLOKKRegular.woff') format('woff'),
-		 url('../fonts/BLOKKRegular.svg#BLOKKRegular') format('svg');
+	src: url('fonts/BLOKKRegular.eot');
+	src: url('fonts/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/BLOKKRegular.woff') format('woff'),
+		 url('fonts/BLOKKRegular.svg#BLOKKRegular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'fontello';
-	src: url('../fonts/fontello.eot');
-	src: url('../fonts/fontello.eot#iefix') format('embedded-opentype'),
-		 url('../fonts/fontello.woff') format('woff'),
-		 url('../fonts/fontello.ttf') format('truetype'),
-		 url('../fonts/fontello.svg#fontello') format('svg');
+	src: url('fonts/fontello.eot');
+	src: url('fonts/fontello.eot#iefix') format('embedded-opentype'),
+		 url('fonts/fontello.woff') format('woff'),
+		 url('fonts/fontello.ttf') format('truetype'),
+		 url('fonts/fontello.svg#fontello') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

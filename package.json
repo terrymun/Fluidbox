@@ -1,52 +1,66 @@
 {
-  "name": "fluidbox",
-  "filename": "jquery.fluidbox.min.js",
-  "version": "1.4.3",
-  "description": "Replicating Medium's beautiful, minimalist lightbox module",
-  "homepage": "https://github.com/terrymun/Fluidbox",
-  "main": "jquery.fluidbox.js",
-  "authors": [
-    {
-      "name": "Terry Mun",
-      "email": "hello@terrymun.com",
-      "homagepage": "http://terrymun.com"
+    "name": "fluidbox",
+    "filename": "jquery.fluidbox.min.js",
+    "version": "1.4.3",
+    "description": "Replicating Medium's beautiful, minimalist lightbox module",
+    "homepage": "https://github.com/terrymun/Fluidbox",
+    "main": "jquery.fluidbox.js",
+    "authors": [
+        {
+            "name": "Terry Mun",
+            "email": "hello@terrymun.com",
+            "homepage": "http://terrymun.com"
+        }
+    ],
+    "maintainers": [
+        {
+            "name": "Terry Mun",
+            "email": "hello@terrymun.com",
+            "homepage": "http://terrymun.com"
+        }
+    ],
+    "repositories": {
+        "type": "git",
+        "url": "https://github.com/terrymun/Fluidbox/"
+    },
+    "keywords": [
+        "fluidbox",
+        "lightbox"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "package.json"
+    ],
+    "dependencies": {
+        "jquery": ">=1.9"
+    },
+    "npmName": "fluidbox",
+    "npmFileMap": [
+        {
+            "basePath": "/dist/",
+            "files": [
+                "./js/jquery.fluidbox.js",
+                "./js/jquery.fluidbox.min.js",
+                "./css/fluidbox.css"
+            ]
+        }
+    ],
+    "devDependencies": {
+        "gulp": "^3.8.11",
+        "gulp-autoprefixer": "^2.1.0",
+        "gulp-header": "^1.2.2",
+        "gulp-minify-css": "^0.4.6",
+        "gulp-rename": "^1.2.0",
+        "gulp-sass": "^1.3.3",
+        "gulp-sourcemaps": "^1.3.0",
+        "gulp-uglify": "^1.1.0",
+        "gulp-watch": "^4.1.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 0"
     }
-  ],
-  "maintainers": [
-    "Terry Mun <hello@terrymun.com>"
-  ],
-  "repositories": {
-    "type": "git",
-    "url": "https://github.com/terrymun/Fluidbox/"
-  },
-  "keywords": [
-    "fluidbox",
-    "lightbox"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "package.json"
-  ],
-  "dependencies": {
-    "jquery": ">=1.9"
-  },
-  "npmName": "fluidbox",
-  "npmFileMap": [
-    {
-      "basePath": "/dist/",
-      "files": [
-        "./jquery.fluidbox.js",
-        "./jquery.fluidbox.min.js",
-        "./css/fluidbox.css"
-      ]
-    }
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
-  },
-  "author": "Terry Mun <hello@terrymun.com> (http://terrymun.com)"
 }
