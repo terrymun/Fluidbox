@@ -1,6 +1,6 @@
 // Fluidbox
 // Description: Replicating the seamless lightbox transition effect seen on Medium.com, with some improvements
-// Version: 1.4.3
+// Version: 1.4.4
 // Author: Terry Mun
 // Author URI: http://terrymun.com
 
@@ -377,7 +377,7 @@ var customTransitionEnd = whichTransitionEvent();
 							// Preload ghost image
 							$('<img />', {
 								src: linkedImg
-							}).load(function() {
+							}).load(function() {								
 								// When loading is successful
 								// 1. Trigger custom event: imageloaddone
 								// 2. Remove loading class
@@ -389,6 +389,9 @@ var customTransitionEnd = whichTransitionEvent();
 								.addClass('fluidbox-loaded')
 								.data('natWidth', $(this)[0].naturalWidth)
 								.data('natHeight', $(this)[0].naturalHeight);
+
+								// Since image is already loaded, we force it to open immediately next time
+								settings.immediateOpen = true;
 
 								// Show linked image
 								$ghost.css({ 'background-image': 'url('+linkedImg+')' });
