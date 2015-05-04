@@ -324,7 +324,7 @@ var customTransitionEnd = whichTransitionEvent();
 						// Set thumbnail image source as background image first, preload later
 						$img.css({ opacity: 0 });
 						$ghost.css({
-							'background-image': 'url('+$img.attr('src')+')',
+							'background-image': 'url("'+$img.attr('src')+'")',
 							opacity: 1
 						});
 
@@ -361,7 +361,7 @@ var customTransitionEnd = whichTransitionEvent();
 
 								// Show linked image
 								$ghost.css({
-									'background-image': 'url('+linkedImg+')'});
+									'background-image': 'url("'+linkedImg +'")'});
 
 								// Reposition Fluidbox
 								funcPositionFb($activeFb, ['delayedreposdone']);
@@ -394,7 +394,7 @@ var customTransitionEnd = whichTransitionEvent();
 								settings.immediateOpen = true;
 
 								// Show linked image
-								$ghost.css({ 'background-image': 'url('+linkedImg+')' });
+								$ghost.css({ 'background-image': 'url("'+linkedImg+'")' });
 
 								// Open Fluidbox
 								fbOpen();
