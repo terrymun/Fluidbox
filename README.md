@@ -34,7 +34,7 @@ Fluidbox is part of the vast collection of libraries proudly [hosted by CDNJS](h
 Fluidbox has been implemented on other sites in the wild, too&mdash;check it out:
 
 - [**Gemma Busquets**](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
-- [*Highlight* portfolio theme](https://portfolios.500px.com/themes/172) by [500px](https://500px.com/)
+- [<strong>*Highlight* portfolio theme</strong>](https://portfolios.500px.com/themes/172) by [500px](https://500px.com/)
 - [**Terry Mun**](http://terrymun.com/) by *myself*
 
 To add your site that has implemented Fluidbox, or an article/tutorial you have written on Fluidbox use and/or application, feel free to write to me at [@teddyrised](https://twitter.com/teddyrised).
