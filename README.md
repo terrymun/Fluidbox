@@ -1,6 +1,8 @@
 # Fluidbox
 [![Build Status](https://travis-ci.org/terrymun/Fluidbox.svg?branch=master)](https://travis-ci.org/terrymun/Fluidbox) ![Latest Github release](https://img.shields.io/github/release/terrymun/fluidbox.svg?style=flat) ![Average issue resolution time](http://img.shields.io/badge/Issues%20Closed%20In-about%2015%20hours-green.svg?style=flat)
 
+> **Note:** Fluidbox is up for a codebase rewrite over the course of summer.
+
 Replicating and improving the lightbox module seen on Medium with fluid transitions. [View demo here](http://terrymun.github.io/Fluidbox/). For users who are looking for a quick setup and/or troubleshooting process, refer to [basic usage](#basic), but do not forget to read the [usage precautions](#precautions) and [frequently asked questions](#frequently-asked-questions).
 
 Although not thoroughly tested, Fluidbox should be working in IE ≥10 and all versions of Chrome, Firefox, Safari, iOS Safari and Android Chrome, **with the exception of Opera Mini**. However, I suggest disabling Fluidbox on mobile devices or at small screen resolutions.
@@ -32,12 +34,8 @@ Fluidbox is part of the vast collection of libraries proudly [hosted by CDNJS](h
 Fluidbox has been implemented on other sites in the wild, too&mdash;check it out:
 
 - [**Gemma Busquets**](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
+- [*Highlight* portfolio theme](https://portfolios.500px.com/themes/172) by [500px](https://500px.com/)
 - [**Terry Mun**](http://terrymun.com/) by *myself*
-
-Some external resources that might help you:
-
-- [WordPress plugin](https://wordpress.org/plugins/fluidbox/)
-- [Manual implementation in WordPress](http://sridharkatakam.com/medium-like-fluid-lightbox-wordpress-using-fluidbox/)
 
 To add your site that has implemented Fluidbox, or an article/tutorial you have written on Fluidbox use and/or application, feel free to write to me at [@teddyrised](https://twitter.com/teddyrised).
 
