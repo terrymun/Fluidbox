@@ -223,6 +223,7 @@ Fluidbox can be configured according to your needs. The following options are av
 | `closeTrigger`   | Array     | *see below*   | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
 | `stackIndex`     | Integer   | `999`         | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
 | `immediateOpen`  | Boolean   | `false`       | Launches the Fluidbox instance immediately when a click event is triggered, regardless of whether the target/linked image has been preloaded. When this value is set to true, the custom events `delayedloaddone` and `delayedreposdone` will be fired when the target/linked image is subsequently loaded and the ghost image dimensions being recomputed. |
+| `lazyLoadAll`  | Boolean   | `false`       | Uses the `href` attribute of the parent `a` tag to lazy load a high-quality version of the child `img` in addition to Fluidbox. This is useful when the `a` tag links to a higher-quality image than the `img` tag. Note: This flag will have no effect unless [lazysizes](https://github.com/aFarkas/lazysizes) by [Alexander Farkas](https://github.com/aFarkas) is present. |
 
 User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
 
