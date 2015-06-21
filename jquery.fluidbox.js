@@ -542,11 +542,11 @@ var customTransitionEnd = whichTransitionEvent();
 							}
 						});
 					}
-				}
+				};
 				
-				$fbImg = $(this).children();
+				var $fbImg = $(this).children();
 				
-				// Check if lazysizes is present
+				// Check if lazysizes is present.
 				if(window.lazySizesConfig && settings.lazyLoadAll) {
 					
 					// Attempt to lazy load the img linked to in the anchor tag.
