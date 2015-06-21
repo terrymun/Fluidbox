@@ -87,7 +87,8 @@ var customTransitionEnd = whichTransitionEvent();
 				}
 			],
 			immediateOpen: false,
-			loadingEle: true
+			loadingEle: true,
+			lazyLoadAll: false
 		}, opts);
 
 		// Keyboard events
@@ -451,94 +452,114 @@ var customTransitionEnd = whichTransitionEvent();
 			// 4. If the element is hidden
 			if($(this).is('a') && $(this).children().length === 1 && $(this).children().is('img') && $(this).css('display') !== 'none' && $(this).parents().css('display') !== 'none') {
 
-				// Define wrap
-				var $fbInnerWrap = $('<div />', {
-					'class': 'fluidbox-wrap',
-					css: {
-						'z-index': settings.stackIndex - settings.stackIndexDelta
-					}
-				});
-
-				// Define loader
-				var $fbLoader = $('<div />', {
-					'class': 'fluidbox-loader'
-				});
-
-				// Update count for global Fluidbox instances
-				fbCount+=1;
-
-				// Add class
-				var $fbItem = $(this);
-				$fbItem
-				.addClass('fluidbox fluidbox-closed')
-				.attr('id', 'fluidbox-'+fbCount)
-				.wrapInner($fbInnerWrap)
-				.find('img')
-					.first()
-					.css({ opacity: 1 })
-					.after('<div class="fluidbox-ghost" />')
-					.each(function(){
-						var $img = $(this);
-						
-						if ($img.width() > 0 && $img.height() > 0) {
-							// If image is already loaded (from cache)
-							funcCalc($fbItem);
-							$fbItem.click(fbClickHandler);
-						} else {
-							// Wait for image to load
-							$img.load(function(){
-								funcCalc($fbItem);
-								$fbItem.click(fbClickHandler);
-
-								// Trigger custom event: thumbloaddone
-								$fbItem.trigger('thumbloaddone');
-							}).error(function() {
-								// Trigger custom event: thumbloadfail
-								$fbItem.trigger('thumbloadfail');
-							});
-						}
-				});
-
-				// Check of loader is enabled
-				if(settings.loadingEle) {
-					$fbItem.find('.fluidbox-ghost').after($fbLoader);
-				}
-
-				// Custom trigger
-				$(this).on('recompute', function() {
-					funcResize($(this));
-					$(this).trigger('recomputeend');
-				});
-
-				// When should we close Fluidbox?
-				var selector = '#fluidbox-'+fbCount;
-				if(settings.closeTrigger) {
-					// Go through array
-					$.each(settings.closeTrigger, function (i) {
-						var trigger = settings.closeTrigger[i];
-
-						// Attach events
-						if(trigger.selector != 'window') {
-							// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
-							// However, if thes selector is 'document', we use a different .on() syntax
-							if(trigger.selector == 'document') {
-								if(trigger.keyCode && keyboardEvents.indexOf(trigger.event) > -1 ) {
-									$(document).on(trigger.event, function (e) {
-										if(e.keyCode == trigger.keyCode) funcCloseFb(selector);
-									});
-								} else {
-									$(document).on(trigger.event, selector, function() {
-										funcCloseFb(selector);
-									});
-								}
-							}
-						} else {
-							// If it is 'window', append click handler to $(window) object
-							$w.on(trigger.event, function() {
-								funcCloseFb(selector);
-							});
+				var doFluidBox = function(item) {
+					// Define wrap
+					var $fbInnerWrap = $('<div />', {
+						'class': 'fluidbox-wrap',
+						css: {
+							'z-index': settings.stackIndex - settings.stackIndexDelta
 						}
 					});
+	
+					// Define loader
+					var $fbLoader = $('<div />', {
+						'class': 'fluidbox-loader'
+					});
+	
+					// Update count for global Fluidbox instances
+					fbCount+=1;
+	
+					// Add class
+					var $fbItem = $(item);
+					$fbItem
+					.addClass('fluidbox fluidbox-closed')
+					.attr('id', 'fluidbox-'+fbCount)
+					.wrapInner($fbInnerWrap)
+					.find('img')
+						.first()
+						.css({ opacity: 1 })
+						.after('<div class="fluidbox-ghost" />')
+						.each(function(){
+							var $img = $(this);
+							
+							if ($img.width() > 0 && $img.height() > 0) {
+								// If image is already loaded (from cache)
+								funcCalc($fbItem);
+								$fbItem.click(fbClickHandler);
+							} else {
+								// Wait for image to load
+								$img.load(function(){
+									funcCalc($fbItem);
+									$fbItem.click(fbClickHandler);
+	
+									// Trigger custom event: thumbloaddone
+									$fbItem.trigger('thumbloaddone');
+								}).error(function() {
+									// Trigger custom event: thumbloadfail
+									$fbItem.trigger('thumbloadfail');
+								});
+							}
+					});
+	
+					// Check of loader is enabled
+					if(settings.loadingEle) {
+						$fbItem.find('.fluidbox-ghost').after($fbLoader);
+					}
+	
+					// Custom trigger
+					$(item).on('recompute', function() {
+						funcResize($(this));
+						$(this).trigger('recomputeend');
+					});
+	
+					// When should we close Fluidbox?
+					var selector = '#fluidbox-'+fbCount;
+					if(settings.closeTrigger) {
+						// Go through array
+						$.each(settings.closeTrigger, function (i) {
+							var trigger = settings.closeTrigger[i];
+	
+							// Attach events
+							if(trigger.selector != 'window') {
+								// If it is not 'window', we append click handler to $(document) object, allow it to bubble up
+								// However, if thes selector is 'document', we use a different .on() syntax
+								if(trigger.selector == 'document') {
+									if(trigger.keyCode && keyboardEvents.indexOf(trigger.event) > -1 ) {
+										$(document).on(trigger.event, function (e) {
+											if(e.keyCode == trigger.keyCode) funcCloseFb(selector);
+										});
+									} else {
+										$(document).on(trigger.event, selector, function() {
+											funcCloseFb(selector);
+										});
+									}
+								}
+							} else {
+								// If it is 'window', append click handler to $(window) object
+								$w.on(trigger.event, function() {
+									funcCloseFb(selector);
+								});
+							}
+						});
+					}
+				}
+				
+				$fbImg = $(this).children();
+				
+				// Check if lazysizes is present
+				if(window.lazySizesConfig && settings.lazyLoadAll) {
+					
+					// Attempt to lazy load the img linked to in the anchor tag.
+					$fbImg.addClass(window.lazySizesConfig.lazyClass || "lazyload");
+					$fbImg.attr("data-src", $(this).attr("href"));
+					
+					// Follow through with fluidbox once the img has been lazy loaded.
+					$(this).on('lazybeforeunveil', function() {
+						doFluidBox(this);
+					});
+					
+				} else {
+					doFluidBox(this);
 				}
 			}
 		});
