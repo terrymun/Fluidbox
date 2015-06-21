@@ -50,7 +50,7 @@ function whichTransitionEvent() {
 		"OTransition"     : "oTransitionEnd",
 		"MozTransition"   : "transitionend",
 		"WebkitTransition": "webkitTransitionEnd"
-	}
+	};
 
 	for (t in transitions){
 		if (el.style[t] !== undefined){
@@ -102,7 +102,7 @@ var customTransitionEnd = whichTransitionEvent();
 		if(settings.stackIndex < settings.stackIndexDelta) settings.stackIndexDelta = settings.stackIndex;
 
 		// Dynamically create overlay
-		$fbOverlay = $('<div />', {
+		var $fbOverlay = $('<div />', {
 			'class': 'fluidbox-overlay',
 			css: {
 				'z-index': settings.stackIndex
