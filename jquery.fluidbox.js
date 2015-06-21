@@ -550,8 +550,8 @@ var customTransitionEnd = whichTransitionEvent();
 				if(window.lazySizesConfig && settings.lazyLoadAll) {
 					
 					// Attempt to lazy load the img linked to in the anchor tag.
-					$fbImg.addClass(window.lazySizesConfig.lazyClass || "lazyload");
 					$fbImg.attr("data-src", $(this).attr("href"));
+					$fbImg.addClass(window.lazySizesConfig.lazyClass || "lazyload");
 					
 					// Follow through with fluidbox once the img has been lazy loaded.
 					$(this).on('lazybeforeunveil', function() {
