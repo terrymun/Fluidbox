@@ -4,7 +4,6 @@
     "homepage": "https://github.com/terrymun/Fluidbox",
     "main": [
         "./jquery.fluidbox.js",
-        "./jquery.fluidbox.min.js",
         "./css/fluidbox.css"
     ],
     "authors": [
@@ -18,7 +17,6 @@
         "type": "git",
         "url": "https://github.com/terrymun/Fluidbox/"
     },
-    "main": "jquery.fluidbox.js",
     "keywords": [
         "fluidbox",
         "lightbox"
