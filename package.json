@@ -9,6 +9,7 @@
     "url": "https://github.com/terrymun/Fluidbox/"
   },
   "main": "./dist/js/jquery.fluidbox.min.js",
+  "filename": "./dist/js/jquery.fluidbox.min.js",
   "maintainers": [
     "Terry Mun <hello@terrymun.com>"
   ],
