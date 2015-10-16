@@ -1,19 +1,11 @@
 {
     "name": "fluidbox",
-<<<<<<< HEAD
     "version": "2.0.0",
     "description": "Replicating Medium's beautiful, minimalist lightbox module",
     "homepage": "https://github.com/terrymun/Fluidbox",
     "main": [
         "./dist/jquery.fluidbox.min.js",
         "./dist/css/fluidbox.min.css"
-=======
-    "description": "Replicating Medium's beautiful, minimalist lightbox module",
-    "homepage": "https://github.com/terrymun/Fluidbox",
-    "main": [
-        "./jquery.fluidbox.js",
-        "./css/fluidbox.css"
->>>>>>> origin/master
     ],
     "authors": [
         {
