@@ -148,7 +148,7 @@ The list of public methods supported by Fluidbox v2.x is as follow:
 | `bindListeners`     | 2.0     | Binds listeners so that Fluidbox listens to public methods called by the `.trigger()` method. |
 | `unbind`            | 2.0     | Unbinds the click events and all other listeners associated with Fluidbox function. |
 | `reposition`        | 2.0     | Repositions the ghost element, useful when Fluidbox is not opened, but the thumbnail dimensions are changed. |
-| `getMetadata`       | 2.0     | *Getter function**. It returns all the metadata associated with the Fluidbox instance, and does not return the original jQuery object, and is therefore not suitable for chaining. | 
+| `getMetadata`       | 2.0     | **Getter function**. It returns all the metadata associated with the Fluidbox instance, and does not return the original jQuery object, and is therefore not suitable for chaining. | 
 
 ### Custom events
 Fluidbox will trigger several distinct namescpaced events depending on the state of the current (and only) instance of Fluidbox. You should use `.on()` to listen to the event being triggered, and can add your own custom callbacks if necessary, for example:
