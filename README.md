@@ -10,17 +10,18 @@ Special thanks to the following stellar folks who has helped majorly in making F
 - [@hybernaut](https://github.com/hybernaut) for refactoring the code and reorganizing functions
 - [@maxee](https://github.com/maxee) for implementation of a new feature that enables differential image ratios between thumbnails and linked image
 - [@benwhilhelm](https://github.com/benwilhelm) for suggesting the immedate open option in Fluidbox. Ben has author a PR, but I have found some issues that I cannot resolve. However, I have adopted his idea and simplified the implementation in **v1.4.3**.
-- [@jaechick](https://github.com/jaechick) for creating the LESS file for Fluidbox stylesheet.
+- [@jaechick](https://github.com/jaechick) for creating the LESS file for Fluidbox stylesheet, even though the LESS file is removed from the project as the stylesheet is now being preprocessed by SASS.
+- [@_mattbailey](https://twitter.com/_mattbailey) for his [awesome guide towards integrating Grunt into a project](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). This has made building Fluidbox a lot easier.
 
 In addition, a shoutout to:
 
-- [Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/) for graciously allowing me to include a simple debouncing script in the plugin to handle viewport resize events
+- [jQuery Boilerplate](https://github.com/jquery-boilerplate/jquery-boilerplate) for their good-to-boot, easy-to-use and standardized jQuery plugin template. Fluidbox is built on the [extended version](https://github.com/jquery-boilerplate/jquery-boilerplate/wiki/Extending-jQuery-Boilerplate).
 - [David Walsh](http://davidwalsh.name/css-animation-callback) and [Jonathan Suh](https://jonsuh.com/blog/detect-the-end-of-css-animations-and-transitions-with-javascript/) for their insight on listening to `transitionend` events
 
 ## Introduction
 Fluidbox was initially a simple personal challenge I set myself, with two simple aims&mdash;to replicate the distraction-free, fluid lightbox seen on [Medium](http://medium.com), and to improve on it such that it will allow linking to a larger-resolution image. The plugin deals with higher resolution, linked images elegantly, such that it only preloads them when users click on the thumbnails, therefore conserving bandwidth usage for your visitors and your server(s).
 
-The plugin is relatively lightweight: 6.23kb (**1.98kb** after gzipped) for the minified JS file, and 1.91kb (**728b** after gzipped) for the minimal stylesheet.
+The plugin is relatively lightweight: 8.74kb (**2.71kb** after gzipped) for the minified JS file, and 2kb (**667b** after gzipped) for the minimal stylesheet.
 
 You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c7) about how I got inspiration for this little project of mine, and the basic mechanisms behind the plugin. Some serious math is involved (*nah, not really*).
 
@@ -32,7 +33,7 @@ Fluidbox is part of the vast collection of libraries proudly [hosted by CDNJS](h
 Fluidbox has been implemented on other sites in the wild, too&mdash;check it out:
 
 - [**Gemma Busquets**](http://www.gemmabusquets.com/) by [@imgemmabusquets](https://twitter.com/imgemmabusquets)
-- [<strong>*Highlight* portfolio theme</strong>](https://portfolios.500px.com/themes/172) by [500px](https://500px.com/)
+- [***Highlight* portfolio theme**](https://portfolios.500px.com/themes/172) by [500px](https://500px.com/)
 - [**Terry Mun**](http://terrymun.com/) by *myself*
 
 To add your site that has implemented Fluidbox, or an article/tutorial you have written on Fluidbox use and/or application, feel free to write to me at [@teddyrised](https://twitter.com/teddyrised).
@@ -233,102 +234,60 @@ $(function() {
 You are of course welcome to use other ways to manipulate and/or transverse the DOM, but you will have to adjust the search/filter function (using `.find()` or other similar jQuery methods) to retrieve the newly inserted content and search for the element of interest where you want Fluidbox to work with.
 
 ### Configuration
-Fluidbox can be configured according to your needs. The following options are available:
-
-#### Version 2.x
-
-
-#### Verion 1.x
-The legacy version of Fluidbox has more configuration options, but some of them have been deprecated in version 2.x.
-
-| Variable/Option  | Type      | Default value | Description                           |
-|------------------|-----------|---------------|---------------------------------------|
-| `viewportFill`   | Numerical | `0.95`        | Dictates how much the longest axis of the image should fill the viewport. The default value will make the image fill 95% of the viewport dimension along its longest axis |
-| `overlayColor`   | String    | `rgba(255,255,255,.85)` | <p>**Warning: Deprecated from v1.3.5**. The overlay color is now dictated in the stylesheet, allowing custom overlays for each Fluidbox instance.</p><p>**Legacy description:** Sets the `background-color` property of Fluidbox overlay. Defaults to white with an opacity of 0.85.</p> |
-| `debounceResize` | Boolean   | `true`        | Dictates if the `$(window).resize()` event should be debounced for performance reason. This feature leverages the [small snippet kindly provided by Paul Irish](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). |
-| `closeTrigger`   | Array     | *see below*   | Dictates what event triggers closing of an opened Fluidbox. The default setup binds the click handler to the overlay. |
-| `stackIndex`     | Integer   | `999`         | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
-| `immediateOpen`  | Boolean   | `false`       | Launches the Fluidbox instance immediately when a click event is triggered, regardless of whether the target/linked image has been preloaded. When this value is set to true, the custom events `delayedloaddone` and `delayedreposdone` will be fired when the target/linked image is subsequently loaded and the ghost image dimensions being recomputed. |
-
-User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
+Fluidbox can be configured according to your needs when calling the `.fluidbox()` method. User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
 
 ```js
 $('a').fluidbox({
-	viewportFill: 0.8,
-	debounceResize: false
+    viewportFill: 0.8,
+    maxSize: 800
 });
 ```
 
-#### Note on `closeTrigger` option
-The default setup will have the effect of binding the click event to the overlay, so that when user click on the overlay, the Fluidbox instance that is opened will be closed:
+The full list of Fluidbox configurations:
 
-```js
-// Default option
-closeTrigger: [
-    {
-        selector: '#fluidbox-overlay',
-        event: 'click'
-    },
-    {
-        selector: 'document',
-        event: 'keyup',
-        keyCode: 27
-    }
-]
-```
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `immediateOpen` | Boolean | `false` | Determines if Fluidbox should be opened immediately on click. If set to yes, Fluidbox will open the ghost image and wait for the target image to load. If set to no, Fluidbox will wait for the target image to load, *then* open the ghost image. |
+| `loader` | Boolean | `false` | Determines if a loader will be added to the manipulated DOM. It will have the class of `.fluidbox__loader`. |
+| `maxWidth` | Integer | `0` | <p>Sets the maximum width, **in screen pixels**, that the ghost image will enlarge to. When set to zero this property is ignored. This property will *not* override the `viewportFill`.</p><p>This option should not be specified (&ge;0) *in lieu* with `maxHeight`. In the event that both `maxWidth` and `maxHeight` are specified (&ge;0), `maxWidth` takes precedence. Fluidbox will throw a warning in the console discouraging this use.</p> |
+| `maxHeight` | Integer | `0` | <p>Sets the maximum height, **in screen pixels**, that the ghost image will enlarge to. When set to zero this property is ignored. This property will *not* override the `viewportFill`.</p><p class="user-message warning">This option should not be specified (&ge;0) *in lieu* with `maxWidth`. In the event that both `maxWidth` and `maxHeight` are specified (&ge;0), `maxWidth` takes precedence. Fluidbox will throw a warning in the console discouraging this use.</p> |
+| `resizeThrottle` | Integer (milliseconds) | `500` | Determines how much to throttle the viewport resize event that fires recomputing of Fluidbox dimensions and repositioning of the ghost image. |
+| `stackIndex` | Integer | `1000` | Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance. |
+| `stackIndexDelta` | Integer | `10` | Determines how much the z-index will fluctuate from `stackIndex` in order to allow visually-correct stacking of Fluidbox instances. With the default settings, this means that the effective range of z-indexes Fluidbox operates in will be between 990&ndash;1010. For elements that should go under the overlay, they should have a z-index of less than 1000. |
+| `viewportFill` | Float (fraction) | `0.95` | Dictates how much the longest axis of the image should fill the viewport. The value will be coerced to fall between 0 and 1. |
 
-----
-
-It is also possible to bind other events to trigger the same effect. For example, if you would want to close the Fluidbox when the viewport is resized, you can do the following:
-
-```js
-$(function () {
-    $('a').fluidbox({
-        closeTrigger: [
-            { selector: '#fluidbox-overlay', event: 'click'  },
-            { selector: 'window',            event: 'resize' }
-        ]
-    });
-});
-```
-
-This will have the effect of doing so (where `closeFb` is the internal function in the plugin needed to close any opened Fluidbox):
-
-```js
-$(document).on('click', '#fluidbox-overlay', closeFb);
-$(window).on('resize', closeFb);
-```
-
-----
-
-You can even bind event to multiple selectors, and vice versa. The syntax of dictating so is similar to constructing event handler binding using the `.on()` method, so if you are [familiar with its use](http://api.jquery.com/on/), dictating your own closeTrigger should not be too difficult:
-
-```js
-$(function () {
-    $('a').fluidbox({
-        closeTrigger: [
-            { selector: '#fluidbox-overlay', event: 'click'         },
-            { selector: 'window',            event: 'resize scroll' },
-            { selector: '#ele1, #ele2',      event: 'hover'         }
-        ]
-    });
-});
-```
-
-This will have the effect of doing so:
-
-```js
-$(document).on('click', '#fluidbox-overlay', closeFb);
-$(window).on('resize scroll', closeFb);
-$(document).on('hover', '#ele1, #ele2', closeFb)
-```
 
 ## Developer notes
 ### Building with Grunt
 Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.org/). If you are new to this, kindly refer to [Matt Bailey's excellent guide on setting up Grunt](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). To build Fluidbox, you will need to install the following dependencies:
 
-- [Grunt](http://gruntjs.com)
-- [Time Grunt](https://www.npmjs.com/package/time-grunt)
+| Grunt dependency | Comment |
+|------------------|---------|
+| [grunt](https://www.npmjs.com/package/grunt) | Grunt is needed to build from source. |
+| [time-grunt](https://www.npmjs.com/package/time-grunt) | Keeps track of the time consumed for each time Grunt is run. |
+| [load-grunt-config](https://www.npmjs.com/package/load-grunt-config) | Splits up Grunt tasks. |
+| [grunt-concurrent](https://www.npmjs.com/package/grunt-concurrent) | Allows multiple Grunt tasks to be run at the same time. |
+| [grunt-contrib-clean](https://www.npmjs.com/package/grunt-contrib-clean) | Cleans up the `dist/` directory. |
+| [grunt-sass](https://www.npmjs.com/package/grunt-sass) | Minifies `.scss` files. |
+| [grunt-contrib-uglify](https://www.npmjs.com/package/grunt-contrib-uglify) | Minifies `.js` files. |
+| [grunt-contrib-jshint](https://www.npmjs.com/package/grunt-contrib-jshint) | Needed to perform checks on JS file. |
+| [jshint-stylish](https://www.npmjs.com/package/jshint-stylish) | Needed to perform checks on JS file. |
+| [grunt-contrib-watch](https://www.npmjs.com/package/grunt-contrib-watch) | Allows you to build on the fly using `$ grunt watch` by watching for file changes, so that you don't have to run `$grunt` at the project root all the time manually. |
+
+Quick and dirty: here's how to install the Grunt dependencies listed above:
+
+```bash
+$ npm install grunt --save-dev
+$ npm install time-grunt --save
+$ npm install load-grunt-config --save-dev
+$ npm install grunt-concurrent --save-dev
+$ npm install grunt-contrib-clean --save-dev
+$ npm install grunt-sass --save-dev
+$ npm install grunt-contrib-uglify --save-dev
+$ npm install grunt-contrib-jshint --save-dev
+$ npm install jshint-stylish --save
+$ npm install grunt-contrib-watch --save-dev
+```
 
 ## Known Issues
 ### Transition of CSS3 transform in Safari
