@@ -61,10 +61,9 @@ Fluidbox require the following dependencies in order to function properly&mdash;
 ### Basic
 It is rather straightforward to use Fluidbox&mdash;simply chain the `.fluidbox()` method to a selector of your choice. The plugin will automatically check if the selector is:
 
-1. An anchor element with an href to the correct image url
-2. Contains one and *only* one child
-3. The only children is an `<img>` element
-4. Is visible upon DOM ready (v1.3.4 onwards)
+1. An anchor element (`<a>`)
+2. Contains one and only one <code>&lt;img /&gt;</code> element (can be nested as an indirect descendant, to support the HTML5 `&lt;picture&gt;` standard.
+4. Is visible upon DOM ready
 
 In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The `title` and `alt` attributes of the `<img>` element is not used by the plugin, but the `alt` attribute has to be present for it to be semantically valid.
 
