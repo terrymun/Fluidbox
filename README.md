@@ -267,7 +267,7 @@ $('a').fluidbox({
 You may also pass settings as HTML5 `data- attributes, i.e.:
 
 ```html
-<a href="/path/to/image" data-fluidbox-viewport-fill="0.8" data-fluidbox-max-wodth="800" data-fluidbox-loader />
+<a href="/path/to/image" data-fluidbox-viewport-fill="0.8" data-fluidbox-max-width="800" data-fluidbox-loader />
     <img src="/path/to/thumbnail" alt="lorem ipsum" />
 </a>
 ```
