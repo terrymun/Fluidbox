@@ -277,7 +277,7 @@ Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.
 
 Quick and dirty: here's how to install the Grunt dependencies listed above:
 
-```bash
+```shell
 $ npm install grunt --save-dev
 $ npm install time-grunt --save
 $ npm install load-grunt-config --save-dev
