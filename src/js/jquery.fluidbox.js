@@ -19,7 +19,9 @@
 			pluginName	= "fluidbox",
 			defaults	= {
 				immediateOpen: false,
-				loadingEle: false,
+				loader: false,
+				maxWidth: 0,
+				maxHeight: 0,
 				resizeThrottle: 500,
 				stackIndex: 1000,
 				stackIndexDelta: 10,
@@ -27,37 +29,15 @@
 			},
 			globalData = {},
 			keyboardEvents = ['keyup', 'keydown', 'keypress'];
-		
-		// -------------------------------------------------------- //
-		//  Dependency: Paul Irish's jQuery debounced resize event  //
-		// -------------------------------------------------------- //
-		(function($,sr){
 
-			// debouncing function from John Hann
-			// http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-			var debounce = function (func, threshold, execAsap) {
-				var timeout;
+		// Global plugin instance tracker
+		var fbInstance = 0;
 
-				return function debounced () {
-					var obj = this, args = arguments;
-					function delayed () {
-						if (!execAsap)
-						func.apply(obj, args);
-						timeout = null;
-					};
-
-					if (timeout)
-						clearTimeout(timeout);
-					else if (execAsap)
-						func.apply(obj, args);
-
-					timeout = setTimeout(delayed, threshold || 100);
-				};
-			}
-			// smartresize
-			jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
-
-		})(jQuery,'smartresize');
+		// Check if dependencies are loaded
+		// 1. Ben Almen's debounce/throttle plugin
+		if (!$.isFunction($.throttle)) {
+			console.warn('Fluidbox: The jQuery debounce/throttle plugin is not found/loaded. Even though Fluidbox works without it, the window resize event will fire extremely rapidly in browsers, resulting in significant degradation in performance upon viewport resize.');
+		}
 
 		// ---------------------------------------------------------------------------------------------------------------------- //
 		//  Dependency: David Walsh (http://davidwalsh.name/css-animation-callback)                                               //
@@ -73,26 +53,48 @@
 				"OTransition"     : "oTransitionEnd",
 				"MozTransition"   : "transitionend",
 				"WebkitTransition": "webkitTransitionEnd"
-			}
+			};
 
 			for (t in transitions){
 				if (el.style[t] !== undefined){
 					return transitions[t];
 				}
 			}
-		}
+		};
 		var customTransitionEnd = whichTransitionEvent();
 
 		// The actual plugin constructor
 		function Plugin (element, options) {
 			// Assign element
 			this.element = element;
+
+			// Manipulate HTML5 dataset object
+			// -  Format: data-fluidbox-(setting-name). When converted into camel case: fluidboxSettingName
+			// - So, we will have to remove 'fluidbox' in the front, and change the first letter to lowercase
+			var elementData = {};
+			$.each($(this.element).data(), function(k,v) {
+				var capitalize = function(s) {
+						return s && s[0].toLowerCase() + s.slice(1);
+					},
+					key = capitalize(k.replace('fluidbox',''));
+
+				// Only push non-empty keys (that are part of the Fluidbox HTML5 data- attributes) into new object
+				if(key !== '' || key !== null) {
+					// Coerce boolean values
+					if (v == 'false') {
+						v = false;
+					} else {
+						v = true;
+					}
+					elementData[key] = v;
+				}
+			});
 			
 			// Merge defaults into options, into dataset
-			this.settings = $.extend( {}, defaults, options, $(this.element).data());
+			this.settings = $.extend( {}, defaults, options, elementData);
 
 			// Coerce settings
-			this.settings.viewportFill		= Math.max(Math.min(parseFloat(this.settings.viewportFill), 1), 0);
+			this.settings.viewportFill = Math.max(Math.min(parseFloat(this.settings.viewportFill), 1), 0);
 			if(this.settings.stackIndex < this.settings.stackIndexDelta) {
 				settings.stackIndexDelta = settings.stackIndex;
 			}
@@ -113,7 +115,7 @@
 					css: {
 						zIndex: this.settings.stackIndex - this.settings.stackIndexDelta
 					}
-				})
+				});
 				$(this.element)
 				.addClass('fluidbox--closed')
 				.wrapInner($fb_innerWrap)
@@ -124,13 +126,15 @@
 					.after('<div class="fluidbox__ghost" />');
 
 				// Append loader
-				var $fbLoader = $('<div />', {
-					'class': 'fluidbox__loader',
-					css: {
-						zIndex: 2
-					}
-				});
-				$(this.element).find('.fluidbox__wrap').append($fbLoader);
+				if(this.settings.loader) {
+					var $fbLoader = $('<div />', {
+						'class': 'fluidbox__loader',
+						css: {
+							zIndex: 2
+						}
+					});
+					$(this.element).find('.fluidbox__wrap').append($fbLoader);
+				}
 			},
 			prepareFb: function() {
 				var fb	= this,
@@ -151,7 +155,7 @@
 				// Bind listeners
 				fb.bindListeners();
 
-				// Emit custom even
+				// Emit custom event
 				$fb.trigger('ready.fluidbox');
 			},
 			measure: {
@@ -225,9 +229,15 @@
 				) {
 
 					// Initialize and store original node
+					$fb.removeClass('fluidbox--destroyed');
 					fb.instanceData = {};
-					fb.instanceData.initialize = true;
+					fb.instanceData.initialized = true;
 					fb.instanceData.originalNode = $fb.html();
+
+					// Append instance ID
+					fbInstance += 1;
+					fb.instanceData.id = fbInstance;
+					$fb.addClass('fluidbox__instance-'+fbInstance);
 
 					// Status: Fluidbox has been initialized
 					$fb.addClass('fluidbox--initialized');
@@ -272,9 +282,6 @@
 				// Close all other Fluidbox instances
 				$('.fluidbox--opened').fluidbox('close');
 
-				// Emit custom event
-				$fb.trigger('openinit.fluidbox');
-
 				// Append overlay
 				var $fbOverlay = $('<div />', {
 					'class': 'fluidbox__overlay',
@@ -299,12 +306,16 @@
 				_fun.measure.fbElements.call(fb);
 
 				// Wait for ghost image to preload
+				var img;
 				if (fb.settings.immediateOpen) {
 					// Update classes
 					$fb
 					.addClass('fluidbox--opened fluidbox--loaded')
 					.find('.fluidbox__wrap')
 						.css({ zIndex: fb.settings.stackIndex + fb.settings.stackIndexDelta });
+
+					// Emit custom event
+					$fb.trigger('openstart.fluidbox');
 
 					// Compute
 					fb.compute();
@@ -320,7 +331,7 @@
 						$fb.trigger('openend.fluidbox');
 					});
 
-					var img = new Image();
+					img = new Image();
 					img.onload = function() {
 						// Perform only if the Fluidbox instance is still open
 						if (fb.instanceData.state === 1) {
@@ -343,12 +354,13 @@
 						fb.close();
 
 						// Emit custom event
+						$fb.trigger('imageloadfail.fluidbox');
 						$fb.trigger('delayedloadfail.fluidbox');
-					}
+					};
 					img.src = $fb.attr('href');
 					
 				} else {
-					var img = new Image();
+					img = new Image();
 					img.onload = function() {
 
 						// Update classes
@@ -410,18 +422,32 @@
 				var thumbRatio = imgNatW / imgNatH,
 					viewportRatio = globalData.viewport.w / globalData.viewport.h;
 
-				// Compare image ratio with viewport ratio
-				if (viewportRatio > thumbRatio) {
-					var computedHeight	= (imgNatH < globalData.viewport.h) ? imgNatH : globalData.viewport.h*fb.settings.viewportFill,
-						imgScaleY		= computedHeight / imgH,
-						imgScaleX		= imgNatW * (imgH * imgScaleY / imgNatH) / imgW,
-						imgMinScale		= imgScaleY;
-				} else {
-					var computedWidth	= (imgNatW < globalData.viewport.w) ? imgNatW : globalData.viewport.w*fb.settings.viewportFill,
-						imgScaleX		= computedWidth / imgW,
-						imgScaleY		= imgNatH * (imgW * imgScaleX / imgNatW) / imgH,
-						imgMinScale		= imgScaleX;
+				// Replace dimensions if maxWidth or maxHeight is declared
+				if (fb.settings.maxWidth > 0) {
+					imgNatW = fb.settings.maxWidth;
+					imgNatH = imgNatW / thumbRatio;
+				} else if (fb.settings.maxHeight > 0) {
+					imgNatH = fb.settings.maxHeight;
+					imgNatW = imgNatH * thumbRatio;
 				}
+
+				// Compare image ratio with viewport ratio
+				var computedHeight, computedWidth, imgScaleY, imgScaleX, imgMinScale;
+				if (viewportRatio > thumbRatio) {
+					computedHeight	= (imgNatH < globalData.viewport.h) ? imgNatH : globalData.viewport.h*fb.settings.viewportFill;
+					imgScaleY		= computedHeight / imgH;
+					imgScaleX		= imgNatW * (imgH * imgScaleY / imgNatH) / imgW;
+					imgMinScale		= imgScaleY;
+				} else {
+					computedWidth	= (imgNatW < globalData.viewport.w) ? imgNatW : globalData.viewport.w*fb.settings.viewportFill;
+					imgScaleX		= computedWidth / imgW;
+					imgScaleY		= imgNatH * (imgW * imgScaleX / imgNatW) / imgH;
+					imgMinScale		= imgScaleX;
+				}
+
+				// Display console error if both maxHeight and maxWidth are specific
+				if (fb.settings.maxWidth && fb.settings.maxHeight)
+					console.warn('Fluidbox: Both maxHeight and maxWidth are specified. You can only specify one. If both are specified, only the maxWidth property will be respected. This will not generate any error, but may cause unexpected sizing behavior.');
 
 				// Scale
 				var offsetY = $w.scrollTop() - $fbThumb.offset().top + 0.5*(imgH*(imgMinScale-1)) + 0.5*($w.height() - imgH*imgMinScale),
@@ -430,15 +456,21 @@
 
 				// Apply styles to ghost and loader (if present)
 				$fbGhost
-				.add($fb.find('.fluidbox__loader'))
 				.css({
 					'transform': 'translate(' + parseInt(offsetX*100)/100 + 'px,' + parseInt(offsetY*100)/100 + 'px) scale(' + scale + ')',
 					top: $fbThumb.offset().top - $fbWrap.offset().top,
 					left: $fbThumb.offset().left - $fbWrap.offset().left
 				});
+				$fb.find('.fluidbox__loader').css({
+					'transform': 'translate(' + parseInt(offsetX*100)/100 + 'px,' + parseInt(offsetY*100)/100 + 'px) scale(' + scale + ')'
+				});
 
 				// Emit custom event
 				$fb.trigger('computeend.fluidbox');
+			},
+			recompute: function() {
+				// Recompute is simply an alias for the compute method
+				this.compute();
 			},
 			close: function() {
 				// Close Fluidbox
@@ -454,15 +486,21 @@
 
 				// Change classes
 				$fb
-				.removeClass('fluidbox--opened fluidbox--loaded fluidbox--loading')
+				.removeClass(function(i,c) {
+					return (c.match (/(^|\s)fluidbox--[opened|loaded|loading]+/g) || []).join(' ');
+				})
 				.addClass('fluidbox--closed');
 
 				$fbGhost
-				.add($fb.find('.fluidbox__loader'))
 				.css({
 					'transform': 'translate(0,0) scale(1,1)',
 					top: $fbThumb.offset().top - $fbWrap.offset().top + parseInt($fbThumb.css('borderTopWidth')) + parseInt($fbThumb.css('paddingTop')),
 					left: $fbThumb.offset().left - $fbWrap.offset().left + parseInt($fbThumb.css('borderLeftWidth')) + parseInt($fbThumb.css('paddingLeft'))
+				});
+
+				$fb.find('.fluidbox__loader')
+				.css({
+					'transform': 'none'
 				});
 
 				$fbGhost.one(customTransitionEnd, function() {
@@ -470,14 +508,11 @@
 					$fbThumb.css({ opacity: 1 });
 					$fbOverlay.remove();
 					$fbWrap.css({ zIndex: fb.settings.stackIndex - fb.settings.stackIndexDelta });
-				});
-
-				$fbThumb.one(customTransitionEnd, function() {
 					$fb.trigger('closeend.fluidbox');
 				});
 
 				// Fadeout overlay
-				$fbOverlay.css({ opacity: 0 });
+				$fbOverlay.css({ opacity: 0 });		
 			},
 			bindEvents: function() {
 				var fb = this,
@@ -511,51 +546,71 @@
 					$fb = $(this.element);
 
 				// Window resize
-				$w.smartresize(function() {
-
+				// Namespaced using unique instance IDs so that we can unbind resize event specific to a Fluidbox instance
+				var resizeFunction = function() {
 					// Re-measure viewport dimensions
 					_fun.measure.viewport();
 					_fun.measure.fbElements.call(fb);
 
 					// Re-compute, but only for the active element
 					if($fb.hasClass('fluidbox--opened')) fb.compute();
-
-				}, fb.settings.resizeThrottle);
+				};
+				if ($.isFunction($.throttle)) {
+					$w.on('resize.fluidbox'+fb.instanceData.id, $.throttle(fb.settings.resizeThrottle, resizeFunction));
+				} else {
+					$w.on('resize.fluidbox'+fb.instanceData.id, resizeFunction);
+				}
 
 				// Reposition
 				$fb.on('reposition.fluidbox', function() {
 					fb.reposition();
 				});
 
+				// Recompute
+				$fb.on('recompute.fluidbox, compute.fluidbox', function() {
+					fb.compute();
+				});
+
 				// Destroy
 				$fb.on('destroy.fluidbox', function() {
 					fb.destroy();
 				});
+
+				// Close
+				$fb.on('close.fluidbox', function() {
+					fb.close();
+				});
 			},
 			unbind: function() {
-				$(this.element).off('.fluidbox');
+				$(this.element).off('click.fluidbox, reposition.fluidbox, recompute.fluidbox, compute.fluidbox, destroy.fluidbox, close.fluidbox');
+				$w.off('resize.fluidbox'+this.instanceData.id);
 			},
 			reposition: function() {
 				_fun.measure.fbElements.call(this);
 			},
 			destroy: function() {
-				var pluginData = $(this.element).data('plugin_' + pluginName);
-				if(pluginData) {
-					// Unbind event hanlders
-					this.unbind();
+				// Cache original node
+				var originalNode = this.instanceData.originalNode;
 
-					// DOM reversal
-					$(this.element)
-					.trigger('destroyed.fluidbox')
-					.removeClass(function(i,c) {
-						return (c.match (/(^|\s)fluidbox-\S+/g) || []).join(' ');
-					})
-					.empty()
-					.html(pluginData.instanceData.originalNode);
+				// Unbind event hanlders
+				this.unbind();
 
-					// Destroy plugin data entirely
-					$(this.element).data('plugin_' + pluginName, null);
-				}
+				// Destroy plugin data entirely
+				$.data(this.element, 'plugin_' + pluginName, null);
+
+				// DOM reversal
+				$(this.element)
+				.removeClass(function(i,c) {
+					return (c.match (/(^|\s)fluidbox[--|__]\S+/g) || []).join(' ');
+				})
+				.empty()
+				.html(originalNode)
+				.addClass('fluidbox--destroyed')
+				.trigger('destroyed.fluidbox');
+			},
+			getMetadata: function() {
+				// Return instance data
+				return this.instanceData;
 			}
 		});
 
@@ -570,10 +625,11 @@
 			// we create a new instance (conditionally, see inside) of the plugin
 			if (options === undefined || typeof options === 'object') {
 
-				return $(this).each(function() {
+				return this.each(function() {
 					// Only if the plugin_fluidbox data is not present,
 					// to prevent multiple instances being created
 					if (!$.data(this, "plugin_" + pluginName)) {
+
 						$.data(this, "plugin_" + pluginName, new Plugin(this, options));
 					}
 				});
@@ -581,17 +637,17 @@
 			// If it is defined, but it is a string, does not start with an underscore and does not call init(),
 			// we allow users to make calls to public methods
 			} else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-				var publicMethods;
+				var returnVal;
 
-				$(this).each(function() {
-					// Check if plugin instance already exists, and that the 'options' string is a function name
+				this.each(function() {
 					var instance = $.data(this, 'plugin_' + pluginName);
 					if (instance instanceof Plugin && typeof instance[options] === 'function') {
-						publicMethods = instance[options].apply(instance, Array.prototype.slice.call(args,1));
+						returnVal = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
+					} else {
+						console.warn('Fluidbox: The method "' + options + '" used is not defined in Fluidbox. Please make sure you are calling the correct public method.');
 					}
 				});
-
-				return publicMethods !== undefined ? publicMethods : $(this);
+				return returnVal !== undefined ? returnVal : this;
 			}
 
 			// Return to allow chaining

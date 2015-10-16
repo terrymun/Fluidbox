@@ -1,0 +1,18 @@
+default:
+  description: 'Default (production) build'
+  tasks:
+    - prod
+dev:
+  description: 'Development build'
+  tasks:
+    - 'concurrent:devFirst'
+    - 'concurrent:devSecond'
+devimg:
+  description: 'Development build and image tasks'
+  tasks:
+    - dev
+prod:
+  description: 'Production build'
+  tasks:
+    - 'concurrent:prodFirst'
+    - 'concurrent:prodSecond'

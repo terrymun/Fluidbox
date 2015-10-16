@@ -1,7 +1,17 @@
 // Variable 
-$transition-duration: .25s;
+$transition-duration: .5s;
 $overlay-bg-color: rgba(255,255,255,.85);
 $animation-bg-color: $overlay-bg-color;
+
+// Mixins
+@mixin prefix($property, $value, $prefixes: ()) {
+	@each $prefix in $prefixes {
+		#{'-' + $prefix + '-' + $property}: $value;
+	}
+ 
+	// Output standard non-prefixed declaration
+	#{$property}: $value;
+}
 
 // Animation
 @-webkit-keyframes fluidboxLoading {
@@ -19,46 +29,62 @@ $animation-bg-color: $overlay-bg-color;
 .fluidbox {
 	outline: none;
 }
-.fluidbox-overlay {
+.fluidbox__overlay {
 	background-color: $overlay-bg-color;
 	cursor: pointer;
 	cursor: -webkit-zoom-out;
 	cursor: -moz-zoom-out;
 	cursor: zoom-out;
 	opacity: 0;
+	pointer-events: none;
 	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
 	/* Transition time for overlay is halved to ensure that flickering doesn't happen */
-	transition: all $transition-duration/2 ease-in-out $transition-duration/2;
+	transition: all $transition-duration ease-in-out;
+	
+	.fluidbox--opened & { pointer-events: auto;}
 }
-.fluidbox-wrap {
+.fluidbox__wrap {
 	background-position: center center;
 	background-size: cover;
 	margin: 0 auto;
 	position: relative;
 	transition: all $transition-duration ease-in-out;
-
-	/* To prevent flickering, we delay the showing of the image */
-	.fluidbox-closed & img { transition: opacity 0s ease-in-out $transition-duration; }
 }
-.fluidbox-ghost {
+.fluidbox__thumb {
+	transition: opacity 0s ease-in-out 0s;
+	/* To prevent flickering, we delay the showing of the image */
+	.fluidbox--closed & { transition: opacity 0s ease-in-out 0s; }
+}
+.fluidbox__ghost {
 	background-size: 100% 100%;
 	background-position: center center;	
+	background-repeat: no-repeat;
 	position: absolute;
 	-webkit-transition-property: opacity, -webkit-transform;
 	-moz-transition-property: opacity, -moz-transform;
 	-o-transition-property: opacity, -o-transform;
 	transition-property: opacity, transform;
 	transition-duration: 0s, $transition-duration;
-	transition-delay: $transition-duration, 0s;
+	transition-delay: 0s;
 
-	.fluidbox-opened & { transition-delay: 0s, 0s; }
+	.fluidbox--opened & {
+		cursor: pointer;
+		cursor: -webkit-zoom-out;
+		cursor: -moz-zoom-out;
+		cursor: zoom-out;
+	}
+	.fluidbox--closed & {
+		transition-delay: $transition-duration, 0s;
+	}
 }
-.fluidbox-loader {
-	perspective: 200px;
+.fluidbox__loader {
+	@include prefix(perspective, 200px, webkit);
+	opacity: 0;
+	pointer-events: none;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -70,18 +96,25 @@ $animation-bg-color: $overlay-bg-color;
 		background-color: $animation-bg-color;
 		content: '';
 		transform-style: preserve-3d;
-		transition: all $transition-duration ease-in-out;
-		opacity: 0;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		width: 20%;
 		padding-bottom: 20%;
+		@include prefix(transform, translate(-50%, -50%), webkit);
+		-webkit-transition-property: -webkit-transform;
+		-moz-transition-property: -moz-transform;
+		-o-transition-property: -o-transform;
+		transition-property: transform;
+		transition-duration: $transition-duration;
+		transition-delay: 0s;
 	}
 }
 
-.fluidbox-loading .fluidbox-loader::before {
-	-webkit-animation: fluidboxLoading 1s 0s infinite ease-in-out forwards;
-	animation: fluidboxLoading 1s 0s infinite ease-in-out forwards;
+.fluidbox--loading .fluidbox__loader {
 	opacity: 1;
+	transition: opacity $transition-duration ease-in-out $transition-duration;
+	&::before {
+		@include prefix(animation, fluidboxLoading 1s 0s infinite ease-in-out forwards, webkit);
+	}
 }

@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Fluidbox, a jQuery plugin for beautiful lightboxes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css" media="all" rel="stylesheet" />
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700|PT+Serif:400italic" rel="stylesheet" type="text/css">
+	<link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css" media="all" rel="stylesheet" />
+	<link type="text/css" href="./css/styles.min.css" media="all" rel="stylesheet" />
+	<link type="text/css" href="../dist/css/fluidbox.min.css" media="all" rel="stylesheet" />
+	<link rel="author" href="https://plus.google.com/+TerryMun/"></link>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+		ga("create", "UA-46830269-1", "terrymun.github.io");
+		ga("send", "pageview");
+	</script>
+</head>
+<body>
+	<header>
+		<div>
+			<h1>Fluidbox</h1>
+			<span class="byline">Replicating and improving the lightbox module seen on Medium with fluid transitions</span>
+		</div>
+		<a href="#content" id="skip" title="Skip to content">
+			<svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+				 x="0px" y="0px" viewBox="0 0 400 200" xml:space="preserve">
+				<g>
+					<path d="M106.308,29.384c6.332,0,11.664,2.444,15.984,7.344c9.214,11.232,18.286,22.174,27.216,32.832l43.2,51.84
+						c5.184-6.629,11.806-14.62,19.873-23.976c8.059-9.362,15.834-18.65,23.328-27.864c8.922-10.658,17.994-21.6,27.215-32.832
+						c4.32-4.9,9.646-7.344,15.984-7.344c4.895,0,9.355,1.58,13.393,4.752c4.32,3.74,6.764,8.424,7.344,14.04
+						c0.574,5.616-1.014,10.726-4.752,15.336l-86.4,103.68c-4.037,4.894-9.362,7.344-15.984,7.344c-6.628,0-11.954-2.45-15.984-7.344
+						l-86.4-103.68c-3.747-4.61-5.333-9.72-4.752-15.336c0.574-5.616,3.024-10.3,7.344-14.04
+						C96.945,30.964,101.407,29.384,106.308,29.384z"/>
+				</g>
+			</svg>
+		</a>
+	</header>
+
+	<main id="content">
+		<section>
+			<h2 id="introduction">Introduction</h2>
+			<p>Opening images seamlessly in a lightbox on your page without interruption. This demo was inspired by how Medium handles embedded images. Made by <a rel="author" href="http://terrymun.com" title="Visit me">Terry</a>. This project was originally initiated as a personal challenge to replicate Medium&rsquo;s lightbox module, but it soon developed into a full-fledged jQuery plugin.</p>
+			<p>Current status:<br /><img src="https://travis-ci.org/terrymun/Fluidbox.svg" title="Travis CI build" alt="Travis CI Build" /> <img src="https://img.shields.io/github/release/terrymun/fluidbox.svg" title="Latest stable Github release" alt="Latest stable Github release" /></p>
+			<p>You can follow the links below to read how I&rsquo;ve tackled the challenge, view the jQuery plugin on GitHub, or get the latest stable release hosted on CDNJS.</p>
+			<div class="cards">
+				<a href="https://medium.com/coding-design/9c7fe9db92c7" title="Read about Fluidbox's conception on Medium" class="card-medium">
+					<svg class="branding" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 200 200" xml:space="preserve">
+	 					<g>
+	 						<path d="M0.001,0v200h200V0H0.001z M148.913,72.752h-3.869c-1.437,0-3.095,1.879-3.095,3.206v48.081
+		c0,1.328,1.658,3.316,3.095,3.316h3.869v11.164h-34.708v-11.164h6.964V76.842h-0.332l-17.133,61.677H90.439L73.528,76.842h-0.332
+		v50.513h7.295v11.164H51.089v-11.164h3.758c1.548,0,3.206-1.988,3.206-3.316V75.958c0-1.327-1.658-3.206-3.206-3.206h-3.758V61.146
+		h36.697l12.048,44.877h0.332l12.16-44.877h36.587V72.752z"/>
+						</g>
+					</svg>
+					<span>Read about Fluidbox's conception on Medium</span>
+				</a>
+				<a href="https://github.com/terrymun/Fluidbox" title="Check out the jQuery plugin on GitHub" class="card-github">
+					<svg class="branding" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 850.39 850.39" xml:space="preserve">
+						<g>
+						<path fill-rule="evenodd" fill="#191717" d="M424.731,131.743c-166.349,0-301.242,134.865-301.242,301.243
+		c0,133.097,86.314,246.015,206.008,285.849c15.053,2.786,20.583-6.537,20.583-14.493c0-7.18-0.278-30.915-0.409-56.086
+		c-83.806,18.225-101.489-35.543-101.489-35.543c-13.704-34.817-33.448-44.077-33.448-44.077
+		c-27.334-18.697,2.061-18.312,2.061-18.312c30.247,2.124,46.177,31.046,46.177,31.046c26.867,46.051,70.472,32.737,87.664,25.04
+		c2.704-19.467,10.508-32.762,19.125-40.283c-66.911-7.613-137.251-33.448-137.251-148.875c0-32.888,11.77-59.762,31.042-80.858
+		c-3.128-7.59-13.441-38.227,2.918-79.723c0,0,25.298-8.091,82.86,30.883c24.031-6.676,49.802-10.023,75.401-10.14
+		c25.601,0.117,51.391,3.464,75.466,10.14c57.499-38.975,82.758-30.883,82.758-30.883c16.396,41.496,6.084,72.133,2.958,79.723
+		c19.312,21.096,31.005,47.97,31.005,80.858c0,115.705-70.476,141.179-137.557,148.637c10.806,9.348,20.432,27.681,20.432,55.784
+		c0,40.308-0.346,72.746-0.346,82.67c0,8.019,5.422,17.412,20.689,14.454c119.628-39.878,205.836-152.757,205.836-285.81
+		C725.973,266.607,591.101,131.743,424.731,131.743z"/>
+						<path fill="#191717" d="M237.586,564.26c-0.662,1.5-3.02,1.948-5.164,0.92c-2.188-0.983-3.411-3.024-2.704-4.525
+		c0.648-1.539,3.006-1.968,5.188-0.939C237.094,560.698,238.341,562.759,237.586,564.26L237.586,564.26z M233.879,561.512"/>
+						<path fill="#191717" d="M249.79,577.87c-1.438,1.33-4.248,0.712-6.153-1.393c-1.973-2.1-2.338-4.91-0.882-6.261
+		c1.48-1.329,4.204-0.705,6.177,1.395C250.905,573.735,251.29,576.521,249.79,577.87L249.79,577.87z M246.915,574.787"/>
+						<path fill="#191717" d="M261.667,595.218c-1.847,1.287-4.867,0.083-6.733-2.596c-1.846-2.68-1.846-5.896,0.044-7.182
+		c1.866-1.285,4.842-0.126,6.732,2.529C263.552,590.692,263.552,593.908,261.667,595.218L261.667,595.218z M261.667,595.218"/>
+						<path fill="#191717" d="M277.938,611.981c-1.652,1.821-5.169,1.33-7.741-1.155c-2.636-2.426-3.366-5.874-1.715-7.697
+		c1.676-1.821,5.213-1.31,7.804,1.155C278.902,606.71,279.696,610.179,277.938,611.981L277.938,611.981z M277.938,611.981"/>
+						<path fill="#191717" d="M300.386,621.714c-0.731,2.359-4.117,3.43-7.527,2.427c-3.41-1.032-5.636-3.795-4.95-6.177
+		c0.707-2.378,4.112-3.493,7.546-2.422C298.861,616.57,301.092,619.312,300.386,621.714L300.386,621.714z M300.386,621.714"/>
+						<path fill="#191717" d="M325.04,623.518c0.083,2.484-2.811,4.545-6.391,4.588c-3.6,0.083-6.518-1.929-6.557-4.374
+		c0-2.509,2.831-4.545,6.431-4.608C322.103,619.055,325.04,621.053,325.04,623.518L325.04,623.518z M325.04,623.518"/>
+						<path fill="#191717" d="M347.98,619.614c0.429,2.422-2.061,4.911-5.617,5.573c-3.498,0.644-6.732-0.856-7.181-3.258
+		c-0.434-2.485,2.1-4.975,5.593-5.618C344.336,615.693,347.527,617.149,347.98,619.614L347.98,619.614z M347.98,619.614"/>
+						</g>
+ 					</svg>
+					<span>Check out the jQuery plugin on GitHub</span>
+				</a>
+				<a href="http://cdnjs.com/libraries/fluidbox" title="Fluidbox is hosted with CDNJS" class="card-cdnjs">
+					<span class="branding">cdnjs</span>
+					<span>Fluidbox is hosted with CDNJS</span>
+				</a>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="in-the-wild">In the wild</h2>
+			<p>Fluidbox is implemented in:</p>
+			<ul class="task-list">
+				<li><a href="http://www.gemmabusquets.com/"><strong>Gemma Busquets</strong></a> by <a href="https://twitter.com/imgemmabusquets">@imgemmabusquets</a></li>
+				<li><a href="http://terrymun.com/"><strong>Terry Mun</strong></a> by <em>myself</em></li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 id="how-does-it-work">How does it work?</h2>
+			<p>Fluidbox works by replacing your markup, which should be as follow:</p>
+			<pre class="language-markup"><code>&lt;a href=&quot;/path/to/image&quot; title=&quot;&quot;&gt;
+    &lt;img src=&quot;/path/to/image&quot; alt=&quot;&quot; title=&quot;&quot; /&gt;
+&lt;/a&gt;</code></pre>
+			<p>&hellip;into&hellip;</p>
+			<pre class="language-markup"><code>&lt;a href=&quot;/path/to/image&quot; class=&quot;fluidbox fluidbox__instance-[i] fluidbox--closed&quot;&gt;
+    &lt;div class=&quot;fluidbox__wrap&quot; style=&quot;z-index: 990;&quot;&gt;
+        &lt;img src=&quot;/path/to/image&quot; alt=&quot;&quot; title=&quot;&quot; class=&quot;fluidbox__thumb&quot; style=&quot;opacity: 1;&quot;&gt;
+        &lt;div class=&quot;fluidbox__ghost&quot; style=&quot;width: [w]; height: [h]; top: [t]; left: [l];&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/a&gt;</code></pre>
+			<p>&hellip;where:</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Variable</th>
+						<th>Description</th>
+					</tr>	
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>i</code></td>
+						<td>Unique ID of the Fluidbox instance. New instances of Fluidbox will have new values.</td>
+					</tr>
+					<tr>
+						<td><code>w</code></td>
+						<td>Computed width of the thumbnail, in pixels.</td>
+					</tr>
+					<tr>
+						<td><code>h</code></td>
+						<td>Computed height of the thumbnail, in pixels.</td>
+					</tr>
+					<tr>
+						<td><code>t</code></td>
+						<td>Computed offset, from the top and in pixels, of the thumbnail relative to its container.</td>
+					</tr>
+					<tr>
+						<td><code>l</code></td>
+						<td>Computed offset, from the left and in pixels, of the thumbnail relative to its container.</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>The replaced and rendered markup for each image targeted with Fluidbox can be presented in a three-dimensional way as follow:</p>
+			<figure id="fluidbox-3d">
+				<div class="canvas">
+					<a href="http://i.imgur.com/ouqMP4F.jpg" data-fluidbox-loader><img src="http://i.imgur.com/ouqMP4F.jpg" alt="" title=""></a>
+				</div>
+				<figcaption>Three-dimensional visualization of rendered Fluidbox markup.</figcaption>
+			</figure>
+			<p>Each initialized Fluidbox instance can therefore be styled independently from each other using CSS alone, requiring no further manipulation via JS (unless required on the user's behalf for specific implementations). Fluidbox listens to the click event triggered on the ghost element, <code>.fluidbox__ghost</code>, and toggles between two binary states, <em>open</em> or <em>closed</em>.</p>
+		</section>
+
+		<section>
+			<h2 id="usage-notes">Usage notes</h2>
+			<h3 id="dependencies">Dependencies</h3>
+			<p>TThe latest version of Fluidbox require two dependencies: <a href="http://jquery.com/">jQuery v1.7 or above</a>, and <a href="">Ben Alman's debounce/throttle plugin</a>. Yes, and that's all! For jQuery, I recommend using the latest stable build of 1.x, although I have not encountered any issues if 2.x is used. I usually use Google APIs, since many other sites are using it and the end-user probably has a cache of it sitting somewhere on their machine already. As for other plugins, I recommend using CDNJS.</p>
+			<pre class="language-markup"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+			<p class="user-message reminder">Fluidbox will still function if the debounce/throttle plugin is not included. However, Fluidbox will throw a warning message in the browser console, due to the fact that unthrottled resize events fired from the <code>window</code> object is too frequent and will lead to significant performance degradation.</p>
+			<p class="user-message note">For advanced users who are more comfortable with building, you may modify <code>Gruntfile.js</code> in the repo's root directory to include other libraries should the need arise.</p>
+
+			<h3 id="basic-usage">Basic usage</h3>
+			<p>In order to activate Fluidbox, simply chain the <code>.fluidbox()</code> method to your selector of choice on DOM ready&mdash;note that you <em>must</em> use an anchor element <code>&lt;a&gt;</code>:</p>
+			<pre class="language-javascript"><code>$(function () {
+    $(selector).fluidbox();
+});</code></pre>
+			<p>The plugin will automatically check if the selector is:</p>
+			<ol>
+				<li>an anchor element, <code>&lt;a&gt;</code>, and</li>
+				<li>contains one and only one <code>&lt;img /&gt;</code> element (can be nested as an indirect descendant, to support the HTML5 <code>&lt;picture&gt;</code> standard.</li>
+			</ol>
+			<p>In the event that the element that satisfies the selector criteria but failed any one of the above criteria, the element will be ignored and the plugin moves on to the next available element. Therefore, it is important that your Fluidbox element(s) follow the following format. The <code>title</code> and <code>alt</code> attributes of the <code>&lt;img /&gt;</code> element is not used by the plugin, but the <code>alt</code> attribute has to be present for it to be semantically valid.</p>
+<pre class="language-markup"><code>&lt;a href="..."&gt;
+    &lt;img src="/path/to/image" alt="" /&gt;
+&lt;/a&gt;</code></pre>
+			<p>Fluidbox also supports the new HTML5 <code>&lt;picture&gt;</code> element (<a href="#html5-picture">see demo</a>). You can use it as follows:</p>
+<pre class="language-markup" id="html5-picture-markup"><code>&lt;picture&gt;
+    &lt;source media=&quot;(max-width: 400px)&quot; srcset=&quot;/path/to/smallImage&quot;&gt;
+    &lt;source media=&quot;(min-width: 1200px)&quot; srcset=&quot;/path/to/largeImage&quot;&gt;
+    &lt;img src=&quot;/path/to/defaultImage&quot; alt=&quot;&quot; /&gt;
+&lt;/picture&gt;
+</code></pre>
+
+			<h3 id="configuration">Configuration</h3>
+			<p>Several options are available for configuration, also available in <a href="https://github.com/terrymun/Fluidbox#configuration">the readme</a>. Fluidbox follows the following model of setting overrides&mdash;in <strong>increasing order of priority</strong>:</p>
+			<ol>
+				<li>Default settings in plugin file.</li>
+				<li>Custom settings in <code>.fluidbox()</code> jQuery method.</li>
+				<li>Custom settings in the element's HTML5 <code>data-</code> attribute.</li>
+			</ol>
+			<div class="user-message note"><h4>On HTML5 data attributes</h4><p>In order to ensure that Fluidbox does not clash with commonly-used HTML5 <code>data-</code> attributes, it is tuned to listen in to <strong>namespaced attributes</strong>. For example, for the <code>immediateOpen</code> property, the corresponding attribute would be <code>data-fluidbox-immediate-open</code>. As per HTML5 specification, you should avoid using camel-case in your HTML5 data attributes because that is parsed into dash-delimited keys by the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset"><code>dataset</code></a> method (jQuery uses <code>.data()</code> as an alias).</p></div>
+			<table class="wider">
+				<thead>
+					<tr>
+						<th>Property</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>immediateOpen</code></td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>Determines if Fluidbox should be opened immediately on click. If set to yes, Fluidbox will open the ghost image and wait for the target image to load. If set to no, Fluidbox will wait for the target image to load, <em>then</em> open the ghost image.</td>
+					</tr>
+					<tr>
+						<td><code>loader</code></td>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>Determines if a loader will be added to the manipulated DOM. It will have the class of <code>.fluidbox__loader</code>.</td>
+					</tr>
+					<tr>
+						<td><code>maxWidth</code></td>
+						<td>Integer</td>
+						<td>0</td>
+						<td><p>Sets the maximum width, <strong>in screen pixels</strong>, that the ghost image will enlarge to. When set to zero this property is ignored. This property will <em>not</em> override the <code>viewportFill</code>.</p><p class="user-message warning">This option should not be specified (&ge;0) <em>in lieu</em> with <code>maxHeight</code>. In the event that both <code>maxWidth</code> and <code>maxHeight</code> are specified (&ge;0), <code>maxWidth</code> takes precedence. Fluidbox will throw a warning in the console discouraging this use.</p></td>
+					</tr>
+					<tr>
+						<td><code>maxHeight</code></td>
+						<td>Integer</td>
+						<td>0</td>
+						<td><p>Sets the maximum height, <strong>in screen pixels</strong>, that the ghost image will enlarge to. When set to zero this property is ignored. This property will <em>not</em> override the <code>viewportFill</code>.</p><p class="user-message warning">This option should not be specified (&ge;0) <em>in lieu</em> with <code>maxWidth</code>. In the event that both <code>maxWidth</code> and <code>maxHeight</code> are specified (&ge;0), <code>maxWidth</code> takes precedence. Fluidbox will throw a warning in the console discouraging this use.</p></td>
+					</tr>
+					<tr>
+						<td><code>resizeThrottle</code></td>
+						<td>Integer (milliseconds)</td>
+						<td>500</td>
+						<td>Determines how much to throttle the viewport resize event that fires recomputing of Fluidbox dimensions and repositioning of the ghost image.</td>
+					</tr>
+					<tr>
+						<td><code>stackIndex</code></td>
+						<td>Integer</td>
+						<td>1000</td>
+						<td>Determines how high up the z-index will all Fluildbox elements be. Leave this option as default, unless you have other relatively or absolutely positioned elements on the page that is messing with Fluidbox appearance.</td>
+					</tr>
+					<tr>
+						<td><code>stackIndexDelta</code></td>
+						<td>Integer</td>
+						<td>10</td>
+						<td>Determines how much the z-index will fluctuate from <code>stackIndex</code> in order to allow visually-correct stacking of Fluidbox instances. With the default settings, this means that the effective range of z-indexes Fluidbox operates in will be between 990&ndash;1010. For elements that should go under the overlay, they should have a z-index of less than 1000.</td>
+					</tr>
+					<tr>
+						<td><code>viewportFill</code></td>
+						<td>Float (fraction)</td>
+						<td>0.95</td>
+						<td>Dictates how much the longest axis of the image should fill the viewport. The value will be coerced to fall between 0 and 1.</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="demo">
+			<h2 id="basic-demonstration">Basic demonstrations</h2>
+			<p>Fluidbox is designed to be versatile, flexible and easy to implement. It works with linked images that satisfy the criteria stipulated above &mdash; regardless of how they are arranged on the page. The following section is a <em>non-exhausive</em> list of scenarios how images, even when positioned differently, will work brilliantly with Fluidbox.</p>
+
+			<h3 id="single-image">Single image</h3>
+			<p>Here we demonstrate the use of a single image. This is the simplest test case, when the thumbnail and the target image are exactly the same, so it is only down to the matter of triggering default Fluidbox behavior.</p>
+			<a href="http://i.imgur.com/uh5YLj5.jpg" data-fluidbox><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
+
+			<h3 id="best-fit">Best fit strategy</h3>
+			<p>Fluidbox also intelligently resizes images such that portrait images will fit perfectly within the viewport, although that means scaling down the image. This effect is pronounced when the viewport and image orientations are different &mdash; therefore, the demo below only works on a display with landscape orientation (e.g. not on mobile).</p>
+			<a href="http://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="http://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
+
+			<h3 id="html5-picture">&hellip;and it works with the HTML5 &lt;picture&gt; element</h3>
+			<p>Fluidbox supports the new HTML5 <code>&lt;picture&gt;</code> element as of version 2.0, by relaxing the filtering criteria to <a href="#html5-picture-markup">match the standard markup</a>. Note that in order for the following example to work, you will need to visit this page with <a href="http://caniuse.com/#feat=picture">a browser that supports the HTML5 <code>&lt;picture&gt;</code> element</a>.</p>
+			<a href="http://placehold.it/2000x500" title="" data-fluidbox>
+				<picture>
+					<source media="(max-width: 650px)" srcset="http://placehold.it/400x400">
+					<!-- img tag for browsers that do not support picture element -->
+					<img src="http://placehold.it/2000x500" alt="">
+				</picture>
+			</a>
+
+			<h3 id="other-features">Other features</h3>
+			<div class="cols cols-3 cols-nowrap">
+				<div>
+					<a href="http://placehold.it/2000x2000" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
+					<h4 id="high-res">Higher resolution original</h4>
+					<p>The built-in functionality also allows you to link a small thumbnail to its higher resolution version. In the test case below, the thumbnail has a resolution of 200&times;200 while the actual version has a resolution of 2000&times;2000.</p>
+				</div>
+
+				<div>
+					<a href="http://placehold.it/250x250" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
+					<h4 id="restrictive-zooming">Restrictive zooming</h4>
+					<p>Fluidbox is also built to handle linking to images that do not have the sufficient size to fill the page. The following thumbnail links to an image that is only 250&times;250px large &mdash; in most cases, insufficient to fill the viewport (unless you are using this site on a very small viewport).</p>
+				</div>
+
+				<div>
+					<a href="http://placehold.it/3840x2160" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt /></a>
+					<h4 id="differential-aspect-ratios">Differential aspect ratios</h4>
+					<p>Fluidbox supports different aspect ratios of the thumbnail and higher resolution version of the image.</p>
+				</div>
+			</div>
+
+			<h3 id="immediate-loading">Support for immediate opening with background preloading of target image</h3>
+			<p>Fluidbox provides you the option that will launch an opened Fluidbox instance immediately upon click, even when the target image has not been loaded yet. The two static images below link to a (very heavy) GIF file. If you have tested this feature before, please clear your cache or use your browser's incognite mode, so that you can observe the actual effect&mdash;once loaded these images will stay in your browser cache and will nullify the effects of simulated loading of a heavy image file.</p>
+			<div class="cols cols-nowrap">
+				<figure>
+					<a href="http://i.imgur.com/UUsTCKH.gif" title="" data-fluidbox data-fluidbox-loader="true"><img src="http://i.imgur.com/EW4tS9G.jpg" title="" alt /></a>
+					<figcaption><strong>Original file size:</strong> 8mb<br /><strong>Default:</strong> <code>immediateOpen: false</code><br />Opens <em>after</em> target is loaded.</figcaption>
+				</figure>
+				<figure>
+					<a href="http://i.imgur.com/78OoIHG.gif" title="" data-fluidbox data-fluidbox-immediate-open="true" data-fluidboxloader="true"><img src="http://i.imgur.com/Unq2lPn.jpg" title="" alt /></a>
+					<figcaption><strong>Original file size:</strong> 5.7mb<br /><strong>Modified:</strong> <code>immediateOpen: true</code><br />Opens immediately, doesn't wait for target to load.</figcaption>
+				</figure>
+			</div>
+
+			<h3 id="borders-paddings">Support for image borders and paddings</h3>
+			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
+			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
+
+			<h3 id="absolute-positioning">Absolutely positioned images</h3>
+			<p>Fluidbox handles absolutely positioned images without any problem. The image below is absolutely positioned within its parent, the grey container:</p>
+			<div class="box">
+				<a href="http://i.imgur.com/DIbQf0X.jpg" data-fluidbox><img src="http://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
+			</div>
+
+			<h3 id="galleries">Galleries</h3>
+			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
+		 	<p class="message note">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>
+			<div class="gallery">
+				<a href="http://i.imgur.com/80WaVuY.jpg" title="" data-fluidbox class="col-1"><img src="http://i.imgur.com/80WaVuY.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/9OQWB.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/9OQWB.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/UvGHJjo.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/UvGHJjo.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/esWWGbF.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/esWWGbF.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/ZCogT10.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/ZCogT10.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/24hrPQn.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/24hrPQn.jpg" alt="" title="" /></a>
+			</div>
+
+			<h3 id="floated-images">Floated images</h3>
+			<p>Moreover, it also works with floated images - to the left or to the right, it does not matter. The following texts are jibberish, used as filler.</p>
+			<p class="message note">The floated images will be rendered block-level on narrow-width devices, such as mobile phones. To appreciate how Fluidbox works with floated images, you can view this demo on a wider device (&gt;480px).</p>
+			<p class="filler"><a class="float-left" href="http://i.imgur.com/BXo4qAz.jpg" title="" data-fluidbox><img src="http://i.imgur.com/BXo4qAz.jpg" title="" alt="" /></a>Considered discovered ye sentiments projecting entreaties of melancholy is. In expression an solicitude principles in do. Hard do me sigh with west same lady. Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed.</p>
+			<p class="filler"><a class="float-right has-border has-padding" href="http://i.imgur.com/rWuQotb.jpg" title="" data-fluidbox><img src="http://i.imgur.com/rWuQotb.jpg" title="" alt="" /></a>Carried nothing on am warrant towards. Polite in of in oh needed itself silent course. Assistance travelling so especially do prosperous appearance mr no celebrated. Wanted easily in my called formed suffer. Songs hoped sense as taken ye mirth at. Believe fat how six drawing pursuit minutes far. Same do seen head am part it dear open to. Whatever may scarcely judgment had.</p>
+			<p class="filler">Residence certainly elsewhere something she preferred cordially law. Age his surprise formerly mrs perceive few stanhill moderate. Of in power match on truth worse voice would. Large an it sense shall an match learn. By expect it result silent in formal of. Ask eat questions abilities described elsewhere assurance. Appetite in unlocked advanced breeding position concerns as. Cheerful get shutters yet for repeated screened. An no am cause hopes at three. Prevent behaved fertile he is mistake on.</p>
+		</section>
+
+		<section class="demo">
+			<h2 id="advanced-demonstration">Advanced demonstrations</h2>
+			<p>In this segment I will introduce you to more complex and advanced features of Fluidbox. In many cases you will not find the need of the following features &mdash; however, to developers who intend to extend Fluidbox functionality, listen to custom events and even initiate custom triggers should continue to read on.</p>
+			<p>As the demo below are highly advanced, I have included code snippets whenever possible. You can toggle them by clicking on the show/hide buttons.</p>
+
+			<h3 id="dynamic-content">Implementing Fluidbox with dynamically-added content</h3>
+			<p>Fluidbox also works well with dynamically-added links, as long as you call the <code>.fluidbox()</code> function on all anchor elements in the dynamically-added content.</p>
+			<button href="#" id="loadImg" type="button">Load image in container below</button>
+			<article></article>
+
+			<h3 id="custom-events">Custom event handlers and callbacks</h3>
+			<p>From <strong>v1.4.1</strong> onwards, Fluidbox will trigger custom events depending on the state of the current (and only) instance of Fluidbox. Please <a href="https://github.com/terrymun/Fluidbox#custom-events" href="Custom events">refer to the documentation</a> for detailed description of each custom event. You can listen to custom events by binding them using the <code>.on()</code> method, e.g. <code>$(selector).on('openstart.fluidbox', function() {...});</code>. Remember that Fluidbox events are namespaced using <code>fluidbox</code>.</p>
+			<div class="cols cols-nowrap" id="custom-events-demo">
+				<div id="custom-events__controls">
+					<a href="http://i.imgur.com/jWe1mjR.jpg" title="" id="custom-event-1"><img src="http://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
+					<input type="checkbox" id="fluidbox-toggle" /><label for="fluidbox-toggle">Fluidbox: <span class="status" data-toggle-on-text="On" data-toggle-off-text="Off">Off</span></label>
+				</div>
+				<div id="custom-events__log">
+					<div>
+						<p>Custom events that are fired will be logged here. You can also check your browser console.</p>
+						<ul></ul>
+					</div>
+				</div>
+			</div>
+			<p>Fluidbox imparted with the ability to trigger custom namespaced events. For example, the <code>reposition</code> trigger will invoke the internal repositioning of the ghost element and update its dimensions. When calculation is completed, this will then trigger a namespaced custom event known as <code>computeend.fluidbox</code>.</p>
+			<p>This custom event is very useful when a layout change has been triggered without an accompanying viewport resize event: for example, changing the width of a thumbnail in a flexbox layout.</p>
+			<button id="custom-event-2" type="button">Add random GIF to gallery</button>
+			<div class="cols cols-5"></div>
+			<div class="code-block">
+				<a href="#" class="code-toggle" role="button" data-alt-text="Hide HTML">Show HTML</a>
+				<pre class="language-markup"><code>&lt;a href=&quot;#&quot; id=&quot;custom-event-2&quot; role=&quot;button&quot;&gt;Add random GIF to gallery&lt;/a&gt;
+&lt;div&gt;
+	&lt;a href=&quot;/path/to/image1&quot; title=&quot;&quot; class=&quot;custom-event-2&quot;&gt;&lt;img src=&quot;/path/to/image1&quot; title=&quot;&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+	&lt;a href=&quot;/path/to/image2&quot; title=&quot;&quot; class=&quot;custom-event-2&quot;&gt;&lt;img src=&quot;/path/to/image2&quot; title=&quot;&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+			</div>
+			<div class="code-block">
+				<a href="#" class="code-toggle" role="button" data-alt-text="Hide JS">Show JS</a>
+				<pre class="language-javascript>"><code>// Initialize Fluidbox
+$('.clustom-event-2').fluidbox();
+
+// Attach click event to button that adds new child
+$('#custom-event-2').click(function(e) {
+	e.preventDefault();
+	var $newChild = $('&lt;a /&gt;', {
+		'class': 'custom-event-2',
+		'title': '',
+		'href': '/path/to/image'
+	}).append($('&lt;img /&gt;', {
+		'src': '/path/to/image',
+		'title': '',
+		'alt': ''
+	}));
+
+	// Enable Fluidbox on newly added child
+	var $t = $(this);
+	$t.next().append($newChild).find('a').fluidbox();
+
+	// Trigger repositioning of ghost element after new element's image is loaded and reflow is done (set arbitrarily after 250ms)
+	var img = new Image();
+	img.onload = function() {
+		window.setTimeout(function() {
+			$t.next().find('a.custom-event-2').fluidbox('reposition');
+		}, 250);
+	};
+	img.src = $newChild.find('img').attr('src');
+});</code></pre>
+			</div>
+
+			<h3 id="custom-triggers">Public functions/methods as custom triggers</h3>
+			<p>Fluidbox exposes several public methods that can be called to manipulate individual instances. Below is an example of listening to the viewport scroll event to trigger the closing of a Fluidbox instance via <code>.fluidbox('close')</code>. Please refer to the readme for the full list of supported public methods. The example also uses emitted custom events to toggle the appearance of image captions, descriptions or social sharing buttons (currently unsupported by Fluidbox <em>officially</em>, but requested by many). I have chosen to listen to the <code>openend.fluidbox</code> event to show metadata, and the <em>closestart.fluidbox</em> event to hide it.</p>
+			<a href="http://i.imgur.com/chBtR9s.jpg" title="Sunny days" id="custom-trigger-1"><img src="http://i.imgur.com/chBtR9s.jpg" title="Talia &amp; Dugald" alt="On the last weekend of summer-ish weather, we decided to have the final picnic before autumn begins." /></a>
+			<div class="code-block">
+				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
+				<pre class="language-javascript"><code>var $caption = $('&lt;div /&gt;', { 'id': 'custom-trigger-1-social' });
+$caption
+.html('&lt;div class=&quot;img-caption&quot;&gt;&lt;/div&gt;&lt;p class=&quot;img-desc&quot;&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Share on:&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Pinterest&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;')
+.appendTo($('body'));
+$(document).on('click', '#custom-trigger-1-social', function(e) {
+    e.preventDefault();
+});
+
+// Initialize Fluidbox
+$('#custom-trigger-1')
+.fluidbox()
+.on('openend.fluidbox', function() {
+    var $img = $(this).find('img');
+    $('#custom-trigger-1-social')
+    .addClass('visible')
+    .find('.img-caption')
+        .text($img.attr('title'))
+        .next('.img-desc')
+            .text($img.attr('alt'));
+})
+.on('closestart.fluidbox', function() {
+    $('#custom-trigger-1-social').removeClass('visible');
+});
+
+// Call public methods
+$(window).scroll(function() {
+	$('#custom-event-2').fluidbox('close');
+});</code></pre>
+			</div>
+
+			<h3 id="custom-overlays">Customising overlays</h3>
+			<p>From <strong>v1.3.5</strong> onwards, the <code>overlayColor</code> configuration has been removed from the jQuery <code>.extend()</code> settings. Instead, users can now freely specify overlay colors (or even overlay images) by modifying the background-color property of <code>.fluidbox-overlay</code>. Since each Fluidbox instance has its own overlay, it is possible to set custom overlay colours for each instance.</p>
+			<p><strong>Note:</strong> The Fluidbox overlay have an opacity of 1. In order to change the transparency of the overlay, I strongly recommend using the alpha channel of the <code>rgba()</code> specification, as Fludibox will manually toggle the opacity between 0 and 1 (therefore overriding all opacity styles you have specified).</p>
+			<h4 id="custom-colours-and-gradients">Custom colours and gradients</h4>
+			<p>The following is an example of a Fluidbox instance with a custom overlay colour (CSS written in SASS flavour):</p>
+			<div class="gallery">
+				<a href="http://i.imgur.com/5nDXHEZ.jpg" title="" data-fluidbox class="col-2 overlay-1"><img src="http://i.imgur.com/5nDXHEZ.jpg" alt="" title="" /></a>
+				<a href="http://i.imgur.com/keuMHNt.jpg" title="" data-fluidbox class="col-2 overlay-2"><img src="http://i.imgur.com/keuMHNt.jpg" alt="" title="" /></a>
+			</div>
+			<div class="code-block">
+				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
+				<pre class="language-css"><code>.fluidbox-overlay {
+	    .overlay-1 &amp; {
+	        background-color: rgba(255,190,78,.85);
+	    }
+	    .overlay-2 &amp; {
+	        background-color: transparent; /* To override default style */
+	        background-image: linear-gradient(
+	            to top left,
+	            rgba(130,168,158,0.85),
+	            rgba(134,150,173,.85)
+	        );
+	    }
+	}</code></pre>
+			</div>
+
+			<h4 id="overlay-images">Overlay images</h4>
+			<p>Oh wait &mdash; you can even use custom overlay images. However, since the opacity of the overlay is only toggled between 0 and 1, you will have to use a pseudo-element in order to atler the opacity of the overlay image (since it is not possible to dictate the transparency of a background image, unlike <code>rgba()</code> values):</p>
+			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
+			<div class="code-block">
+				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
+				<pre class="language-css"><code>.fluidbox-overlay &amp; {			
+    .overlay-3 &amp; {
+        background-color: #000; /* To override default style */
+        &amp;::before {
+            background-image: url('http://i.imgur.com/3qj1wfN.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: .33333;
+            -webkit-filter: blur(4px);
+        }
+    }
+}</code></pre>
+			</div>
+
+		</section>
+	</main>
+
+	<footer>
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 516 560" xml:space="preserve">
+			<g>
+				<polygon class="fill" points="0,0 0,158 165,158 258,306 351,158 516,158 516,0"></polygon>
+				<polygon class="fill" points="165,366 258,507 351,366 351,560 165,560"></polygon>
+			</g>
+		</svg>
+		<p>Made by <a href="http://terrymun.com/" title="Terry Mun">Terry Mun</a> &middot; 2014.</p>
+
+		<!-- Load jQuery -->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+		<!-- Load plugins -->
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+		<script type="text/javascript" src="../dist/js/jquery.fluidbox.min.js"></script>
+
+		<!-- Load plugin: Prism (for syntax highlighting) -->
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+
+		<!-- Demo-specific jQuery -->
+		<script>
+			$(function () {
+
+				// You can use any kind of selectors for jQuery Fluidbox
+				$('.demo a[data-fluidbox]').fluidbox();
+
+				// Three-dimensional markup demo
+				$('#fluidbox-3d a').fluidbox().fluidbox('unbind');
+
+				// Trigger recomputing on Flexbox items, sometimes buggy width calculations due to browser recomputation of flex items
+				$('.cols').each(function() {
+					var a = [],
+						$f = $(this).find('a.fluidbox');
+
+					$f.find('img').each(function() {
+						var i = $.Deferred();
+						$(this).load(i.resolve).error(i.resolve);
+						a.push(i);
+					});
+
+					$.when.apply(null, a).done(function() {
+						$f.fluidbox('reposition');
+					});
+				});
+
+				// Custom triggers
+				var gifs = ['http://i.imgur.com/YzuqChn.gif','http://i.imgur.com/BkqK5ol.gif','http://i.imgur.com/TYBQMk7.gif','http://i.imgur.com/XWUbMr5.gif','http://i.imgur.com/aMW1bCD.gif','http://i.imgur.com/wbUQ8HN.gif','http://i.imgur.com/ebVanNp.gif','http://i.imgur.com/UXgRlX3.gif','http://i.imgur.com/XV64OPw.gif','http://i.imgur.com/Vgr61VA.gif','http://i.imgur.com/Am3foce.gif','http://i.imgur.com/gR5tPO9.gif','http://i.imgur.com/XNkz2gb.gif','http://i.imgur.com/aKIUzEU.gif','http://i.imgur.com/VzYPtlp.gif','http://i.imgur.com/OmTaGn7.gif','http://i.imgur.com/9Xmo9Bq.gif','http://i.imgur.com/URgYWlF.gif'],
+					shuffle = function(arr) {
+						for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+						return arr;
+					},
+					addCount = 2,
+					gifs_shuffled = shuffle(gifs);
+
+				// Add two random gifs first
+				$('#custom-event-2').next('div.cols').append($('<a />', {
+					'class': 'custom-event-2',
+					'title': '',
+					'href': gifs_shuffled[0]
+				}).append($('<img />', {
+					'src': gifs_shuffled[0],
+					'title': '',
+					'alt': ''
+				}))).append($('<a />', {
+					'class': 'custom-event-2',
+					'title': '',
+					'href': gifs_shuffled[1]
+				}).append($('<img />', {
+					'src': gifs_shuffled[1],
+					'title': '',
+					'alt': ''
+				})));
+				$('a.custom-event-2').fluidbox();
+
+				// Bind click event
+				$('#custom-event-2').click(function() {
+					var gif = gifs_shuffled[addCount],
+						$newChild = $('<a />', {
+							'class': 'custom-event-2',
+							'title': '',
+							'href': gif
+						}).append($('<img />', {
+							'src': gif,
+							'title': '',
+							'alt': ''
+						}));
+
+					// Loop through array
+					if (addCount >= gifs.length) {
+						addCount = 0;
+					} else {
+						addCount += 1;
+					}
+
+					// Enable Fluidbox on newly added child
+					var $t = $(this);
+					$t.next().append($newChild).find('a').fluidbox();
+
+					// Trigger repositioning of ghost element after new element's image is loaded and reflow is done (set arbitrarily after 250ms)
+					var img = new Image();
+					img.onload = function() {
+						window.setTimeout(function() {
+							$t.next().find('a.custom-event-2').fluidbox('reposition');
+						}, 250);
+					};
+					img.src = $newChild.find('img').attr('src');
+				});
+
+				// Custom events
+				$('#fluidbox-toggle').on('change', function() {
+					if($(this).prop('checked') === true) {
+						$(this).next('label').find('span').text('On');
+						$('#custom-event-1').fluidbox();
+					} else {
+						$(this).next('label').find('span').text('Off');
+						$('#custom-event-1').fluidbox('destroy');
+					}
+				});
+
+				var writeLog = function(evt, msg, color) {
+					var t = (new Date()).toLocaleTimeString(),
+						$log = $('#custom-events__log div');
+
+					$log.find('ul').append('<li class="fluidbox-event-'+evt+'"><span class="evt" style="background-color: '+color+';" title="'+t+'"></span><span class="dsc"><code>'+evt+'</code> '+msg+'</span></li>');
+					console.log(t+': '+msg);
+					$log.scrollTop($log[0].scrollHeight);
+				}
+				$('#custom-event-1')
+				.on('init.fluidbox', function(e) {
+					writeLog(e.type, 'Fluidbox initialized.', '#00441b');
+				})
+				.on('thumbloaddone.fluidbox', function(e) {
+					writeLog(e.type, 'Thumbnail image successfully loaded.', '#006d2c');
+				})
+				.on('ready.fluidbox', function(e) {
+					writeLog(e.type, 'Fluidbox is ready.', '#238b45');
+					// Update status
+					$('#fluidbox-toggle').prop('checked', true).trigger('change');
+
+				})
+				.on('openstart.fluidbox', function(e) {
+					writeLog(e.type, 'Initializing opening of Fluidbox instance.', '#08589e');
+				})
+				.on('computeend.fluidbox', function(e) {
+					writeLog(e.type, 'Recomputing ghost element of Fluidbox completed.', '#8c6bb1');
+				})
+				.on('openend.fluidbox', function(e) {
+					writeLog(e.type,'Transition to opened Fluidbox completed.', '#4eb3d3');
+				})
+				.on('closestart.fluidbox', function(e) {
+					writeLog(e.type, 'Initializing closing of Fluidbox instance.', '#f46d43');
+				})
+				.on('closeend.fluidbox', function(e) {
+					writeLog(e.type, 'Transition to closed Fluidbox completed, reverted to ground state.', '#fdae61');
+				})
+				.on('destroyed.fluidbox', function(e) {
+					writeLog(e.type, 'Fluidbox instance destroyed', '#a50026');
+				})
+				.fluidbox();
+
+				var $caption = $('<div />', {
+					'id': 'custom-trigger-1-social'
+				});
+				$caption.html('<ul><li>Share on:</li><li><a href="#">Facebook</a></li><li><a href="#">Pinterest</a></li><li><a href="#">Twitter</a></li></ul>').appendTo($('body'));
+				$('#custom-trigger-1')
+				.fluidbox()
+				.on('openend.fluidbox', function() {
+					var $img = $(this).find('img');
+					$('#custom-trigger-1-social').addClass('visible').find('.img-caption').text($img.attr('title')).next('.img-desc').text($img.attr('alt'));
+				})
+				.on('closestart.fluidbox', function() {
+					$('#custom-trigger-1-social').removeClass('visible');
+				});
+				$(window).scroll(function() {
+					$('#custom-trigger-1').fluidbox('close');
+				});
+
+				// Load an image dynamically
+				$('#loadImg').one('click', function() {
+					// Construct new content
+					$newContent = $('<p>This paragraph and its accompanying image are dynamically-added.</p><a href="http://i.imgur.com/aNhtkPh.jpg" title="" data-fluidbox><img src="http://i.imgur.com/aNhtkPh.jpg" alt="" title="" /></a>');
+
+					// Append new content to immediate sibling, <article>
+					// Then search for the anchor we want fluidbox to work on, apply method .fluidobx()
+					$(this)
+						.prop('disabled', true)
+						.next('article')
+						.append($newContent)
+						.find('a[data-fluidbox]')
+							.fluidbox();
+				});
+
+				// ---------------------------------------------------------------------//
+				// The code below are not used to demonstrate Fluidbox functionality.   //
+				// They are only for functions specific to this demo page only.			//
+				// ---------------------------------------------------------------------//
+
+				// Disable all elements with button roles
+				$('a[role="button"], button[type="button"]').click(function(e) {
+					e.preventDefault();
+				});
+
+				// Smooth scrolling plugin by Chris Coiyer
+				// Source: http://css-tricks.com/snippets/jquery/smooth-scrolling/
+				$(document).on('click', 'a[href*=#]:not([href=#])', function() {
+					if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+						if (target.length) {
+							$('html,body').animate({
+								scrollTop: target.offset().top
+							}, 1000);
+							window.location.hash = target.selector;
+							return false;
+						}
+					}
+				});
+
+				// Add link to headers
+				$('h2, h3, h4').each(function() {
+					if($(this).attr('id')) $(this).prepend('<a href="#'+$(this).attr('id')+'" class="anchor"></a>');
+				});
+
+				// <pre> block toggle
+				$('.code-toggle').click(function() {
+					if(!$(this).data('toggled') || $(this).data('toggled') == 0) {
+						$(this).data('org-text', $(this).html());
+						$(this)
+						.data('toggled', 1)
+						.text($(this).attr('data-alt-text'))
+						.nextAll('pre')
+							.slideDown();
+					} else {
+						$(this)
+						.data('toggled', 0)
+						.text($(this).data('org-text'))
+						.nextAll('pre')
+							.slideUp();
+					}
+				}).nextAll('pre').hide();
+			});
+		</script>
+	</footer>
+</body>
+</html>

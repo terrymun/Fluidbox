@@ -1,8 +1,6 @@
 # Fluidbox
 [![Build Status](https://travis-ci.org/terrymun/Fluidbox.svg?branch=master)](https://travis-ci.org/terrymun/Fluidbox) ![Latest Github release](https://img.shields.io/github/release/terrymun/fluidbox.svg?style=flat) ![Average issue resolution time](http://img.shields.io/badge/Issues%20Closed%20In-about%2015%20hours-green.svg?style=flat)
 
-> **Note:** Fluidbox is up for a codebase rewrite over the course of summer.
-
 Replicating and improving the lightbox module seen on Medium with fluid transitions. [View demo here](http://terrymun.github.io/Fluidbox/). For users who are looking for a quick setup and/or troubleshooting process, refer to [basic usage](#basic), but do not forget to read the [usage precautions](#precautions) and [frequently asked questions](#frequently-asked-questions).
 
 Although not thoroughly tested, Fluidbox should be working in IE ≥10 and all versions of Chrome, Firefox, Safari, iOS Safari and Android Chrome, **with the exception of Opera Mini**. However, I suggest disabling Fluidbox on mobile devices or at small screen resolutions.
@@ -26,7 +24,7 @@ The plugin is relatively lightweight: 6.23kb (**1.98kb** after gzipped) for the 
 
 You can [read my article on Medium](https://medium.com/coding-design/9c7fe9db92c7) about how I got inspiration for this little project of mine, and the basic mechanisms behind the plugin. Some serious math is involved (*nah, not really*).
 
-Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub. The plugin version 1.22 and onwards (uncompressed, minified and its associated CSS file) is hosted with [CDNJS](http://cdnjs.com/libraries/fluidbox/).
+Moreover, you can [visit the demo of this plugin](http://terrymun.github.io/Fluidbox/) on the project page hosted with GitHub. The plugin v1.22 and onwards (uncompressed, minified and its associated CSS file) is hosted with [CDNJS](http://cdnjs.com/libraries/fluidbox/).
 
 ## In the wild
 Fluidbox is part of the vast collection of libraries proudly [hosted by CDNJS](http://cdnjs.com/libraries/fluidbox). You can reference all versions of Fluidbox published hitherto from there.
@@ -39,38 +37,23 @@ Fluidbox has been implemented on other sites in the wild, too&mdash;check it out
 
 To add your site that has implemented Fluidbox, or an article/tutorial you have written on Fluidbox use and/or application, feel free to write to me at [@teddyrised](https://twitter.com/teddyrised).
 
-## Changelog
-| Version | Comments |
-|---------|----------|
-| 1.2.0   | Official release |
-| 1.2.1   | Minor bug fixes |
-| 1.2.2   | <ul><li>**Bug fix:** Changed positioning of overlay, to ensure that it works in pages with absolutely- or relatively-positioned parent/wrapper elements with z-indexs specified</li><li>**Update:** Fluidbox is now available via [CDNJS](http://cdnjs.com/libraries/fluidbox/).</li></ul> |
-| 1.2.3   | <ul><li>**Bug fix:** Fixed the iamge switching issue when Fluidbox is closed, which causes two flashes of white. This is done by listening to the `transitionend` property, with a tiny hack.</li><li>**Update:** JS is minifised using [UglifyJS](http://marijnhaverbeke.nl/uglifyjs) instead of the [YUI compressor](http://refresh-sf.com/yui/), saving a wee bit more bandwidth for you.</li></ul> |
-| 1.2.4&alpha; | **Warning: Buggy, alpha-build**<br /><ul><li>**Bug fix:** Removed the white flash issue by rearranging how overlay is appended to the DOM tree. Users can change the z-index in the CSS file freely (to suit their layout needs), as the script will store the original assigned z-index in a HTML5 `data-` attribute for manipulation, in order to restore the original z-index</li><li>**License notice:** Switched from GNU to MIT.</li></ul> |
-| 1.2.5   | <ul><li>**Bug fix:** Minimized white flash issue and fixed the stacking order bug introduced in v1.2.4&alpha;. A new option is now available, known as `stackIndex`. It is set to `999` by default, but if you have other absolutely positioned elements on the page that you want to overlay, you can change this option (alternatively, modify/lower the `z-index` of offending elements).</li><li>**Update:** Included the updated licenses in `license.md` and `license.txt`.</li></ul> |
-| 1.2.6   | <ul><li>**Bug fix:** Replaced the use of `transitionend` event detection for timing effects, due to the fact that the event lacks cross-browser support and standardization. This issue is particularly bad for Firefox, which showed that the `transitionend` is not triggered properly, causing parts of the plugin to break. I have chosen to fall back to the native JS' `setTimeout` and `clearTimeout` functions.</li></ul> |
-| 1.2.7   | <ul><li>**Bug fix:** Fixed issues when the `.one()` event is not propery unbound, especially after rapid, successive clicking.</li><li>**Update:** Added a new option called `stackIndexDelta`, where you can dictate how much the z-index should change when Fluidbox is toggled. The default is set to 10. If you have a lot of absolutely positioned elements on the page, you might want to increase this delta value.</li></ul> |
-| 1.3.0   | <ul><li>**Update:** Authored by [@hybernaut](https://github.com/hybernaut). Removes dependency on imagesLoaded for a speedier performance&mdash;instead, listens to `.load()` event on each individual Fluidbox thumbnail separately when triggering Fluidbox. Click handler has been migrated to a separate function to aid clarity.</li><li>**Bug fix:** The resize function used to check for the presence of `a[data-fluidbox]`, which might not be present if users choose other ways to identify Fluidbox thumbnails. Selector has been updated to the universal `a.fluidbox.fluidbox-opened`.</li></ul> |
-| 1.3.1   | <ul><li>**Update &amp; bug fix:** Removed timer in JS, and rely on CSS3's very own `transition-delay` instead. This fixes the issue of rapid clicking causing the enlarged image not showing up.</li></ul> |
-| 1.3.2   | <ul><li>**Update:** Added support for borders and paddings on Fluidbox images.</li></ul> |
-| 1.3.3   | <ul><li>**Bug fix:** Added transition delay to thumbnail.</li></ul> |
-| 1.3.4   | <ul><li>**Update:** Upon popular request, I have added a new feature such that Fluidbox does not enlarge excessively images that lack the necessary resolution to fill the viewport. Also updated readme to clarify basic usage details.</li><li>**Bug fix:** Fluidbox not working with elements that are hidden. Now Fluidbox *only binds to visible elements on the page*. If you are revealing images later (by user interaction, AJAX requests and the likes), please bind `.fluidbox()` to newly visible elements.</li></ul> |
-| 1.3.5   | <ul><li>**Update:** Removed `overlayColor` settings for Fluidbox. The option is now delegated to the stylesheet, which allows for easy customization of overlays for different Fluidbox instances. It is therefore possible to specify custom overlay colours, background gradients and even images for Fluidbox.</li></ul> |
-| 1.4.0   | <ul><li>**Update:** Authored by [@maxee](https://github.com/maxee). Now supports differential aspect ratios of thumbnails and linked images.</li><li>**Bug fix:** Fixed namespace clash issue that leads to crashing of IE8.</li></ul> |
-| 1.4.1   | <ul><li>**Update:** Added custom event handlers to allow for addition of application-specific callbacks. For more information, refer to the [custom events](#custom-events) section for usage instructions. </li></ul> |
-| 1.4.2   | <ul><li>**Update:** Added custom event triggers to allow for manual triggering of Fluidbox recomputation/recalculation upon layout changes that are independent of viewport resizes (therefore not triggering the `$(window).resize()` event. For more information, refer to the [custom triggers](#custom-trigers) section for usage instructions.</li><li>**Bug fix:** A hitherto undiscovered bug that causes the `closeTrigger ` settings to propagate to all instances of Fluidboxes on the same page, even though it was only specified for a subset of instances, has been fixed. This bug has been present since the first release&mdash;so if you are intending to use custom events to close Fluidbox instances, it is strongly recommended that you upgrade to v1.4.2 and later.</li></ul> |
-| 1.4.3   | <ul><li>**Post-release note:** v1.4.3 came with a bug that only occurs in Safari, involving the browser's refusal to scale and re-render the background image properly when a super-imposing element (e.g. the loader) is present. This will be fixed in v1.4.4, and the fix has been implemented as of commit [2aad89d2bd](https://github.com/terrymun/Fluidbox/commit/2aad89d2bd026a22b9ebf1e3c89ca5d8367678b6).</li><li>**Update:** Enabled the option to trigger immediate opening of Fluidbox. This has to be turned on manually, by setting `immediateOpen` to  `true` during initialization.</li><li>Added five new custom events that are triggered.</li><li>Rearranged some code with regards to opening and closing of Fluidbox instances for better readability, fixed indentation inconsistencies in original JS file.</li><li>Added an animated CSS loader to Fluidbox instances, exceptionally important for delayed opening setups (default setup) as users are often unaware if Fluidbox has failed, or simply waiting for target image to be preloaded. The appearance of the loader is purely controlled by a CSS pseudo-element, activated upon the addition of `.fluidbox-loading` class.</li><li>The stylesheet of Fluidbox has been ported over to LESS, in addition to SCSS.</li></ul> |
-
 ## Installation
 To install Fluidbox, you will have to include the following resources in your page. The JS files should be loaded in the order stipulated below. For the CSS file, you can either incorporate it with your site's stylesheet, or load it externally through the `<link>` element in `<head>`.
 
 | Type | File Name            | Description                                                                                                            |
 |------|----------------------|------------------------------------------------------------------------------------------------------------------------|
 | JS   | [jQuery 1.x](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) | **External Dependency**: The *latest verson* of jQuery 1.x library is needed for Fluidbox functionality. Minimum version requirement: v1.7       |
-| JS   | `jquery.fluidbox.js` | Confers the main functionality of Fluidbox. Alternatively, you can load the minified version, `jquery.fluidbox.min.js` |
-| CSS  | `css/fluidbox.css`   | Offers styles that are crucial for the correct display of Fluidbox. The appearance will break if this is not included. |
+| JS   | [jQuery debounce/throttle plugin](http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js) | **External Dependency**: Ben Alman's plugin is optional, but highly recommended. |
+| JS   | `dist/js/jquery.fluidbox.min.js` | Confers the main functionality of Fluidbox. Alternatively, you can load the minified version, `jquery.fluidbox.min.js` |
+| CSS  | `dist/css/fluidbox.min.css`   | Offers styles that are crucial for the correct display of Fluidbox. The appearance will break if this is not included. Properties in this file include the necessary vendor prefixes. |
 
-In order to support CSS animation and transformation applied by `fluidbox.css` in browsers that require vendor prefixes, you should consider using [prefixfree.js](http://leaverou.github.com/prefixfree/) as a dependency.
+If you are modifying the source in the `src/` directory and wish to rebuild (or make your own build), please refer to the developer notes further down the readme.
+
+### Dependencies
+Fluidbox require the following dependencies in order to function properly&mdash;you will have to include them in your page, if you want Fluidbox to work:
+
+- **The latest release of jQuery 1.x** (minimum requirement: jQuery &ge;1.7), available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
+- **Ben Alman's debounce/throttle plugin**, available from [CDNJS](http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js). This plugin is not compulsory but highly recommended, as it throttles how frequent the window resize event is fired, which triggers recomputing and repositioning of Fluidbox-related elements. Fluidbox will issue a warning, but will still work, if this plugin is not loaded.
 
 ## Usage
 ### Basic
@@ -115,45 +98,82 @@ $(function () {
 })
 ```
 
-### Custom triggers
-As of **v1.4.2**, Fluidbox allows users to trigger manual recomputing of the dimensions of the overlay and that of the active Fluidbox instance. This functionality is extremely useful when you make layout changes that repaints the canvas and alters the dimensions of linked Fluidbox images. In order to do so, you will have to trigger the event manually, **after the changes in the DOM, or element dimensions has been applied**.
+### Public functions and custom triggers
+There are several public functions exposed in the Fluidbox plugin that allows you to manipulate individual Fluidbox instances. There are three ways of calling public functions. Let's say we want to call the `close` method of Fluidbox:
 
-An example would be changing the size of the Fluidbox thumbnail:
+```js
+// Method 1: Call as an argument in `.fluidbox()`
+$(selector).fluidbox('close.fluidbox');
+
+// Method 2: Call using a custom trigger via `.trigger()`
+$(selector).trigger('close.fluidbox');
+
+// Method 3: Call by chaining the `.data('plugin_fluidbox')`
+$(selector).data('plugin_fluidbox').close();
+
+```
+
+Here is an example:
 
 ```js
 $('button').click(function() {
     $(selector)
     .css('width', '200px')
-    .trigger('recompute'); 
+    .fluidbox('recompute'); 
 });
 ```
 
+The list of public methods supported by Fluidbox v2.x is as follow:
+
+| Method              | Version | Description |
+|---------------------|---------|-------------|
+| `open`              | 2.0     | Triggers the programmatic opening of Fluidbox. |
+| `close`             | 2.0     | Triggers the programatic closing of Fluidbox. |
+| `compute`           | 2.0     | Triggers (re)computing and positioning of Fluidbox instance. Useful when you are altering the size of the thumbnail (such as DOM manipulation). Remember that the window resize event, which might change the thumbnail dimensions, is listened automatically for you. |
+| `destroy`           | 2.0     | Destroys the Fluidbox instance and reinserts the original DOM node. |
+| `bindEvents`        | 2.0     | Binds the one and only click event. |
+| `bindListeners`     | 2.0     | Binds listeners so that Fluidbox listens to public methods called by the `.trigger()` method. |
+| `unbind`            | 2.0     | Unbinds the click events and all other listeners associated with Fluidbox function. |
+| `reposition`        | 2.0     | Repositions the ghost element, useful when Fluidbox is not opened, but the thumbnail dimensions are changed. |
+| `getMetadata`       | 2.0     | *Getter function**. It returns all the metadata associated with the Fluidbox instance, and does not return the original jQuery object, and is therefore not suitable for chaining. | 
+
 ### Custom events
-As of **v1.4.1**, Fluidbox will trigger several distinct events depending on the state of the current (and only) instance of Fluidbox. You should use `.on()` to listen to the event being triggered, and can add your own custom callbacks if necessary, for example:
+Fluidbox will trigger several distinct namescpaced events depending on the state of the current (and only) instance of Fluidbox. You should use `.on()` to listen to the event being triggered, and can add your own custom callbacks if necessary, for example:
 
 ```js
+var doSomething = function() {
+    // Do something
+}
+
 $(selector)
-.fluidbox()
-.on('openstart', doSomething)
-.on('closeend', doSomethingElse);
+.on('openstart.fluidbox', doSomething)
+.on('closeend.fluidbox', function() {
+    // Do something else
+})
+.fluidbox();
 ```
 
-The list of custom events supported by Fluidbox is as follow:
+The list of custom events supported by Fluidbox v2.x is as follow. Remember that the events are namespaced:
 
 | Event              | Version | Description |
 |--------------------|---------|-------------|
-| `openstart`        | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
-| `openend`          | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). The timing between `openstart` and `openend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
-| `resizeend`        | 1.4.1   | Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
-| `closestart`       | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
-| `closeend`         | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. The timing between `closestart` and `closeend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
-| `recomputeend`     | 1.4.2   | Fired when the Fluidbox ghost element, or the active Fluidbox on display, is recomputed due to layout changes not dependent on the `$(window).resize()` event. This is triggered manually by the custom trigger `recompute` ([see usage instructions](#custom-triggers)). |
-| `delayedloaddone`  | 1.4.3   | Fired only when the `immediateOpen` option is set to `true` (see [configuration](#configuration)). Indicates that the target/linked image has been successfully loaded. |
-| `delayedreposdone` | 1.4.3   | Fired only when the `immediateOpen` option is set to `true` (see [configuration](#configuration)). Indicates that the ghost image has been transformed successfully after retrieving the natural dimensions of the newly loaded image. |
-| `imageloaddone`    | 1.4.3   | Fired when the target/linked image is successfully loaded. Synonymous with `delayloaddone` if `immediateOpen` option is set to `true`. |
-| `imageloadfail`    | 1.4.3   | Fired when the target/linked image fails to load. |
-| `thumbloaddone`    | 1.4.3   | Fired when the thumbnail has been loaded. Will only happen once, when `.fluidbox()` is first applied to the element. |
-| `thumbloadfail`    | 1.4.3   | Fired when the thumbnail fails to load. Will only happen once, when `.fluidbox()` is first applied to the element. |
+| `openstart.fluidbox`        | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its opening. This is called **after** the linked image has been successfully loaded. |
+| `openend.fluidbox`          | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled to its final size (determined by `viewportScale`, see [configuration](#configuration)). The timing between `openstart` and `openend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
+| `closestart.fluidbox`       | 1.4.1   | Fired when a click event is registered from a Fluidbox instance that triggers its closing. |
+| `closeend.fluidbox`         | 1.4.1   | Fired when the `transitionend` event is fired (with appropriate vendors supported). This happens when Fluidbox has been scaled back to its original thumbnail size on the page. The timing between `closestart` and `closeend` are dictated by the `transition-duration` settings in `fluidbox.css`, or any overrides that you have implemented that targets the class `.fluidbox-ghost`. |
+| `computeend.fluidbox` or `recomputeend.fluidbox`     | 1.4.2   | Fired when the Fluidbox ghost element, or the active Fluidbox on display, is recomputed due to layout changes not dependent on the `$(window).resize()` event. This is triggered manually by the custom trigger `recompute` ([see usage instructions](#custom-triggers)). |
+| `imageloaddone.fluidbox`    | 1.4.3   | Fired when the target/linked image is successfully loaded. Synonymous with `delayloaddone` if `immediateOpen` option is set to `true`. |
+| `imageloadfail.fluidbox`    | 1.4.3   | Fired when the target/linked image fails to load. |
+| `thumbloaddone.fluidbox`    | 1.4.3   | Fired when the thumbnail has been loaded. Will only happen once, when `.fluidbox()` is first applied to the element. |
+| `thumbloadfail.fluidbox`    | 1.4.3   | Fired when the thumbnail fails to load. Will only happen once, when `.fluidbox()` is first applied to the element. |
+
+There are custom events that were introduced in v1.4.x but are now deprecated because they serve redundant functions:
+
+| Event              | Version | Description |
+|--------------------|---------|-------------|
+| `resizeend`        | 1.4.1   | **Removed in v2.x**. Fired when the positioning and scale of an opened Fluidbox instance is recalculated and has been transitioned to completion. |
+| `delayedloaddone`  | 1.4.3   | **Removed in v2.x**. Fired only when the `immediateOpen` option is set to `true` (see [configuration](#configuration)). Indicates that the target/linked image has been successfully loaded. |
+| `delayedreposdone` | 1.4.3   | **Removed in v2.x**. Fired only when the `immediateOpen` option is set to `true` (see [configuration](#configuration)). Indicates that the ghost image has been transformed successfully after retrieving the natural dimensions of the newly loaded image. |
 
 ### Previously hidden elements
 As of **v1.3.4**, Fluidbox will only work with elements that are visible, i.e. not `display: none`, on the page upon DOM ready. This is because dimensions of hidden images (or images in parents who are hidden) are inaccesible to Fluidbox, resulting in an error. You will have to rebind Fluidbox to the newly revealted elements. Given the example below:
@@ -214,6 +234,12 @@ You are of course welcome to use other ways to manipulate and/or transverse the 
 
 ### Configuration
 Fluidbox can be configured according to your needs. The following options are available:
+
+#### Version 2.x
+
+
+#### Verion 1.x
+The legacy version of Fluidbox has more configuration options, but some of them have been deprecated in version 2.x.
 
 | Variable/Option  | Type      | Default value | Description                           |
 |------------------|-----------|---------------|---------------------------------------|
@@ -297,14 +323,12 @@ $(window).on('resize scroll', closeFb);
 $(document).on('hover', '#ele1, #ele2', closeFb)
 ```
 
-## Dependencies
-Fluidbox require the following dependencies in order to function properly&mdash;you will have to include them in your page, if you want Fluidbox to work:
+## Developer notes
+### Building with Grunt
+Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.org/). If you are new to this, kindly refer to [Matt Bailey's excellent guide on setting up Grunt](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). To build Fluidbox, you will need to install the following dependencies:
 
-- **The latest release of jQuery 1.x** (minimum requirement: jQuery &ge;1.7), available from [Google's jQuery API](http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js) at `http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js`
-
-Note that the **imagesloaded jQuery plugin** is no longer required as of v1.2.8 and above.
-
-Fluidbox allows you to throttle the `$(window).resize()` event, and this is only possible with [Paul Irish's debounced resize function](http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/). The small script has been included in the plugin by default, but I would like to extend my gratitude to Paul for making it available, and for allowing me to include it in this plugin.
+- [Grunt](http://gruntjs.com)
+- [Time Grunt](https://www.npmjs.com/package/time-grunt)
 
 ## Known Issues
 ### Transition of CSS3 transform in Safari
