@@ -1,5 +1,6 @@
 # Fluidbox
-[![Build Status](https://travis-ci.org/terrymun/Fluidbox.svg?branch=master)](https://travis-ci.org/terrymun/Fluidbox) ![Latest Github release](https://img.shields.io/github/release/terrymun/fluidbox.svg?style=flat) ![npm downloads](https://img.shields.io/npm/dm/fluidbox.svg)<br />![Starred](https://img.shields.io/github/stars/terrymun/fluidbox.svg?style=social&label=Star) ![Watchers](https://img.shields.io/github/watchers/terrymun/fluidbox.svg?style=social&label=Watch)
+[![Build Status](https://travis-ci.org/terrymun/Fluidbox.svg?branch=master)](https://travis-ci.org/terrymun/Fluidbox) ![Latest Github release](https://img.shields.io/github/release/terrymun/fluidbox.svg?style=flat) ![npm downloads](https://img.shields.io/npm/dm/fluidbox.svg)
+![Starred](https://img.shields.io/github/stars/terrymun/fluidbox.svg?style=social&label=Star) ![Watchers](https://img.shields.io/github/watchers/terrymun/fluidbox.svg?style=social&label=Watch)
 
 Replicating and improving the lightbox module seen on Medium with fluid transitions. [View demo here](http://terrymun.github.io/Fluidbox/). For users who are looking for a quick setup and/or troubleshooting process, refer to [basic usage](#basic), but do not forget to read the [usage precautions](#precautions) and [frequently asked questions](#frequently-asked-questions).
 
@@ -245,13 +246,30 @@ $(function() {
 You are of course welcome to use other ways to manipulate and/or transverse the DOM, but you will have to adjust the search/filter function (using `.find()` or other similar jQuery methods) to retrieve the newly inserted content and search for the element of interest where you want Fluidbox to work with.
 
 ### Configuration
-Fluidbox can be configured according to your needs when calling the `.fluidbox()` method. User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
+Fluidbox can be configured according to your needs when calling the `.fluidbox()` method. Fluidbox follows the following model of setting overrides&mdash;**in increasing order of priority**:
+
+1. Default settings in plugin file
+2. Custom settings in `.fluidbox()` method
+3. Custom settings in the element's HTML5 `data-` attribute:
+  - **Note:** In order to ensure that Fluidbox does not clash with commonly-used HTML5 `data-` attributes, it is tuned to listen in to namespaced attributes. For example, for the `immediateOpen` property, the corresponding attribute would be `data-fluidbox-immediate-open`. As per HTML5 specification, you should avoid using camelCase in your HTML5 data attributes because that is parsed into dash-delimited keys by the dataset method (jQuery uses `.data()` as an alias).
+  - For boolean attributes, simply specifying the attribute itself constitutes a `="true"` declaration, as per HTML standards
+
+User-defined settings have to be passed as the aforementioned variables/options to the `.fluidbox()` method, i.e.:
 
 ```js
 $('a').fluidbox({
     viewportFill: 0.8,
-    maxWidth: 800
+    maxWidth: 800,
+    loader: true
 });
+```
+
+You may also pass settings as HTML5 `data- attributes, i.e.:
+
+```html
+<a href="/path/to/image" data-fluidbox-viewport-fill="0.8" data-fluidbox-max-wodth="800" data-fluidbox-loader />
+    <img src="/path/to/thumbnail" alt="lorem ipsum" />
+</a>
 ```
 
 The full list of Fluidbox configurations:
