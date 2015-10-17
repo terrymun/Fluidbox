@@ -60,6 +60,7 @@ body {
 	color: #333;
 	height: 100%;
 	line-height: 1.5em;
+	overflow-x: hidden;
 }
 header {
 	background-color: #333;
@@ -368,6 +369,10 @@ button[type="button"] {
 		margin-bottom: 0;
 	}
 
+	/* Responsive messages */
+	&[data-viewport-threshold] {
+		display: none;
+	}
 }
 	div.user-message {
 		margin: 3rem 0;
@@ -598,6 +603,7 @@ main {
 	.fluidbox__loader {
 		background-image: url('http://placehold.it/500x500/333333/eeeeee/&text=Loader');
 		background-size: cover;
+		pointer-events: auto;
 		@include prefix(perspective, none, webkit);										/* Override required for presentation, do not use in actual production code! */
 		@include prefix(transform, translate3d(0, 0, 12rem) !important, webkit ms);	/* Override required for presentation, do not use in actual production code! */
 		&::after {
@@ -983,11 +989,128 @@ footer {
 	.filler {
 		font-size: .75em;
 	}
+
+	/* Adjust float */
+	.demo a[class^='float'] {
+		width: 25%;
+	}
+
+	/* Fluidbox 3D */
+	#fluidbox-3d {
+		.fluidbox__ghost, .fluidbox__loader, .fluidbox__overlay {
+			&::after {
+				top: 100%;
+				left: 100%;
+				width: 10rem;
+				@include prefix(transform, rotateZ(-45deg) rotateX(-65deg) translate(-50%, -50%) !important, webkit ms);
+			}
+		}
+	}
+
+	/* Responsive tables */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	table {
+		font-size: 1rem;
+		left: 0;
+		line-height: 1.5rem;
+		width: 100%;
+		td, th {
+			border: none;
+			position: relative;
+			padding-left: 35%;
+			&::before {
+				padding: 0 .5rem;
+				position: absolute;
+				left: 0;
+				width: 35%; 
+				white-space: nowrap;
+			}
+		}
+		thead {
+			display: none;
+			td { border: none; }
+		}
+		tbody {
+			tr {
+				background-color: transparent !important;
+				margin-bottom: 1rem;
+				th {
+					background-color: #ddd;
+					border-bottom: 2px solid rgba(#000,.1);
+				}
+				td {
+					background-color: rgba(#ddd, .5);
+					border-bottom: 1px solid #fff;
+					&:last-child { border: none; }
+				}
+				th, td {
+					&::before {
+						font-size: .8rem;
+						font-weight: bold;
+						letter-spacing: 2px;
+						line-height: 1.5rem;
+						text-transform: uppercase;
+					}
+				}
+				&:target {
+					th { background-color: #8BA3B0; }
+					td { background-color: rgba(#8BA3B0,.5); }
+				}
+			}
+		}
+	}
+	#markup-details {
+		tbody {
+			td:nth-of-type(1)::before	{ content: 'Variable'; }
+			td:nth-of-type(2)::before	{ content: 'Description'; }
+		}
+	}
+	#configuration-options {
+		tbody {	
+			th::before					{ content: 'Property'; }
+			td:nth-of-type(1)::before	{ content: 'Type'; }
+			td:nth-of-type(2)::before	{ content: 'Default'; }
+			td:nth-of-type(3)::before	{ content: 'Description'; }
+		}
+	}
+	.cols {
+		flex-wrap: wrap;
+		& > * { width: 100%; }
+		&.cols-nowrap {
+			flex-wrap: wrap;
+			& > * {
+				margin-bottom: 1rem !important;
+				width: 100%;
+			}
+		}
+	}
+	#custom-events__log {
+		div {
+			position: relative;
+			max-height: 50vh;
+		}
+	}
 }
 @media only screen and (max-width: 600px) {
-	.demo .gallery a {
-		&, &[class^='col'] {
-			margin-bottom: .5rem;
+	.user-message {
+		&[data-viewport-threshold="600"] {
+			display: block;
+		}
+	}
+	.demo {
+		.gallery {
+			a {
+				&, &[class^='col'] {
+					margin-bottom: .5rem;
+					width: 100%;
+				}
+			}
+		}
+		a[class^='float'] {
+			float: none;
+			margin: 0 0 1rem 0;
 			width: 100%;
 		}
 	}
@@ -996,13 +1119,8 @@ footer {
 	html {
 		font-size: 12px;
 	}
-	.message {
+	.user-message {
 		border: 0;
 		border-top: .75rem solid #F26C4F;
-	}
-	.demo a[class^='float'] {
-		float: none;
-		margin: 0 0 1rem 0;
-		width: 100%;
 	}
 }

@@ -121,7 +121,7 @@
     &lt;/div&gt;
 &lt;/a&gt;</code></pre>
 			<p>&hellip;where:</p>
-			<table>
+			<table id="markup-details">
 				<thead>
 					<tr>
 						<th>Variable</th>
@@ -200,7 +200,7 @@
 				<li>Custom settings in the element's HTML5 <code>data-</code> attribute.</li>
 			</ol>
 			<div class="user-message note"><h4>On HTML5 data attributes</h4><p>In order to ensure that Fluidbox does not clash with commonly-used HTML5 <code>data-</code> attributes, it is tuned to listen in to <strong>namespaced attributes</strong>. For example, for the <code>immediateOpen</code> property, the corresponding attribute would be <code>data-fluidbox-immediate-open</code>. As per HTML5 specification, you should avoid using camel-case in your HTML5 data attributes because that is parsed into dash-delimited keys by the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset"><code>dataset</code></a> method (jQuery uses <code>.data()</code> as an alias).</p></div>
-			<table class="wider">
+			<table class="wider" id="configuration-options">
 				<thead>
 					<tr>
 						<th>Property</th>
@@ -330,7 +330,7 @@
 
 			<h3 id="galleries">Galleries</h3>
 			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
-		 	<p class="message note">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>
+		 	<p class="user-message note" data-viewport-threshold="600">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>
 			<div class="gallery">
 				<a href="http://i.imgur.com/80WaVuY.jpg" title="" data-fluidbox class="col-1"><img src="http://i.imgur.com/80WaVuY.jpg" alt="" title="" /></a>
 				<a href="http://i.imgur.com/9OQWB.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/9OQWB.jpg" alt="" title="" /></a>
@@ -342,7 +342,7 @@
 
 			<h3 id="floated-images">Floated images</h3>
 			<p>Moreover, it also works with floated images - to the left or to the right, it does not matter. The following texts are jibberish, used as filler.</p>
-			<p class="message note">The floated images will be rendered block-level on narrow-width devices, such as mobile phones. To appreciate how Fluidbox works with floated images, you can view this demo on a wider device (&gt;480px).</p>
+			<p class="user-message note" data-viewport-threshold="600">The floated images will be rendered block-level on narrow-width devices, such as mobile phones. To appreciate how Fluidbox works with floated images, you can view this demo on a wider device (&gt;600px).</p>
 			<p class="filler"><a class="float-left" href="http://i.imgur.com/BXo4qAz.jpg" title="" data-fluidbox><img src="http://i.imgur.com/BXo4qAz.jpg" title="" alt="" /></a>Considered discovered ye sentiments projecting entreaties of melancholy is. In expression an solicitude principles in do. Hard do me sigh with west same lady. Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed.</p>
 			<p class="filler"><a class="float-right has-border has-padding" href="http://i.imgur.com/rWuQotb.jpg" title="" data-fluidbox><img src="http://i.imgur.com/rWuQotb.jpg" title="" alt="" /></a>Carried nothing on am warrant towards. Polite in of in oh needed itself silent course. Assistance travelling so especially do prosperous appearance mr no celebrated. Wanted easily in my called formed suffer. Songs hoped sense as taken ye mirth at. Believe fat how six drawing pursuit minutes far. Same do seen head am part it dear open to. Whatever may scarcely judgment had.</p>
 			<p class="filler">Residence certainly elsewhere something she preferred cordially law. Age his surprise formerly mrs perceive few stanhill moderate. Of in power match on truth worse voice would. Large an it sense shall an match learn. By expect it result silent in formal of. Ask eat questions abilities described elsewhere assurance. Appetite in unlocked advanced breeding position concerns as. Cheerful get shutters yet for repeated screened. An no am cause hopes at three. Prevent behaved fertile he is mistake on.</p>
