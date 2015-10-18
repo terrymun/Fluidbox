@@ -2,20 +2,22 @@
   "name": "fluidbox",
   "version": "2.0.0",
   "description": "Replicating Medium's beautiful, minimalist lightbox module",
-  "homepage": "https://github.com/terrymun/Fluidbox",
+  "homepage": "http://terrymun.github.io/Fluidbox/",
   "author": "Terry Mun <hello@terrymun.com> (http://terrymun.com)",
   "repository": {
     "type": "git",
     "url": "https://github.com/terrymun/Fluidbox/"
   },
-  "main": "./dist/js/jquery.fluidbox.min.js",
-  "filename": "./dist/js/jquery.fluidbox.min.js",
+  "main": "dist/js/jquery.fluidbox.min.js",
   "maintainers": [
     "Terry Mun <hello@terrymun.com>"
   ],
   "keywords": [
     "fluidbox",
-    "lightbox"
+    "fluidbox.js",
+    "lightbox",
+    "responsive",
+    "modal"
   ],
   "license": "MIT",
   "dependencies": {
