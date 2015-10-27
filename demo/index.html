@@ -126,7 +126,7 @@
 					<tr>
 						<th>Variable</th>
 						<th>Description</th>
-					</tr>	
+					</tr>
 				</thead>
 				<tbody>
 					<tr>
@@ -164,7 +164,7 @@
 		<section>
 			<h2 id="usage-notes">Usage notes</h2>
 			<h3 id="dependencies">Dependencies</h3>
-			<p>TThe latest version of Fluidbox require two dependencies: <a href="http://jquery.com/">jQuery v1.7 or above</a>, and <a href="">Ben Alman's debounce/throttle plugin</a>. Yes, and that's all! For jQuery, I recommend using the latest stable build of 1.x, although I have not encountered any issues if 2.x is used. I usually use Google APIs, since many other sites are using it and the end-user probably has a cache of it sitting somewhere on their machine already. As for other plugins, I recommend using CDNJS.</p>
+			<p>TThe latest version of Fluidbox require two dependencies: <a href="http://jquery.com/">jQuery v1.7 or above</a>, and <a href="http://benalman.com/projects/jquery-throttle-debounce-plugin/">Ben Alman's debounce/throttle plugin</a>. Yes, and that's all! For jQuery, I recommend using the latest stable build of 1.x, although I have not encountered any issues if 2.x is used. I usually use Google APIs, since many other sites are using it and the end-user probably has a cache of it sitting somewhere on their machine already. As for other plugins, I recommend using CDNJS.</p>
 			<pre class="language-markup"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 			<p class="user-message reminder">Fluidbox will still function if the debounce/throttle plugin is not included. However, Fluidbox will throw a warning message in the browser console, due to the fact that unthrottled resize events fired from the <code>window</code> object is too frequent and will lead to significant performance degradation.</p>
@@ -483,7 +483,7 @@ $(window).scroll(function() {
 			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
 			<div class="code-block">
 				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
-				<pre class="language-css"><code>.fluidbox-overlay &amp; {			
+				<pre class="language-css"><code>.fluidbox-overlay &amp; {
     .overlay-3 &amp; {
         background-color: #000; /* To override default style */
         &amp;::before {
