@@ -560,6 +560,11 @@
 				} else {
 					$w.on('resize.fluidbox'+fb.instanceData.id, resizeFunction);
 				}
+				
+				// close fluidbox on window scroll event
+				$(window).scroll(function(){
+					fb.close();
+				});
 
 				// Reposition
 				$fb.on('reposition.fluidbox', function() {
