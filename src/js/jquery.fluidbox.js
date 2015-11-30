@@ -189,6 +189,9 @@
 						left: $fbThumb.offset().left - $fbWrap.offset().left + parseInt($fbThumb.css('borderLeftWidth')) + parseInt($fbThumb.css('paddingLeft'))
 					});
 				}
+			},
+			makeBackgroundURL: function(url){
+				return 'url("'+url.replace(/"/g,'%22')+'")';
 			}
 		};
 
@@ -298,7 +301,7 @@
 
 				// Set thumbnail image source as background image first, worry later
 				$fbGhost.css({
-					'background-image': 'url('+$fbThumb.attr('src')+')',
+					'background-image': _fun.makeBackgroundURL($fbThumb.attr('src')),
 					opacity: 1
 				});
 
@@ -343,7 +346,7 @@
 							$fb.removeClass('fluidbox--loading');
 
 							// Set new image background
-							$fbGhost.css({ 'background-image': 'url('+img.src+')' });
+							$fbGhost.css({ 'background-image': _fun.makeBackgroundURL(img.src) });
 
 							// Compute
 							fb.compute();
@@ -374,7 +377,7 @@
 						$fb.trigger('openstart.fluidbox');
 
 						// Set new image background
-						$fbGhost.css({ 'background-image': 'url('+img.src+')' });
+						$fbGhost.css({ 'background-image': _fun.makeBackgroundURL(img.src) });
 
 						// Set new natural dimensions
 						fb.instanceData.thumb.natW = img.naturalWidth;
@@ -487,7 +490,7 @@
 				// Change classes
 				$fb
 				.removeClass(function(i,c) {
-					return (c.match (/(^|\s)fluidbox--[opened|loaded|loading]+/g) || []).join(' ');
+					return (c.match (/(^|\s)fluidbox--(opened|loaded|loading)+/g) || []).join(' ');
 				})
 				.addClass('fluidbox--closed');
 
