@@ -190,8 +190,24 @@
 					});
 				}
 			},
-			makeBackgroundURL: function(url){
-				return 'url("'+url.replace(/"/g,'%22')+'")';
+			checkURL: function(url) {
+				var exitCode = 0;
+
+				if(/[\s+]/g.test(url)) {
+					console.warn('Fluidbox: Fluidbox opening is halted because it has detected characters in your URL string that need to be properly encoded/escaped. Whitespace(s) have to be escaped manually. See RFC3986 documentation.');
+					exitCode = 1;
+				} else if(/[\"\'\(\)]/g.test(url)) {
+					console.warn('Fluidbox: Fluidbox opening will proceed, but it has detected characters in your URL string that need to be properly encoded/escaped. These will be escaped for you. See RFC3986 documentation.');
+					exitCode = 0;
+				}
+				return exitCode;
+			},
+			formatURL: function(url) {
+				return url
+					.replace(/"/g, '%22')
+					.replace(/'/g, '%27')
+					.replace(/\(/g, '%28')
+					.replace(/\)/g, '%29');
 			}
 		};
 
@@ -299,9 +315,15 @@
 				.removeClass('fluidbox--closed')
 				.addClass('fluidbox--loading');
 
+				// Check of URL is properly formatted
+				if(_fun.checkURL($fbThumb.attr('src'))) {
+					fb.close();
+					return false;
+				}
+
 				// Set thumbnail image source as background image first, worry later
 				$fbGhost.css({
-					'background-image': _fun.makeBackgroundURL($fbThumb.attr('src')),
+					'background-image': 'url(' + _fun.formatURL($fbThumb.attr('src')) + ')',
 					opacity: 1
 				});
 
@@ -345,8 +367,14 @@
 							// Remove loading status
 							$fb.removeClass('fluidbox--loading');
 
+							// Check of URL is properly formatted
+							if(_fun.checkURL(img.src)) {
+								fb.close();
+								return false;
+							}
+
 							// Set new image background
-							$fbGhost.css({ 'background-image': _fun.makeBackgroundURL(img.src) });
+							$fbGhost.css({ 'background-image': 'url(' + _fun.formatURL(img.src) + ')' });
 
 							// Compute
 							fb.compute();
@@ -376,8 +404,14 @@
 						// Emit custom event
 						$fb.trigger('openstart.fluidbox');
 
+						// Check of URL is properly formatted
+						if(_fun.checkURL(img.src)) {
+							fb.close();
+							return false;
+						}
+
 						// Set new image background
-						$fbGhost.css({ 'background-image': _fun.makeBackgroundURL(img.src) });
+						$fbGhost.css({ 'background-image': 'url(' + _fun.formatURL(img.src) + ')' });
 
 						// Set new natural dimensions
 						fb.instanceData.thumb.natW = img.naturalWidth;
@@ -585,7 +619,7 @@
 				});
 			},
 			unbind: function() {
-				$(this.element).off('click.fluidbox, reposition.fluidbox, recompute.fluidbox, compute.fluidbox, destroy.fluidbox, close.fluidbox');
+				$(this.element).off('click.fluidbox reposition.fluidbox recompute.fluidbox compute.fluidbox destroy.fluidbox close.fluidbox');
 				$w.off('resize.fluidbox'+this.instanceData.id);
 			},
 			reposition: function() {

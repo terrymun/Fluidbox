@@ -13,6 +13,7 @@ Special thanks to the following stellar folks who has helped majorly in making F
 - [@benwhilhelm](https://github.com/benwilhelm) for suggesting the immedate open option in Fluidbox. Ben has author a PR, but I have found some issues that I cannot resolve. However, I have adopted his idea and simplified the implementation in **v1.4.3**.
 - [@jaechick](https://github.com/jaechick) for creating the LESS file for Fluidbox stylesheet, even though the LESS file is removed from the project as the stylesheet is now being preprocessed by SASS.
 - [@_mattbailey](https://twitter.com/_mattbailey) for his [awesome guide towards integrating Grunt into a project](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). This has made building Fluidbox a lot easier.
+- [@DJDavid98](https://github.com/DJDavid98) for enabling proper parsing of backgorund image URLs. Note that the URL provided still has to be [RFC3986](http://www.ietf.org/rfc/rfc3986.txt)-compliant.
 
 In addition, a shoutout to:
 
