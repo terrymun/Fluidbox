@@ -298,11 +298,11 @@ Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.
 | [load-grunt-config](https://www.npmjs.com/package/load-grunt-config) | Splits up Grunt tasks. |
 | [grunt-concurrent](https://www.npmjs.com/package/grunt-concurrent) | Allows multiple Grunt tasks to be run at the same time. |
 | [grunt-contrib-clean](https://www.npmjs.com/package/grunt-contrib-clean) | Cleans up the `dist/` directory. |
-| [grunt-sass](https://www.npmjs.com/package/grunt-sass) | Minifies `.scss` files. |
+| [grunt-sass](https://www.npmjs.com/package/grunt-sass) | Parses `.scss` files into `.css`. PostCSS will take over from here. |
 | [grunt-contrib-uglify](https://www.npmjs.com/package/grunt-contrib-uglify) | Minifies `.js` files. |
-| [grunt-contrib-jshint](https://www.npmjs.com/package/grunt-contrib-jshint) | Needed to perform checks on JS file. |
-| [jshint-stylish](https://www.npmjs.com/package/jshint-stylish) | Needed to perform checks on JS file. |
-| [grunt-contrib-watch](https://www.npmjs.com/package/grunt-contrib-watch) | Allows you to build on the fly using `$ grunt watch` by watching for file changes, so that you don't have to run `$grunt` at the project root all the time manually. |
+| [grunt-contrib-jshint](https://www.npmjs.com/package/grunt-contrib-jshint) | Needed to perform linting on JS file. |
+| [jshint-stylish](https://www.npmjs.com/package/jshint-stylish) | Needed to perform linting on JS file. |
+| [grunt-contrib-watch](https://www.npmjs.com/package/grunt-contrib-watch) | Allows you to build on the fly using `$ grunt watch` by watching for file changes, so that you don't have to run `$ grunt` at the project root all the time manually. |
 | [grunt-postcss](https://www.npmjs.com/package/grunt-postcss) | Uses PostCSS to dynamically add prefixes and handle minification thereafter. | 
 
 Quick and dirty: here's how to install the Grunt dependencies listed above:
