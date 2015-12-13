@@ -21,7 +21,8 @@ module.exports = {
             'demo/src/css/*.scss'
         ],
         tasks: [
-            'sass:prod'
+            'sass:prod',
+            'postcss:prod'
         ]
     },
 };

@@ -2,19 +2,21 @@ module.exports = {
     // Development settings
     dev: {
         options: {
-            outputStyle: 'nested',
-            sourceMap: true
+            map: true,
+            processors: [
+                require('autoprefixer')({browsers: '> 2.5%'})
+            ]
         },
         files: [{
             expand: true,
-            cwd: 'src/css',
-            src: ['*.scss'],
+            cwd: 'dist/css',
+            src: ['*.css'],
             dest: 'dist/css',
             ext: '.css'
         }, {
             expand: true,
-            cwd: 'demo/src/css',
-            src: ['*.scss'],
+            cwd: 'demo/css',
+            src: ['*.css'],
             dest: 'demo/css',
             ext: '.css'
         }]
@@ -22,19 +24,22 @@ module.exports = {
     // Production settings
     prod: {
         options: {
-            outputStyle: 'nested',
-            sourceMap: true
+            map: true,
+            processors: [
+                require('autoprefixer')({browsers: '> 2.5%'}),
+                require('cssnano')()
+            ]
         },
         files: [{
             expand: true,
-            cwd: 'src/css',
-            src: ['*.scss'],
+            cwd: 'dist/css',
+            src: ['*.css'],
             dest: 'dist/css',
             ext: '.min.css'
         }, {
             expand: true,
-            cwd: 'demo/src/css',
-            src: ['*.scss'],
+            cwd: 'demo/css',
+            src: ['*.css'],
             dest: 'demo/css',
             ext: '.min.css'
         }]

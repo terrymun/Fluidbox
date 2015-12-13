@@ -14,6 +14,9 @@ module.exports = {
         'sass:dev',
         'uglify'
     ],
+    devThird: [
+        'postcss:dev'
+    ],
 
     // Production tasks
     prodFirst: [
@@ -23,5 +26,8 @@ module.exports = {
     prodSecond: [
         'sass:prod',
         'uglify'
+    ],
+    prodThird: [
+        'postcss:prod'
     ]
 };

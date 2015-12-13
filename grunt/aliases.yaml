@@ -7,6 +7,7 @@ dev:
   tasks:
     - 'concurrent:devFirst'
     - 'concurrent:devSecond'
+    - 'concurrent:devThird'
 devimg:
   description: 'Development build and image tasks'
   tasks:
@@ -16,3 +17,4 @@ prod:
   tasks:
     - 'concurrent:prodFirst'
     - 'concurrent:prodSecond'
+    - 'concurrent:prodThird'

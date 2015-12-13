@@ -303,6 +303,7 @@ Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.
 | [grunt-contrib-jshint](https://www.npmjs.com/package/grunt-contrib-jshint) | Needed to perform checks on JS file. |
 | [jshint-stylish](https://www.npmjs.com/package/jshint-stylish) | Needed to perform checks on JS file. |
 | [grunt-contrib-watch](https://www.npmjs.com/package/grunt-contrib-watch) | Allows you to build on the fly using `$ grunt watch` by watching for file changes, so that you don't have to run `$grunt` at the project root all the time manually. |
+| [grunt-postcss](https://www.npmjs.com/package/grunt-postcss) | Uses PostCSS to dynamically add prefixes and handle minification thereafter. | 
 
 Quick and dirty: here's how to install the Grunt dependencies listed above:
 
@@ -317,7 +318,12 @@ $ npm install grunt-contrib-uglify --save-dev
 $ npm install grunt-contrib-jshint --save-dev
 $ npm install jshint-stylish --save
 $ npm install grunt-contrib-watch --save-dev
+$ npm install grunt-postcss --save-dev
+$ npm install grunt-postcss autoprefixer cssnano
 ```
+
+#### Configuration
+The configuration for each Grunt task can be found in their respecitve `.js` files in the `/grunt` folder.
 
 ## Known Issues
 ### Transition of CSS3 transform in Safari

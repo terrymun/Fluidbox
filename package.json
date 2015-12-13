@@ -43,9 +43,10 @@
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-sass": "^1.0.0",
-    "load-grunt-config": "^0.17.2",
+    "grunt-postcss": "^0.7.1",
+    "grunt-sass": "^1.1.0",
     "jshint-stylish": "^2.0.1",
+    "load-grunt-config": "^0.17.2",
     "time-grunt": "^1.2.1"
   },
   "ignore": [
