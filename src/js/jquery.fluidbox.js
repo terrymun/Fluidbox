@@ -33,6 +33,12 @@
 		// Global plugin instance tracker
 		var fbInstance = 0;
 
+                // Check the availability of the console object. This ensures compatibility with IE8.
+                if(typeof console === "undefined" || console.warn === "undefined" ) {
+                    console = {};
+                    console.warn = function(){};
+                }
+
 		// Check if dependencies are loaded
 		// 1. Ben Almen's debounce/throttle plugin
 		if (!$.isFunction($.throttle)) {
