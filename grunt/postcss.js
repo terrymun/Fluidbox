@@ -27,7 +27,7 @@ module.exports = {
             map: true,
             processors: [
                 require('autoprefixer')({browsers: '> 2.5%'}),
-                require('cssnano')()
+                require('cssnano')({zindex: false})
             ]
         },
         files: [{

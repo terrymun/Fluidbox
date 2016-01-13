@@ -80,23 +80,24 @@ header {
 	transition: all .25s ease-in-out;
 
 	&::before, &::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		transition: all .25s ease-in-out;
+	}
+	&::before {
 		background-image: url('http://i.imgur.com/yYv5u81.jpg');
 		background-size: cover;
 		background-repeat: none;
 		background-position: center center;
-		content: "";
-		position: absolute;
-		top: -5rem;
-		left: -5rem;
-		right: -5rem;
-		bottom: -5rem;
-		@include prefix(filter, blur(5px) brightness(75%), webkit);
-		transition: all .25s ease-in-out;
+		
 	}
 	&::after {
+		background-color: rgba(0,0,0,.5);
 		opacity: 0;
-		transition: all .25s ease-in-out;
-		@include prefix(filter, blur(0) brightness(75%), webkit);
 	}
 	&:hover::after {
 		opacity: 1;
@@ -333,7 +334,7 @@ button[type="button"] {
 		top: 50%;
 		font-weight: bold;
 		text-align: center;
-		@include prefix(transform, translateY(-50%), webkit);
+		transform: translateY(-50%);
 	}
 	&::before {
 		background-color: rgba(#eee,.5);
@@ -486,29 +487,21 @@ main {
 		margin: .25rem;
 		padding: 1.5rem;
 		text-align: center;
+		text-decoration: none;
 		transition: all .25s ease-in-out;
 
 		&.card-medium {
 			background-color: #57ad68;
 			flex-basis: 100%;
 			svg { background-color: #eee; path { fill: #57ad68; } }
-			&:hover {
-				color: #57ad68;
-				svg { background-color: #57ad68; path { fill: #333; } }
-			}
 		}
 		&.card-github {
 			background-color: #ff9933;
 			flex-basis: auto;
-			&:hover {
-				color: #ff9933;
-				svg path { fill: #ff9933; }
-			}
 		}
 		&.card-cdnjs {
 			background-color: #bf3e11;
 			flex-basis: auto;
-			&:hover { color: #e14d1a; }
 			.branding {
 				display: block;
 				font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -533,7 +526,7 @@ main {
 	margin: 0 0 1.5rem 0;
 	padding: 0;
 	position: relative;
-	@include prefix(perspective, 5000, webkit);	/* Keep things isometric */
+	perspective: 5000;	/* Keep things isometric */
 	width: 100%;
 	height: 600px;
 	position: relative;
@@ -553,7 +546,7 @@ main {
 		position: absolute;
 		top: 60%;
 		left: 50%;
-		@include prefix(transform, translate(-50%,-50%) rotateX(45deg) rotateZ(45deg), webkit ms);
+		transform: translate(-50%,-50%) rotateX(45deg) rotateZ(45deg);
 		transition: all .5s ease-in-out;
 	}
 	a, .fluidbox__wrap {
@@ -564,7 +557,7 @@ main {
 		opacity: .5 !important;			/* Override required for presentation, do not use in actual production code! */
 		width: 20rem;
 		transition: all .25s ease-in-out;
-		@include prefix(transform, translate3d(0,0,0), webkit ms);
+		transform: translate3d(0,0,0);
 	}
 	.fluidbox__ghost, .fluidbox__loader, .fluidbox__overlay {
 		position: absolute;
@@ -585,7 +578,7 @@ main {
 			top: 0;
 			left: 100%;
 			width: 10rem;
-			@include prefix(transform, rotateZ(-45deg) rotateX(-65deg) translate(1rem, -50%) !important, webkit ms);
+			transform: rotateZ(-45deg) rotateX(-65deg) translate(1rem, -50%) !important;
 			transform-origin: 0% 0%;
 		}
 
@@ -595,7 +588,7 @@ main {
 	}
 	.fluidbox__ghost {
 		background-image: url('http://i.imgur.com/ouqMP4F.jpg');
-		@include prefix(transform, translate3d(0, 0, 6rem) !important, webkit ms);		/* Override required for presentation, do not use in actual production code! */
+		transform: translate3d(0, 0, 6rem) !important;		/* Override required for presentation, do not use in actual production code! */
 		&::after {
 			content: 'Ghost element will be expanded to fill screen (conditionally, based on available image resolution)';
 		}
@@ -604,8 +597,8 @@ main {
 		background-image: url('http://placehold.it/500x500/333333/eeeeee/&text=Loader');
 		background-size: cover;
 		pointer-events: auto;
-		@include prefix(perspective, none, webkit);										/* Override required for presentation, do not use in actual production code! */
-		@include prefix(transform, translate3d(0, 0, 12rem) !important, webkit ms);	/* Override required for presentation, do not use in actual production code! */
+		perspective: none;								/* Override required for presentation, do not use in actual production code! */
+		transform: translate3d(0, 0, 12rem) !important;	/* Override required for presentation, do not use in actual production code! */
 		&::after {
 			content: 'Loader will be hidden when image is loaded in actual scenario';
 		}
@@ -616,8 +609,8 @@ main {
 	.fluidbox__overlay {
 		background-image: url('http://placehold.it/500x500/cccccc/333333/&text=Overlay');
 		background-size: cover;
-		opacity: 0 !important;															/* Override required for presentation, do not use in actual production code! */
-		@include prefix(transform, translate3d(0, 0, 3rem) !important, webkit ms);		/* Override required for presentation, do not use in actual production code! */
+		opacity: 0 !important;								/* Override required for presentation, do not use in actual production code! */
+		transform: translate3d(0, 0, 3rem) !important;		/* Override required for presentation, do not use in actual production code! */
 		&::after {
 			content: 'Overlay to fade out other elements on page';
 		}
@@ -625,21 +618,21 @@ main {
 
 	.fluidbox--opened {
 		.fluidbox__ghost {
-			@include prefix(transform, translate3d(0, 0, 12rem) !important, webkit ms);	/* Override required for presentation, do not use in actual production code! */
+			transform: translate3d(0, 0, 12rem) !important;	/* Override required for presentation, do not use in actual production code! */
 		}
 		.fluidbox__loader {
-			@include prefix(transform, translate3d(0, 0, 18rem) !important, webkit ms);	/* Override required for presentation, do not use in actual production code! */
+			transform: translate3d(0, 0, 18rem) !important;	/* Override required for presentation, do not use in actual production code! */
 		}
 		.fluidbox__overlay {
-			opacity: .5 !important;															/* Override required for presentation, do not use in actual production code! */
-			@include prefix(transform, translate3d(0, 0, 6rem) !important, webkit ms);		/* Override required for presentation, do not use in actual production code! */
+			opacity: .5 !important;							/* Override required for presentation, do not use in actual production code! */
+			transform: translate3d(0, 0, 6rem) !important;	/* Override required for presentation, do not use in actual production code! */
 		}
 	}
 
 	&:hover {
 		@include prefix(perspective, 2000, webkit);
 		.canvas {
-			@include prefix(transform, translate(-50%,-33%) rotateX(65deg) rotateZ(45deg), webkit ms);
+			transform: translate(-50%,-33%) rotateX(65deg) rotateZ(45deg);
 		}
 		img, .fluidbox__ghost, .fluidbox__loader, .fluidbox__overlay {
 			opacity: .25 !important;	/* Override required for presentation, do not use in actual production code! */
@@ -696,7 +689,7 @@ main {
 
 	.gallery {
 		display: flex;
-		@include prefix(flex-flow, row wrap, webkit);
+		flex-flow: row wrap;
 		justify-content: space-between;
 		a {
 			margin-bottom: 1rem;
@@ -725,7 +718,7 @@ main {
 /* Flexbox */
 .cols {
 	display: flex;
-	@include prefix(flex-flow, row wrap, webkit);
+	flex-flow: row wrap;
 	margin: 0 -1rem 2rem -1rem;
 
 	& > * {
@@ -881,14 +874,14 @@ main {
 	opacity: 0;
 	padding: 1rem 0;
 	background-color: rgba(255,255,255,.75);
-	z-index: 1010;
+	z-index: 1011;
 	text-align: center;
 	transition: all .25s ease-in-out;
-	@include prefix(transform, translateY(100%), webkit);
+	transform: translateY(100%);
 
 	&.visible {
 		opacity: 1;
-		@include prefix(transform, translateY(0), webkit);
+		transform: translateY(0);
 	}
 
 	ul {
@@ -942,7 +935,7 @@ main {
 			bottom: 0;
 			right: 0;
 			opacity: .33333;
-			@include prefix(filter, blur(4px), webkit);
+			filter: blur(4px);
 		}
 	}
 }
@@ -981,7 +974,7 @@ footer {
 		}
 	}
 	.cards {
-		@include prefix(flex-flow, row wrap, webkit);
+		flex-flow: row wrap;
 	}
 	.demo a[class^='float'] {
 		width: 50%; 
@@ -1002,7 +995,7 @@ footer {
 				top: 100%;
 				left: 100%;
 				width: 10rem;
-				@include prefix(transform, rotateZ(-45deg) rotateX(-65deg) translate(-50%, -50%) !important, webkit ms);
+				transform: rotateZ(-45deg) rotateX(-65deg) translate(-50%, -50%) !important;
 			}
 		}
 	}
@@ -1118,5 +1111,14 @@ footer {
 @media only screen and (max-width: 480px) {
 	html {
 		font-size: 12px;
+	}
+}
+
+@supports (backdrop-filter: none) {
+	header::after {
+		backdrop-filter: blur(10px);
+	}
+	#custom-trigger-1-social {
+		backdrop-filter: blur(10px);
 	}
 }
