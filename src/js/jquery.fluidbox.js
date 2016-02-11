@@ -33,6 +33,12 @@
 		// Global plugin instance tracker
 		var fbInstance = 0;
 
+                // Check the availability of the console object. This ensures compatibility with IE8.
+                if(typeof console === "undefined" || console.warn === "undefined" ) {
+                    console = {};
+                    console.warn = function(){};
+                }
+
 		// Check if dependencies are loaded
 		// 1. Ben Almen's debounce/throttle plugin
 		if (!$.isFunction($.throttle)) {
@@ -287,12 +293,16 @@
 
 			},
 			open: function() {
+				
 				// Open Fluidbox
 				var fb			= this,
 					$fb			= $(this.element),
 					$fbThumb	= $fb.find('img').first(),
 					$fbGhost	= $fb.find('.fluidbox__ghost'),
 					$fbWrap		= $fb.find('.fluidbox__wrap');
+
+				// Update state
+				fb.instanceData.state = 1;
 
 				// Forcibly turn off transition end detection,
 				// otherwise users will get choppy transition if toggling between states rapidly
@@ -510,6 +520,7 @@
 				this.compute();
 			},
 			close: function() {
+
 				// Close Fluidbox
 				var fb			= this,
 					$fb			= $(this.element),
@@ -517,6 +528,14 @@
 					$fbGhost	= $fb.find('.fluidbox__ghost'),
 					$fbWrap		= $fb.find('.fluidbox__wrap'),
 					$fbOverlay	= $fb.find('.fluidbox__overlay');
+
+				// Do not do anything if Fluidbox is not opened/closed, for performance reasons
+				if (fb.instanceData.state === null || typeof fb.instanceData.state === typeof undefined || fb.instanceData.state === 0) return false;
+
+				console.log('close!');
+
+				// Update state
+				fb.instanceData.state = 0;
 
 				// Emit custom event
 				$fb.trigger('closestart.fluidbox');
@@ -562,17 +581,13 @@
 					// Check state
 					// If state does not exist, or if Fluidbox is closed, we open it
 					if(!fb.instanceData.state || fb.instanceData.state === 0) {
-						// Update state
-						fb.instanceData.state = 1;
 
 						// Open Fluidbox
 						fb.open();
 
 					// If state exists, we close it
 					} else {
-						// Update state
-						fb.instanceData.state = 0;
-
+						
 						// Close Fluidbox
 						fb.close();
 					}
