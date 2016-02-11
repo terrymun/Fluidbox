@@ -532,8 +532,6 @@
 				// Do not do anything if Fluidbox is not opened/closed, for performance reasons
 				if (fb.instanceData.state === null || typeof fb.instanceData.state === typeof undefined || fb.instanceData.state === 0) return false;
 
-				console.log('close!');
-
 				// Update state
 				fb.instanceData.state = 0;
 
