@@ -369,6 +369,13 @@ button[type="button"] {
 		margin-bottom: 0;
 	}
 
+	a {
+		color: #eee;
+	}
+	&.reminmder a {
+		color: #7c541f;
+	}
+
 	/* Responsive messages */
 	&[data-viewport-threshold] {
 		display: none;
@@ -486,29 +493,21 @@ main {
 		margin: .25rem;
 		padding: 1.5rem;
 		text-align: center;
+		text-decoration: none;
 		transition: all .25s ease-in-out;
 
 		&.card-medium {
 			background-color: #57ad68;
 			flex-basis: 100%;
 			svg { background-color: #eee; path { fill: #57ad68; } }
-			&:hover {
-				color: #57ad68;
-				svg { background-color: #57ad68; path { fill: #333; } }
-			}
 		}
 		&.card-github {
 			background-color: #ff9933;
 			flex-basis: auto;
-			&:hover {
-				color: #ff9933;
-				svg path { fill: #ff9933; }
-			}
 		}
 		&.card-cdnjs {
 			background-color: #bf3e11;
 			flex-basis: auto;
-			&:hover { color: #e14d1a; }
 			.branding {
 				display: block;
 				font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
