@@ -21,8 +21,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "jquery": ">=1.9",
-    "jshint-stylish": "^2.1.0"
+    "jquery": ">=1.9"
   },
   "npmName": "fluidbox",
   "npmFileMap": [
@@ -48,7 +47,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-postcss": "^0.7.1",
     "grunt-sass": "^1.1.0",
-    "jshint-stylish": "^2.0.1",
+    "jshint-stylish": "^2.1.0",
     "load-grunt-config": "^0.17.2",
     "time-grunt": "^1.2.1"
   },
