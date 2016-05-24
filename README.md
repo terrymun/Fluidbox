@@ -291,7 +291,7 @@ The full list of Fluidbox configurations:
 
 ## Developer notes
 ### Building with Grunt
-Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.org/). If you are new to this, kindly refer to [Matt Bailey's excellent guide on setting up Grunt](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). To build Fluidbox, you will need to install the following dependencies:
+Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.org/). If you are new to this, kindly refer to [Matt Bailey's excellent guide on setting up Grunt](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). To build Fluidbox, you will need to run `npm install` and install the following dependencies:
 
 | Grunt dependency | Comment |
 |------------------|---------|
@@ -307,22 +307,7 @@ Fluidbox is built using [Grunt](http://gruntjs.com) and [NodeJS](https://nodejs.
 | [grunt-contrib-watch](https://www.npmjs.com/package/grunt-contrib-watch) | Allows you to build on the fly using `$ grunt watch` by watching for file changes, so that you don't have to run `$ grunt` at the project root all the time manually. |
 | [grunt-postcss](https://www.npmjs.com/package/grunt-postcss) | Uses PostCSS to dynamically add prefixes and handle minification thereafter. | 
 
-Quick and dirty: here's how to install the Grunt dependencies listed above:
-
-```shell
-$ npm install grunt --save-dev
-$ npm install time-grunt --save
-$ npm install load-grunt-config --save-dev
-$ npm install grunt-concurrent --save-dev
-$ npm install grunt-contrib-clean --save-dev
-$ npm install grunt-sass --save-dev
-$ npm install grunt-contrib-uglify --save-dev
-$ npm install grunt-contrib-jshint --save-dev
-$ npm install jshint-stylish --save
-$ npm install grunt-contrib-watch --save-dev
-$ npm install grunt-postcss --save-dev
-$ npm install grunt-postcss autoprefixer cssnano
-```
+The main tasks are `grunt` or `grunt prod`, which minifies everything and makes it ready for produciton, and `grunt dev` which instead creates a build for testing and development.
 
 #### Configuration
 The configuration for each Grunt task can be found in their respecitve `.js` files in the `/grunt` folder.
