@@ -314,6 +314,9 @@ The main tasks are `grunt` or `grunt prod`, which minifies everything and makes 
 The configuration for each Grunt task can be found in their respecitve `.js` files in the `/grunt` folder.
 
 ## Known Issues
+### Blurry images in Safari
+Fluidbox might render the expanded image in a way that appears to be blurry in OS X / macOS Safari. A fix has been implemented as of v2.0.4 ([#178](https://github.com/terrymun/Fluidbox/pull/178), [issue #168](https://github.com/terrymun/Fluidbox/issues/168)).
+
 ### Transition of CSS3 transform in Safari
 For inexplicable reason(s), Safari no longer transition CSS transformations (the `scale` component especially) after the first time the Fluidbox has been opened. A simple workaround would be enabling the `immediateOpen` option (i.e. `immediateOpen: true`) when initializing Fluidbox.
 
