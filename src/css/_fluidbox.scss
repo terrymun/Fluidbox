@@ -21,10 +21,9 @@ $fluidbox__animation-bg-color: $fluidbox__overlay-bg-color !default;
 	opacity: 0;
 	pointer-events: none;
 	position: fixed;
-	/* Negative top and bottom is to fix some Safari cases where image got blurry */
-	top: -100%;
+	top: -100%;		/* Negative top and bottom is to fix some Safari cases where image got blurry */
 	left: 0;
-	bottom: -100%;
+	bottom: -100%;	/* Negative top and bottom is to fix some Safari cases where image got blurry */
 	right: 0;
 	/* Transition time for overlay is halved to ensure that flickering doesn't happen */
 	transition: all $fluidbox__transition-duration ease-in-out;
