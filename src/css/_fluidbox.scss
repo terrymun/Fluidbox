@@ -47,16 +47,7 @@ $fluidbox__animation-bg-color: $fluidbox__overlay-bg-color !default;
 	background-position: center center;	
 	background-repeat: no-repeat;
 	position: absolute;
-	transition-duration: 0s, $fluidbox__transition-duration;
-	transition-delay: 0s;
-
-	// transition-property manually prefixed
-	// Autoprefixer insists on adding the line:
-	// > transition-property: opacity, transform, -webkit-transform;
-	// ...which will break Fluidbox
-	-webkit-transition-property: opacity, -webkit-transform;	/* autoprefixer: off */
-	transition-property: opacity, -webkit-transform;			/* autoprefixer: off */
-	transition-property: opacity, transform;					/* autoprefixer: off */
+	transition: opacity 0s 0s, transform $fluidbox__transition-duration 0s;
 
 	.fluidbox--opened & {
 		cursor: pointer;
@@ -65,7 +56,7 @@ $fluidbox__animation-bg-color: $fluidbox__overlay-bg-color !default;
 		cursor: zoom-out;
 	}
 	.fluidbox--closed & {
-		transition-delay: $fluidbox__transition-duration, 0s;
+		transition: opacity 0s $fluidbox__transition-duration, transform $fluidbox__transition-duration 0s;
 	}
 }
 .fluidbox__loader {
