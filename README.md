@@ -321,6 +321,9 @@ Fluidbox might render the expanded image in a way that appears to be blurry in O
 ### Transition of CSS3 transform in Safari
 For inexplicable reason(s), Safari no longer transition CSS transformations (the `scale` component especially) after the first time the Fluidbox has been opened. A simple workaround would be enabling the `immediateOpen` option (i.e. `immediateOpen: true`) when initializing Fluidbox.
 
+### Transform of parent nodes lead to incorrect overlay positioning
+If the CSS `transform` property is applied to any parent node, this causes the fixed positioned overlay to only expand to the boundaries of the transformed parent. [#165](https://github.com/terrymun/Fluidbox/issues/165).
+
 ## Precautions
 ### Overflowing content
 Fluidbox may not work properly in the event that you have set your parent container, or content wrapping elements, such as `<div id="#content">` and the likes, to hide their overflowing content, i.e. `overflow: hidden`. This is because the enlarged image is **positioned relatively to its hyperlink**, and not absolutely or fixed within the viewport.
