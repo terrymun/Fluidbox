@@ -89,7 +89,7 @@
 					// Coerce boolean values
 					if (v == 'false') {
 						v = false;
-					} else {
+					} else if (v == 'true') {
 						v = true;
 					}
 					elementData[key] = v;
