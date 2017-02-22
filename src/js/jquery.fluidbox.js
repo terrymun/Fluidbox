@@ -368,6 +368,9 @@
 
 					img = new Image();
 					img.onload = function() {
+						// Emit custom event
+						$fb.trigger('imageloaddone.fluidbox');
+
 						// Perform only if the Fluidbox instance is still open
 						if (fb.instanceData.state === 1) {
 							// Set new natural dimensions
@@ -403,6 +406,9 @@
 				} else {
 					img = new Image();
 					img.onload = function() {
+
+						// Emit custom event
+						$fb.trigger('imageloaddone.fluidbox');
 
 						// Update classes
 						$fb

@@ -648,14 +648,17 @@ $(window).scroll(function() {
 					$('#fluidbox-toggle').prop('checked', true).trigger('change');
 
 				})
+				.on('imageloaddone.fluidbox', function(e) {
+					writeLog(e.type, 'Target image successfully loaded.', '#043865');
+				})
 				.on('openstart.fluidbox', function(e) {
 					writeLog(e.type, 'Initializing opening of Fluidbox instance.', '#08589e');
 				})
 				.on('computeend.fluidbox', function(e) {
-					writeLog(e.type, 'Recomputing ghost element of Fluidbox completed.', '#8c6bb1');
+					writeLog(e.type, 'Recomputing ghost element of Fluidbox completed.', '#4eb3d3');
 				})
 				.on('openend.fluidbox', function(e) {
-					writeLog(e.type,'Transition to opened Fluidbox completed.', '#4eb3d3');
+					writeLog(e.type,'Transition to opened Fluidbox completed.', '#8c6bb1');
 				})
 				.on('closestart.fluidbox', function(e) {
 					writeLog(e.type, 'Initializing closing of Fluidbox instance.', '#f46d43');
