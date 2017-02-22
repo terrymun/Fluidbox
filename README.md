@@ -17,6 +17,7 @@ Special thanks to the following stellar folks who has helped majorly in making F
 - [@_mattbailey](https://twitter.com/_mattbailey) for his [awesome guide towards integrating Grunt into a project](http://mattbailey.io/a-beginners-guide-to-grunt-redux/). This has made building Fluidbox a lot easier.
 - [@DJDavid98](https://github.com/DJDavid98) for enabling proper parsing of backgorund image URLs. Note that the URL provided still has to be [RFC3986](http://www.ietf.org/rfc/rfc3986.txt)-compliant.
 - [@Gaya](https://github.com/Gaya) for fixing the blurry image issue on OS X / macOS.
+- [@Mesoptier](https://github.com/Mesoptier) for cleaning up messy CSS transition declarations.
 
 In addition, a shoutout to:
 
