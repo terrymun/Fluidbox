@@ -618,6 +618,10 @@ main {
 		background-size: cover;
 		opacity: 0 !important;								/* Override required for presentation, do not use in actual production code! */
 		transform: translate3d(0, 0, 3rem) !important;		/* Override required for presentation, do not use in actual production code! */
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 		&::after {
 			content: 'Overlay to fade out other elements on page';
 		}
