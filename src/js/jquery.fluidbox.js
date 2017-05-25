@@ -588,6 +588,7 @@
 				// Click handler
 				$fb.on('click.fluidbox', function(e) {
 					e.preventDefault();
+					e.stopPropagation();
 
 					// Check state
 					// If state does not exist, or if Fluidbox is closed, we open it
@@ -602,6 +603,13 @@
 						// Close Fluidbox
 						fb.close();
 					}
+				});
+
+				// Listen to keydown event on the document
+				$d.on('keydown', function(e) {
+
+					// Trigger closing for ESC key
+					if (e.keyCode === 27) fb.close();
 				});
 			},
 			bindListeners: function() {
