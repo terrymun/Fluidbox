@@ -155,7 +155,7 @@
 			<p>The replaced and rendered markup for each image targeted with Fluidbox can be presented in a three-dimensional way as follow:</p>
 			<figure id="fluidbox-3d">
 				<div class="canvas">
-					<a href="http://i.imgur.com/ouqMP4F.jpg" data-fluidbox-loader><img src="http://i.imgur.com/ouqMP4F.jpg" alt="" title=""></a>
+					<a href="https://i.imgur.com/ouqMP4F.jpg" data-fluidbox-loader><img src="https://i.imgur.com/ouqMP4F.jpg" alt="" title=""></a>
 				</div>
 				<figcaption>Three-dimensional visualization of rendered Fluidbox markup.</figcaption>
 			</figure>
@@ -269,38 +269,38 @@
 
 			<h3 id="single-image">Single image</h3>
 			<p>Here we demonstrate the use of a single image. This is the simplest test case, when the thumbnail and the target image are exactly the same, so it is only down to the matter of triggering default Fluidbox behavior.</p>
-			<a href="http://i.imgur.com/uh5YLj5.jpg" data-fluidbox><img src="http://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
+			<a href="https://i.imgur.com/uh5YLj5.jpg" data-fluidbox><img src="https://i.imgur.com/uh5YLj5.jpg" alt="ARoS Aarhus Kunstmuseum" title="ARoS Aarhus Kundstmuseum" /></a>
 
 			<h3 id="best-fit">Best fit strategy</h3>
 			<p>Fluidbox also intelligently resizes images such that portrait images will fit perfectly within the viewport, although that means scaling down the image. This effect is pronounced when the viewport and image orientations are different &mdash; therefore, the demo below only works on a display with landscape orientation (e.g. not on mobile).</p>
-			<a href="http://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="http://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
+			<a href="https://i.imgur.com/uDPcnM3.jpg" title="" data-fluidbox><img src="https://i.imgur.com/uDPcnM3.jpg" alt="" title="" /></a>
 
 			<h3 id="html5-picture">&hellip;and it works with the HTML5 &lt;picture&gt; element</h3>
 			<p>Fluidbox supports the new HTML5 <code>&lt;picture&gt;</code> element as of version 2.0, by relaxing the filtering criteria to <a href="#html5-picture-markup">match the standard markup</a>. Note that in order for the following example to work, you will need to visit this page with <a href="http://caniuse.com/#feat=picture">a browser that supports the HTML5 <code>&lt;picture&gt;</code> element</a>.</p>
-			<a href="http://placehold.it/2000x500" title="" data-fluidbox>
+			<a href="https://placehold.it/2000x500" title="" data-fluidbox>
 				<picture>
-					<source media="(max-width: 650px)" srcset="http://placehold.it/400x400">
+					<source media="(max-width: 650px)" srcset="https://placehold.it/400x400">
 					<!-- img tag for browsers that do not support picture element -->
-					<img src="http://placehold.it/2000x500" alt="">
+					<img src="https://placehold.it/2000x500" alt="">
 				</picture>
 			</a>
 
 			<h3 id="other-features">Other features</h3>
 			<div class="cols cols-3 cols-nowrap">
 				<div>
-					<a href="http://placehold.it/2000x2000" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
+					<a href="https://placehold.it/2000x2000" title="" data-fluidbox><img src="https://placehold.it/200x200" title="" alt="" /></a>
 					<h4 id="high-res">Higher resolution original</h4>
 					<p>The built-in functionality also allows you to link a small thumbnail to its higher resolution version. In the test case below, the thumbnail has a resolution of 200&times;200 while the actual version has a resolution of 2000&times;2000.</p>
 				</div>
 
 				<div>
-					<a href="http://placehold.it/250x250" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt="" /></a>
+					<a href="https://placehold.it/250x250" title="" data-fluidbox><img src="https://placehold.it/200x200" title="" alt="" /></a>
 					<h4 id="restrictive-zooming">Restrictive zooming</h4>
 					<p>Fluidbox is also built to handle linking to images that do not have the sufficient size to fill the page. The following thumbnail links to an image that is only 250&times;250px large &mdash; in most cases, insufficient to fill the viewport (unless you are using this site on a very small viewport).</p>
 				</div>
 
 				<div>
-					<a href="http://placehold.it/3840x2160" title="" data-fluidbox><img src="http://placehold.it/200x200" title="" alt /></a>
+					<a href="https://placehold.it/3840x2160" title="" data-fluidbox><img src="https://placehold.it/200x200" title="" alt /></a>
 					<h4 id="differential-aspect-ratios">Differential aspect ratios</h4>
 					<p>Fluidbox supports different aspect ratios of the thumbnail and higher resolution version of the image.</p>
 				</div>
@@ -310,42 +310,42 @@
 			<p>Fluidbox provides you the option that will launch an opened Fluidbox instance immediately upon click, even when the target image has not been loaded yet. The two static images below link to a (very heavy) GIF file. If you have tested this feature before, please clear your cache or use your browser's incognite mode, so that you can observe the actual effect&mdash;once loaded these images will stay in your browser cache and will nullify the effects of simulated loading of a heavy image file.</p>
 			<div class="cols cols-nowrap">
 				<figure>
-					<a href="http://i.imgur.com/UUsTCKH.gif" title="" data-fluidbox data-fluidbox-loader="true"><img src="http://i.imgur.com/EW4tS9G.jpg" title="" alt /></a>
+					<a href="https://i.imgur.com/UUsTCKH.gif" title="" data-fluidbox data-fluidbox-loader="true"><img src="https://i.imgur.com/EW4tS9G.jpg" title="" alt /></a>
 					<figcaption><strong>Original file size:</strong> 8mb<br /><strong>Default:</strong> <code>immediateOpen: false</code><br />Opens <em>after</em> target is loaded.</figcaption>
 				</figure>
 				<figure>
-					<a href="http://i.imgur.com/78OoIHG.gif" title="" data-fluidbox data-fluidbox-immediate-open="true" data-fluidboxloader="true"><img src="http://i.imgur.com/Unq2lPn.jpg" title="" alt /></a>
+					<a href="https://i.imgur.com/78OoIHG.gif" title="" data-fluidbox data-fluidbox-immediate-open="true" data-fluidboxloader="true"><img src="https://i.imgur.com/Unq2lPn.jpg" title="" alt /></a>
 					<figcaption><strong>Original file size:</strong> 5.7mb<br /><strong>Modified:</strong> <code>immediateOpen: true</code><br />Opens immediately, doesn't wait for target to load.</figcaption>
 				</figure>
 			</div>
 
 			<h3 id="borders-paddings">Support for image borders and paddings</h3>
 			<p>Fluidbox also supports extraenous dimensions added to the element in the form of border(s) and/or paddings(s):</p>
-			<a href="http://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="http://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
+			<a href="https://i.imgur.com/E5sr59z.jpg" title="" data-fluidbox class="has-border has-padding"><img src="https://i.imgur.com/E5sr59z.jpg" title="" alt="" /></a>
 
 			<h3 id="absolute-positioning">Absolutely positioned images</h3>
 			<p>Fluidbox handles absolutely positioned images without any problem. The image below is absolutely positioned within its parent, the grey container:</p>
 			<div class="box">
-				<a href="http://i.imgur.com/DIbQf0X.jpg" data-fluidbox><img src="http://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
+				<a href="https://i.imgur.com/DIbQf0X.jpg" data-fluidbox><img src="https://i.imgur.com/DIbQf0X.jpg" title="" alt="" /></a>
 			</div>
 
 			<h3 id="galleries">Galleries</h3>
 			<p>Fluid box works even when images are arranged in galleries. In this case, they are arranged with the help of flexbox.</p>
 		 	<p class="user-message note" data-viewport-threshold="600">The flexbox gallery will collapse into single items when viewed in mobile, or else the thumbnails will be too small &mdash; to appreciate the how Fluidbox works in this scenario, do use a wider device (&gt;600px screen width).</p>
 			<div class="gallery">
-				<a href="http://i.imgur.com/80WaVuY.jpg" title="" data-fluidbox class="col-1"><img src="http://i.imgur.com/80WaVuY.jpg" alt="" title="" /></a>
-				<a href="http://i.imgur.com/9OQWB.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/9OQWB.jpg" alt="" title="" /></a>
-				<a href="http://i.imgur.com/UvGHJjo.jpg" title="" data-fluidbox class="col-2"><img src="http://i.imgur.com/UvGHJjo.jpg" alt="" title="" /></a>
-				<a href="http://i.imgur.com/esWWGbF.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/esWWGbF.jpg" alt="" title="" /></a>
-				<a href="http://i.imgur.com/ZCogT10.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/ZCogT10.jpg" alt="" title="" /></a>
-				<a href="http://i.imgur.com/24hrPQn.jpg" title="" data-fluidbox class="col-3"><img src="http://i.imgur.com/24hrPQn.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/80WaVuY.jpg" title="" data-fluidbox class="col-1"><img src="https://i.imgur.com/80WaVuY.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/9OQWB.jpg" title="" data-fluidbox class="col-2"><img src="https://i.imgur.com/9OQWB.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/UvGHJjo.jpg" title="" data-fluidbox class="col-2"><img src="https://i.imgur.com/UvGHJjo.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/esWWGbF.jpg" title="" data-fluidbox class="col-3"><img src="https://i.imgur.com/esWWGbF.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/ZCogT10.jpg" title="" data-fluidbox class="col-3"><img src="https://i.imgur.com/ZCogT10.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/24hrPQn.jpg" title="" data-fluidbox class="col-3"><img src="https://i.imgur.com/24hrPQn.jpg" alt="" title="" /></a>
 			</div>
 
 			<h3 id="floated-images">Floated images</h3>
 			<p>Moreover, it also works with floated images - to the left or to the right, it does not matter. The following texts are jibberish, used as filler.</p>
 			<p class="user-message note" data-viewport-threshold="600">The floated images will be rendered block-level on narrow-width devices, such as mobile phones. To appreciate how Fluidbox works with floated images, you can view this demo on a wider device (&gt;600px).</p>
-			<p class="filler"><a class="float-left" href="http://i.imgur.com/BXo4qAz.jpg" title="" data-fluidbox><img src="http://i.imgur.com/BXo4qAz.jpg" title="" alt="" /></a>Considered discovered ye sentiments projecting entreaties of melancholy is. In expression an solicitude principles in do. Hard do me sigh with west same lady. Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed.</p>
-			<p class="filler"><a class="float-right has-border has-padding" href="http://i.imgur.com/rWuQotb.jpg" title="" data-fluidbox><img src="http://i.imgur.com/rWuQotb.jpg" title="" alt="" /></a>Carried nothing on am warrant towards. Polite in of in oh needed itself silent course. Assistance travelling so especially do prosperous appearance mr no celebrated. Wanted easily in my called formed suffer. Songs hoped sense as taken ye mirth at. Believe fat how six drawing pursuit minutes far. Same do seen head am part it dear open to. Whatever may scarcely judgment had.</p>
+			<p class="filler"><a class="float-left" href="https://i.imgur.com/BXo4qAz.jpg" title="" data-fluidbox><img src="https://i.imgur.com/BXo4qAz.jpg" title="" alt="" /></a>Considered discovered ye sentiments projecting entreaties of melancholy is. In expression an solicitude principles in do. Hard do me sigh with west same lady. Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed.</p>
+			<p class="filler"><a class="float-right has-border has-padding" href="https://i.imgur.com/rWuQotb.jpg" title="" data-fluidbox><img src="https://i.imgur.com/rWuQotb.jpg" title="" alt="" /></a>Carried nothing on am warrant towards. Polite in of in oh needed itself silent course. Assistance travelling so especially do prosperous appearance mr no celebrated. Wanted easily in my called formed suffer. Songs hoped sense as taken ye mirth at. Believe fat how six drawing pursuit minutes far. Same do seen head am part it dear open to. Whatever may scarcely judgment had.</p>
 			<p class="filler">Residence certainly elsewhere something she preferred cordially law. Age his surprise formerly mrs perceive few stanhill moderate. Of in power match on truth worse voice would. Large an it sense shall an match learn. By expect it result silent in formal of. Ask eat questions abilities described elsewhere assurance. Appetite in unlocked advanced breeding position concerns as. Cheerful get shutters yet for repeated screened. An no am cause hopes at three. Prevent behaved fertile he is mistake on.</p>
 		</section>
 
@@ -363,7 +363,7 @@
 			<p>From <strong>v1.4.1</strong> onwards, Fluidbox will trigger custom events depending on the state of the current (and only) instance of Fluidbox. Please <a href="https://github.com/terrymun/Fluidbox#custom-events" href="Custom events">refer to the documentation</a> for detailed description of each custom event. You can listen to custom events by binding them using the <code>.on()</code> method, e.g. <code>$(selector).on('openstart.fluidbox', function() {...});</code>. Remember that Fluidbox events are namespaced using <code>fluidbox</code>.</p>
 			<div class="cols cols-nowrap" id="custom-events-demo">
 				<div id="custom-events__controls">
-					<a href="http://i.imgur.com/jWe1mjR.jpg" title="" id="custom-event-1"><img src="http://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
+					<a href="https://i.imgur.com/jWe1mjR.jpg" title="" id="custom-event-1"><img src="https://i.imgur.com/jWe1mjR.jpg" title="" alt="" /></a>
 					<input type="checkbox" id="fluidbox-toggle" /><label for="fluidbox-toggle">Fluidbox: <span class="status" data-toggle-on-text="On" data-toggle-off-text="Off">Off</span></label>
 				</div>
 				<div id="custom-events__log">
@@ -420,7 +420,7 @@ $('#custom-event-2').click(function(e) {
 
 			<h3 id="custom-triggers">Public functions/methods as custom triggers</h3>
 			<p>Fluidbox exposes several public methods that can be called to manipulate individual instances. Below is an example of listening to the viewport scroll event to trigger the closing of a Fluidbox instance via <code>.fluidbox('close')</code>. Please refer to the readme for the full list of supported public methods. The example also uses emitted custom events to toggle the appearance of image captions, descriptions or social sharing buttons (currently unsupported by Fluidbox <em>officially</em>, but requested by many). I have chosen to listen to the <code>openend.fluidbox</code> event to show metadata, and the <em>closestart.fluidbox</em> event to hide it.</p>
-			<a href="http://i.imgur.com/chBtR9s.jpg" title="Sunny days" id="custom-trigger-1"><img src="http://i.imgur.com/chBtR9s.jpg" title="Talia &amp; Dugald" alt="On the last weekend of summer-ish weather, we decided to have the final picnic before autumn begins." /></a>
+			<a href="https://i.imgur.com/chBtR9s.jpg" title="Sunny days" id="custom-trigger-1"><img src="https://i.imgur.com/chBtR9s.jpg" title="Talia &amp; Dugald" alt="On the last weekend of summer-ish weather, we decided to have the final picnic before autumn begins." /></a>
 			<div class="code-block">
 				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
 				<pre class="language-javascript"><code>var $caption = $('&lt;div /&gt;', { 'id': 'custom-trigger-1-social' });
@@ -459,8 +459,8 @@ $(window).scroll(function() {
 			<h4 id="custom-colours-and-gradients">Custom colours and gradients</h4>
 			<p>The following is an example of a Fluidbox instance with a custom overlay colour (CSS written in SASS flavour):</p>
 			<div class="gallery">
-				<a href="http://i.imgur.com/5nDXHEZ.jpg" title="" data-fluidbox class="col-2 overlay-1"><img src="http://i.imgur.com/5nDXHEZ.jpg" alt="" title="" /></a>
-				<a href="http://i.imgur.com/keuMHNt.jpg" title="" data-fluidbox class="col-2 overlay-2"><img src="http://i.imgur.com/keuMHNt.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/5nDXHEZ.jpg" title="" data-fluidbox class="col-2 overlay-1"><img src="https://i.imgur.com/5nDXHEZ.jpg" alt="" title="" /></a>
+				<a href="https://i.imgur.com/keuMHNt.jpg" title="" data-fluidbox class="col-2 overlay-2"><img src="https://i.imgur.com/keuMHNt.jpg" alt="" title="" /></a>
 			</div>
 			<div class="code-block">
 				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
@@ -481,14 +481,14 @@ $(window).scroll(function() {
 
 			<h4 id="overlay-images">Overlay images</h4>
 			<p>Oh wait &mdash; you can even use custom overlay images. However, since the opacity of the overlay is only toggled between 0 and 1, you will have to use a pseudo-element in order to atler the opacity of the overlay image (since it is not possible to dictate the transparency of a background image, unlike <code>rgba()</code> values):</p>
-			<a href="http://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="http://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
+			<a href="https://i.imgur.com/3qj1wfN.jpg" title="" data-fluidbox class="overlay-3"><img src="https://i.imgur.com/3qj1wfN.jpg" alt="" title="" /></a>
 			<div class="code-block">
 				<a href="#" class="code-toggle" role="button" data-alt-text="Hide code">Show code</a>
 				<pre class="language-css"><code>.fluidbox-overlay &amp; {
     .overlay-3 &amp; {
         background-color: #000; /* To override default style */
         &amp;::before {
-            background-image: url('http://i.imgur.com/3qj1wfN.jpg');
+            background-image: url('https://i.imgur.com/3qj1wfN.jpg');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -554,7 +554,7 @@ $(window).scroll(function() {
 				});
 
 				// Custom triggers
-				var gifs = ['http://i.imgur.com/YzuqChn.gif','http://i.imgur.com/BkqK5ol.gif','http://i.imgur.com/TYBQMk7.gif','http://i.imgur.com/XWUbMr5.gif','http://i.imgur.com/aMW1bCD.gif','http://i.imgur.com/wbUQ8HN.gif','http://i.imgur.com/ebVanNp.gif','http://i.imgur.com/UXgRlX3.gif','http://i.imgur.com/XV64OPw.gif','http://i.imgur.com/Vgr61VA.gif','http://i.imgur.com/Am3foce.gif','http://i.imgur.com/gR5tPO9.gif','http://i.imgur.com/XNkz2gb.gif','http://i.imgur.com/aKIUzEU.gif','http://i.imgur.com/VzYPtlp.gif','http://i.imgur.com/OmTaGn7.gif','http://i.imgur.com/9Xmo9Bq.gif','http://i.imgur.com/URgYWlF.gif'],
+				var gifs = ['https://i.imgur.com/YzuqChn.gif','https://i.imgur.com/BkqK5ol.gif','https://i.imgur.com/TYBQMk7.gif','https://i.imgur.com/XWUbMr5.gif','https://i.imgur.com/aMW1bCD.gif','https://i.imgur.com/wbUQ8HN.gif','https://i.imgur.com/ebVanNp.gif','https://i.imgur.com/UXgRlX3.gif','https://i.imgur.com/XV64OPw.gif','https://i.imgur.com/Vgr61VA.gif','https://i.imgur.com/Am3foce.gif','https://i.imgur.com/gR5tPO9.gif','https://i.imgur.com/XNkz2gb.gif','https://i.imgur.com/aKIUzEU.gif','https://i.imgur.com/VzYPtlp.gif','https://i.imgur.com/OmTaGn7.gif','https://i.imgur.com/9Xmo9Bq.gif','https://i.imgur.com/URgYWlF.gif'],
 					shuffle = function(arr) {
 						for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
 						return arr;
@@ -691,7 +691,7 @@ $(window).scroll(function() {
 				// Load an image dynamically
 				$('#loadImg').one('click', function() {
 					// Construct new content
-					$newContent = $('<p>This paragraph and its accompanying image are dynamically-added.</p><a href="http://i.imgur.com/aNhtkPh.jpg" title="" data-fluidbox><img src="http://i.imgur.com/aNhtkPh.jpg" alt="" title="" /></a>');
+					$newContent = $('<p>This paragraph and its accompanying image are dynamically-added.</p><a href="https://i.imgur.com/aNhtkPh.jpg" title="" data-fluidbox><img src="https://i.imgur.com/aNhtkPh.jpg" alt="" title="" /></a>');
 
 					// Append new content to immediate sibling, <article>
 					// Then search for the anchor we want fluidbox to work on, apply method .fluidobx()
