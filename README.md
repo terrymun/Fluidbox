@@ -2,7 +2,11 @@
 [![Build Status](https://travis-ci.org/terrymun/Fluidbox.svg?branch=master)](https://travis-ci.org/terrymun/Fluidbox) ![Latest Github release](https://img.shields.io/github/release/terrymun/fluidbox.svg?style=flat) ![npm downloads](https://img.shields.io/npm/dm/fluidbox.svg)
 ![Starred](https://img.shields.io/github/stars/terrymun/fluidbox.svg?style=social&label=Star) ![Watchers](https://img.shields.io/github/watchers/terrymun/fluidbox.svg?style=social&label=Watch)
 
+***
+
 ⚠️ Public service announcement: I am officially archiving this repo because I have since moved on from using jQuery in my development works, and therefore will no longer maintain this repo. Feel free to fork your own copy. Thank you for your support all these years.
+
+***
 
 **If you're using Fluidbox for production, use the [latest stable release](https://github.com/terrymun/Fluidbox/releases) and not the edge release (latest commit).**
 
